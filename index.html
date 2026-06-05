@@ -81,7 +81,7 @@
     .readout {
       margin: 8px 0 0;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.66rem;
       font-weight: 800;
     }
 
@@ -89,36 +89,36 @@
       position: absolute;
       left: 14px;
       bottom: 14px;
-      width: 176px;
+      width: 132px;
       border: 2px solid rgba(247, 244, 255, 0.58);
-      border-radius: 8px;
-      padding: 9px 10px;
+      border-radius: 6px;
+      padding: 7px 8px;
       background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 40%),
         rgba(5, 5, 8, 0.78);
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72), 0 0 18px rgba(124, 60, 255, 0.18);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72), 0 0 14px rgba(124, 60, 255, 0.18);
       text-align: left;
       text-transform: uppercase;
-      pointer-events: none;
+      pointer-events: auto;
     }
 
     .sheet-title {
-      margin: 0 0 7px;
+      margin: 0 0 5px;
       border-bottom: 2px solid rgba(247, 244, 255, 0.48);
-      padding-bottom: 5px;
+      padding-bottom: 4px;
       color: var(--text);
-      font-size: 0.72rem;
+      font-size: 0.54rem;
       letter-spacing: 0;
     }
 
     .stat-row {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      margin: 4px 0;
+      gap: 8px;
+      margin: 3px 0;
       color: var(--text);
-      font-size: 0.74rem;
-      line-height: 1.15;
+      font-size: 0.56rem;
+      line-height: 1.12;
     }
 
     .stat-row span:first-child {
@@ -130,21 +130,21 @@
       right: 14px;
       bottom: 14px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 92px));
-      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 69px));
+      gap: 6px;
       pointer-events: auto;
     }
 
     .quick-nav a {
       border: 2px solid rgba(247, 244, 255, 0.58);
-      border-radius: 8px;
-      padding: 8px 9px;
+      border-radius: 6px;
+      padding: 6px 7px;
       background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 42%),
         rgba(5, 5, 8, 0.78);
-      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72), 0 0 16px rgba(124, 60, 255, 0.16);
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72), 0 0 12px rgba(124, 60, 255, 0.16);
       color: var(--text);
-      font-size: 0.72rem;
+      font-size: 0.54rem;
       font-weight: 900;
       text-align: center;
       text-decoration: none;
@@ -155,8 +155,8 @@
     .quick-nav a:hover,
     .quick-nav a:focus-visible {
       background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
-      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 20px rgba(124, 60, 255, 0.32);
-      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 18px rgba(124, 60, 255, 0.32);
+      transform: translate(1px, 1px);
       outline: none;
     }
 
@@ -215,19 +215,19 @@
       .readout {
         left: 10px;
         bottom: 10px;
-        width: 164px;
+        width: 123px;
       }
 
       .quick-nav {
         right: 10px;
         bottom: 10px;
-        grid-template-columns: repeat(2, minmax(0, 74px));
-        gap: 7px;
+        grid-template-columns: repeat(2, minmax(0, 56px));
+        gap: 5px;
       }
 
       .quick-nav a {
-        padding: 8px 6px;
-        font-size: 0.63rem;
+        padding: 6px 4px;
+        font-size: 0.5rem;
       }
 
       .player {
@@ -254,7 +254,7 @@
       <div class="stat-row"><span>Level</span><strong>1</strong></div>
       <div class="stat-row"><span>Action</span><strong>Tap to Move</strong></div>
     </div>
-    <nav class="quick-nav" aria-label="Zero menu">
+    <nav id="quick-nav" class="quick-nav" aria-label="Zero menu">
       <a href="characters.html">Character</a>
       <a href="inventory.html">Inventory</a>
       <a href="map.html">Map</a>
@@ -268,6 +268,8 @@
     const stage = document.getElementById("stage");
     const player = document.getElementById("player");
     const targetEl = document.getElementById("target");
+    const readout = document.getElementById("readout");
+    const quickNav = document.getElementById("quick-nav");
 
     const state = {
       x: window.innerWidth / 2,
@@ -287,19 +289,29 @@
         setTarget(event);
       }
     });
+    readout.addEventListener("pointerdown", stopUiMovement);
+    quickNav.addEventListener("pointerdown", stopUiMovement);
 
     window.addEventListener("resize", () => {
-      state.x = clamp(state.x, 20, window.innerWidth - 20);
-      state.y = clamp(state.y, 20, window.innerHeight - 20);
-      state.targetX = clamp(state.targetX, 20, window.innerWidth - 20);
-      state.targetY = clamp(state.targetY, 20, window.innerHeight - 20);
+      state.x = clampAllowedX(state.x);
+      state.y = clampAllowedY(state.y);
+      state.targetX = clampAllowedX(state.targetX);
+      state.targetY = clampAllowedY(state.targetY);
+      const adjusted = keepOutOfUi(state.targetX, state.targetY);
+      state.targetX = adjusted.x;
+      state.targetY = adjusted.y;
       placePlayer();
       placeTarget();
     });
 
+    function stopUiMovement(event) {
+      event.stopPropagation();
+    }
+
     function setTarget(event) {
-      state.targetX = clamp(event.clientX, 20, window.innerWidth - 20);
-      state.targetY = clamp(event.clientY, 20, window.innerHeight - 20);
+      const adjusted = keepOutOfUi(clampAllowedX(event.clientX), clampAllowedY(event.clientY));
+      state.targetX = adjusted.x;
+      state.targetY = adjusted.y;
       targetEl.classList.add("visible");
       placeTarget();
     }
@@ -315,9 +327,18 @@
 
       if (distance > 1) {
         const move = Math.min(step, distance);
-        state.x += (dx / distance) * move;
-        state.y += (dy / distance) * move;
-        placePlayer();
+        const nextX = state.x + (dx / distance) * move;
+        const nextY = state.y + (dy / distance) * move;
+
+        if (isUiBlocked(nextX, nextY)) {
+          state.targetX = state.x;
+          state.targetY = state.y;
+          targetEl.classList.remove("visible");
+        } else {
+          state.x = nextX;
+          state.y = nextY;
+          placePlayer();
+        }
       } else {
         targetEl.classList.remove("visible");
       }
@@ -333,6 +354,63 @@
     function placeTarget() {
       targetEl.style.left = `${state.targetX}px`;
       targetEl.style.top = `${state.targetY}px`;
+    }
+
+    function keepOutOfUi(x, y) {
+      let point = { x, y };
+
+      getBlockedRects().forEach((rect) => {
+        if (!isPointInRect(point.x, point.y, rect)) {
+          return;
+        }
+
+        const exits = [
+          { x: rect.left, y: point.y, distance: Math.abs(point.x - rect.left) },
+          { x: rect.right, y: point.y, distance: Math.abs(point.x - rect.right) },
+          { x: point.x, y: rect.top, distance: Math.abs(point.y - rect.top) },
+          { x: point.x, y: rect.bottom, distance: Math.abs(point.y - rect.bottom) }
+        ];
+        exits.sort((a, b) => a.distance - b.distance);
+        point = {
+          x: clampAllowedX(exits[0].x),
+          y: clampAllowedY(exits[0].y)
+        };
+      });
+
+      return point;
+    }
+
+    function isUiBlocked(x, y) {
+      return getBlockedRects().some((rect) => isPointInRect(x, y, rect));
+    }
+
+    function isPointInRect(x, y, rect) {
+      return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+    }
+
+    function getBlockedRects() {
+      return [readout, quickNav].map((element) => {
+        const rect = element.getBoundingClientRect();
+        const padding = getPlayerRadius() + 8;
+        return {
+          left: rect.left - padding,
+          right: rect.right + padding,
+          top: rect.top - padding,
+          bottom: rect.bottom + padding
+        };
+      });
+    }
+
+    function getPlayerRadius() {
+      return player.getBoundingClientRect().width / 2;
+    }
+
+    function clampAllowedX(value) {
+      return clamp(value, 20, window.innerWidth - 20);
+    }
+
+    function clampAllowedY(value) {
+      return clamp(value, 20, window.innerHeight - 20);
     }
 
     function clamp(value, min, max) {

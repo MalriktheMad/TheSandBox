@@ -117,60 +117,63 @@
 
     .lab {
       right: 150px;
-      top: 96px;
-      width: 156px;
-      height: 118px;
+      top: 112px;
+      width: 160px;
+      height: 112px;
       border: 4px solid #050508;
       background:
-        linear-gradient(90deg, transparent 0 38px, rgba(143, 92, 255, 0.42) 38px 76px, transparent 76px),
-        linear-gradient(180deg, #24243a 0%, #151522 62%, #090912 100%);
-      box-shadow: 0 0 34px rgba(124, 60, 255, 0.58), 8px 8px 0 rgba(0, 0, 0, 0.62);
+        linear-gradient(90deg, rgba(5, 5, 8, 0.18) 0 6px, transparent 6px 20px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 24%),
+        repeating-linear-gradient(90deg, #28180f 0 18px, #1b100a 18px 22px, #352114 22px 40px);
+      box-shadow: 0 0 26px rgba(124, 60, 255, 0.28), 8px 8px 0 rgba(0, 0, 0, 0.62);
     }
 
     .lab::before {
       content: "";
       position: absolute;
-      left: 22px;
-      right: 22px;
-      top: -28px;
-      height: 28px;
-      background:
-        linear-gradient(135deg, transparent 0 18px, #050508 18px 23px, #2f1f58 23px 100%);
+      left: -12px;
+      right: -12px;
+      top: -34px;
+      height: 36px;
       border: 4px solid #050508;
-      border-bottom: 0;
+      background:
+        linear-gradient(135deg, transparent 0 18px, #050508 18px 24px, #1b100a 24px 100%),
+        repeating-linear-gradient(90deg, #17100b 0 22px, #2b1a10 22px 42px);
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.52);
     }
 
     .lab::after {
       content: "";
       position: absolute;
-      left: 6px;
-      right: 6px;
-      bottom: 47px;
-      height: 6px;
-      background: #050508;
-      box-shadow: 0 14px 0 #050508;
-      opacity: 0.72;
+      left: -20px;
+      right: -20px;
+      bottom: -16px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.48);
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.42);
+      z-index: -1;
     }
 
     .lab-sign {
       position: absolute;
       left: 50%;
-      top: 10px;
+      top: 12px;
       width: 104px;
       border: 3px solid #050508;
-      border-radius: 4px;
+      border-radius: 3px;
       padding: 5px 6px;
       background:
-        linear-gradient(180deg, rgba(248, 213, 107, 0.2), transparent 45%),
-        #151522;
-      color: var(--text);
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 40%),
+        #2b1a10;
+      color: #d8d1f0;
       font-size: 0.62rem;
       font-weight: 900;
       text-align: center;
       text-transform: uppercase;
       transform: translateX(-50%);
-      text-shadow: 0 0 10px rgba(124, 60, 255, 0.9);
-      box-shadow: inset 0 0 10px rgba(124, 60, 255, 0.42), 0 0 16px rgba(124, 60, 255, 0.4);
+      text-shadow: 0 0 9px rgba(124, 60, 255, 0.82);
+      box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.26), 0 3px 0 rgba(0, 0, 0, 0.4);
       z-index: 2;
     }
 
@@ -178,18 +181,19 @@
     .lab-sign::after {
       content: "";
       position: absolute;
-      top: -9px;
-      width: 4px;
-      height: 9px;
+      top: 50%;
+      width: 5px;
+      height: 5px;
       background: #050508;
+      transform: translateY(-50%);
     }
 
     .lab-sign::before {
-      left: 18px;
+      left: 7px;
     }
 
     .lab-sign::after {
-      right: 18px;
+      right: 7px;
     }
 
     .lab-door {
@@ -197,11 +201,13 @@
       left: 62px;
       bottom: 0;
       width: 34px;
-      height: 44px;
+      height: 42px;
       border: 3px solid #050508;
       border-bottom: 0;
-      background: linear-gradient(180deg, #7c3cff, #111122);
-      box-shadow: 0 0 18px rgba(124, 60, 255, 0.72);
+      background:
+        linear-gradient(90deg, transparent 0 14px, rgba(124, 60, 255, 0.38) 14px 19px, transparent 19px),
+        linear-gradient(180deg, #20130c, #0d0806);
+      box-shadow: inset 0 0 14px rgba(124, 60, 255, 0.36), 0 0 12px rgba(124, 60, 255, 0.24);
       z-index: 1;
     }
 
@@ -210,8 +216,28 @@
       width: 26px;
       height: 22px;
       border: 3px solid #050508;
-      background: #f8d56b;
-      box-shadow: 0 0 12px rgba(248, 213, 107, 0.62);
+      background: #7c3cff;
+      box-shadow: 0 0 18px rgba(124, 60, 255, 0.82), inset 0 0 8px rgba(247, 244, 255, 0.42);
+    }
+
+    .lab-window::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: -3px;
+      width: 3px;
+      height: 22px;
+      background: #050508;
+    }
+
+    .lab-window::after {
+      content: "";
+      position: absolute;
+      left: -3px;
+      top: 8px;
+      width: 26px;
+      height: 3px;
+      background: #050508;
     }
 
     .lab-window.one {
@@ -227,13 +253,13 @@
     .lab-pipe {
       position: absolute;
       right: 14px;
-      top: -42px;
+      top: -48px;
       width: 18px;
-      height: 42px;
+      height: 44px;
       border: 4px solid #050508;
       border-bottom: 0;
-      background: #33334a;
-      box-shadow: 0 0 12px rgba(124, 60, 255, 0.28);
+      background: #17100b;
+      box-shadow: 0 0 10px rgba(124, 60, 255, 0.22);
     }
 
     .lab-pipe::before {
@@ -244,7 +270,7 @@
       width: 26px;
       height: 12px;
       border: 4px solid #050508;
-      background: #33334a;
+      background: #17100b;
     }
 
     .hud {

@@ -61,6 +61,7 @@
     .lab,
     .tree,
     .old-dilly,
+    .dilly-garden,
     .lab-ground {
       position: absolute;
       pointer-events: none;
@@ -307,6 +308,91 @@
 
     .dilly-sign::after {
       right: 16px;
+    }
+
+    .dilly-garden {
+      left: -58px;
+      top: 112px;
+      width: 308px;
+      height: 128px;
+      z-index: 1;
+    }
+
+    .dilly-garden::before {
+      content: "";
+      position: absolute;
+      left: 48px;
+      top: 24px;
+      width: 210px;
+      height: 74px;
+      border-radius: 48%;
+      background:
+        radial-gradient(circle at 34px 34px, rgba(79, 126, 54, 0.52) 0 13px, transparent 14px),
+        radial-gradient(circle at 108px 22px, rgba(41, 94, 54, 0.58) 0 18px, transparent 19px),
+        radial-gradient(circle at 164px 48px, rgba(91, 177, 78, 0.42) 0 15px, transparent 16px),
+        rgba(13, 51, 29, 0.34);
+      box-shadow: inset 0 0 0 6px rgba(7, 20, 12, 0.18);
+    }
+
+    .garden-plant {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      image-rendering: pixelated;
+    }
+
+    .garden-plant.fern {
+      background: #74c365;
+      box-shadow:
+        -8px 4px #1f6330, 8px 4px #1f6330,
+        -12px 8px #2a7a3c, -4px 8px #5bb14e, 4px 8px #5bb14e, 12px 8px #2a7a3c,
+        -8px 12px #1f6330, 0 12px #74c365, 8px 12px #1f6330,
+        0 16px #3b2414;
+    }
+
+    .garden-plant.flower {
+      background: #f7f4ff;
+      box-shadow:
+        0 -8px #b65cff, -8px 0 #d2b45c, 8px 0 #42a5ff, 0 8px #ff7aa8,
+        0 16px #2a7a3c, -4px 20px #1f6330, 4px 20px #1f6330;
+    }
+
+    .garden-plant.mushroom {
+      background: #ece2bc;
+      box-shadow:
+        -8px -8px #06100b, 0 -8px #b65cff, 8px -8px #06100b,
+        -8px 0 #b65cff, 0 0 #f7f4ff, 8px 0 #b65cff,
+        0 8px #ece2bc, 0 16px #3b2414;
+    }
+
+    .garden-plant.herb {
+      background: #2a7a3c;
+      box-shadow:
+        0 -8px #74c365, -8px 0 #318b46, 8px 0 #5bb14e,
+        -12px 8px #1f6330, 0 8px #74c365, 12px 8px #1f6330,
+        0 16px #2a7a3c;
+    }
+
+    .garden-plant.crystal {
+      background: #42a5ff;
+      box-shadow:
+        0 -8px #f7f4ff, -4px 0 #1b6fd6, 4px 0 #b65cff,
+        -8px 8px #06100b, 0 8px #7c3cff, 8px 8px #06100b,
+        0 16px #164823;
+    }
+
+    .garden-row {
+      position: absolute;
+      left: 92px;
+      top: 86px;
+      width: 132px;
+      height: 24px;
+      background:
+        linear-gradient(90deg, transparent 0 10px, #74c365 10px 16px, transparent 16px 28px),
+        linear-gradient(90deg, transparent 0 18px, #d2b45c 18px 24px, transparent 24px 36px),
+        linear-gradient(180deg, transparent 0 10px, rgba(59, 36, 20, 0.82) 10px 15px, transparent 15px 100%);
+      background-size: 32px 100%, 44px 100%, 100% 100%;
+      transform: rotate(-5deg);
     }
 
     .lab-ground {
@@ -744,6 +830,16 @@
       <div class="tree" style="left: 1180px; top: 720px;"></div>
       <div class="tree" style="left: 1380px; top: 650px;"></div>
       <div class="old-dilly" aria-label="Old Dilly's House">
+        <div class="dilly-garden" aria-hidden="true">
+          <div class="garden-row"></div>
+          <div class="garden-plant fern" style="left: 34px; top: 54px;"></div>
+          <div class="garden-plant flower" style="left: 72px; top: 24px;"></div>
+          <div class="garden-plant mushroom" style="left: 118px; top: 58px;"></div>
+          <div class="garden-plant herb" style="left: 162px; top: 26px;"></div>
+          <div class="garden-plant crystal" style="left: 206px; top: 48px;"></div>
+          <div class="garden-plant flower" style="left: 242px; top: 72px;"></div>
+          <div class="garden-plant fern" style="left: 278px; top: 40px;"></div>
+        </div>
         <div class="dilly-shadow"></div>
         <div class="dilly-trunk"></div>
         <div class="dilly-canopy"></div>

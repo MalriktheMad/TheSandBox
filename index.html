@@ -86,13 +86,37 @@
     }
 
     .readout {
-      min-width: 132px;
-      border: 2px solid rgba(247, 244, 255, 0.46);
-      border-radius: 6px;
-      padding: 8px 10px;
-      background: rgba(5, 5, 8, 0.72);
-      box-shadow: 0 0 18px rgba(124, 60, 255, 0.2);
-      text-align: right;
+      min-width: 220px;
+      border: 3px solid rgba(247, 244, 255, 0.62);
+      border-radius: 8px;
+      padding: 12px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 40%),
+        rgba(5, 5, 8, 0.76);
+      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.72), 0 0 22px rgba(124, 60, 255, 0.2);
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .sheet-title {
+      margin: 0 0 10px;
+      border-bottom: 2px solid rgba(247, 244, 255, 0.58);
+      padding-bottom: 7px;
+      color: var(--text);
+      font-size: 0.82rem;
+      letter-spacing: 0;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 7px 0;
+      color: var(--text);
+    }
+
+    .stat-row span:first-child {
+      color: var(--muted);
     }
 
     .player {
@@ -166,8 +190,7 @@
 
       .readout {
         min-width: 0;
-        width: fit-content;
-        text-align: left;
+        width: min(260px, calc(100vw - 28px));
       }
 
       .player {
@@ -183,20 +206,26 @@
     <section class="hud" aria-label="Game status">
       <div class="title">
         <h1>Black Candle Lab Zero</h1>
-        <p>Black Candle Lab Zero movement test</p>
+        <p>Movement test</p>
       </div>
-      <div id="readout" class="readout">X: 0<br>Y: 0</div>
+      <div id="readout" class="readout">
+        <div class="sheet-title">Subject Sheet</div>
+        <div class="stat-row"><span>Subject</span><strong>Zero</strong></div>
+        <div class="stat-row"><span>Status</span><strong>Compiling</strong></div>
+        <div class="stat-row"><span>HP</span><strong>100</strong></div>
+        <div class="stat-row"><span>Level</span><strong>1</strong></div>
+        <div class="stat-row"><span>Action</span><strong>Tap to Move</strong></div>
+      </div>
     </section>
     <div id="target" class="target" aria-hidden="true"></div>
     <div id="player" class="player" aria-label="Zero"></div>
-    <div class="label">Subject:Zero,Status:Compiling,tap-to-light-the-candle</div>
+    <div class="label">Tap anywhere to move Zero.</div>
   </main>
 
   <script>
     const stage = document.getElementById("stage");
     const player = document.getElementById("player");
     const targetEl = document.getElementById("target");
-    const readout = document.getElementById("readout");
 
     const state = {
       x: window.innerWidth / 2,
@@ -257,7 +286,6 @@
     function placePlayer() {
       player.style.left = `${state.x}px`;
       player.style.top = `${state.y}px`;
-      readout.innerHTML = `X: ${Math.round(state.x)}<br>Y: ${Math.round(state.y)}`;
     }
 
     function placeTarget() {

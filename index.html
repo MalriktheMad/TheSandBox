@@ -6,15 +6,21 @@
   <title>Comic Quest RPG</title>
   <style>
     :root {
-      --ink: #151515;
-      --paper: #fff9de;
-      --panel: #ffffff;
-      --accent: #e84118;
-      --accent-dark: #9f1d10;
-      --gold: #fbc531;
-      --blue: #273c75;
-      --green: #2f8f46;
-      --shadow: rgba(0, 0, 0, 0.28);
+      --void: #050508;
+      --ink: #0d0d13;
+      --panel: #12121c;
+      --panel-soft: #191928;
+      --text: #f7f4ff;
+      --muted: #c9c3dd;
+      --line: #f2edff;
+      --candle: #f8d56b;
+      --flame: #ff8f3d;
+      --violet: #8f5cff;
+      --purple: #4b1d86;
+      --blue: #1b6fd6;
+      --green: #5ee08a;
+      --shadow: rgba(0, 0, 0, 0.62);
+      --glow: rgba(143, 92, 255, 0.34);
     }
 
     * {
@@ -26,10 +32,11 @@
       min-height: 100vh;
       font-family: "Trebuchet MS", Arial, sans-serif;
       background:
-        radial-gradient(circle at 20% 20%, rgba(251, 197, 49, 0.28), transparent 28%),
-        radial-gradient(circle at 80% 10%, rgba(39, 60, 117, 0.22), transparent 24%),
-        linear-gradient(135deg, #fff2b8 0%, #f5f6fa 44%, #c8d6e5 100%);
-      color: var(--ink);
+        radial-gradient(circle at 18% 18%, rgba(143, 92, 255, 0.28), transparent 28%),
+        radial-gradient(circle at 82% 12%, rgba(27, 111, 214, 0.26), transparent 25%),
+        radial-gradient(circle at 52% 92%, rgba(248, 213, 107, 0.12), transparent 26%),
+        linear-gradient(135deg, #020204 0%, #0b0714 36%, #08101e 72%, #000 100%);
+      color: var(--text);
     }
 
     .page {
@@ -48,17 +55,21 @@
 
     .title-block h1 {
       margin: 0;
+      color: var(--text);
       font-size: clamp(2.2rem, 6vw, 4.8rem);
       line-height: 0.92;
       text-transform: uppercase;
-      text-shadow: 4px 4px 0 var(--gold), 7px 7px 0 var(--ink);
+      text-shadow:
+        0 0 18px rgba(143, 92, 255, 0.72),
+        4px 4px 0 #251044,
+        7px 7px 0 #000;
     }
 
     .title-block p {
       margin: 12px 0 0;
       max-width: 620px;
+      color: var(--muted);
       font-weight: 700;
-      color: #343434;
     }
 
     .nav-links {
@@ -71,11 +82,11 @@
     .nav-links a,
     .choice-btn,
     .utility-btn {
-      border: 3px solid var(--ink);
+      border: 3px solid var(--line);
       border-radius: 6px;
-      background: var(--panel);
-      color: var(--ink);
-      box-shadow: 4px 4px 0 var(--ink);
+      background: linear-gradient(135deg, #171729, #0b0b13);
+      color: var(--text);
+      box-shadow: 4px 4px 0 #000, 0 0 18px rgba(143, 92, 255, 0.18);
       cursor: pointer;
       font: inherit;
       font-weight: 900;
@@ -100,9 +111,9 @@
     .nav-links a:focus-visible,
     .choice-btn:focus-visible,
     .utility-btn:focus-visible {
-      background: var(--gold);
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 2px 2px 0 #000, 0 0 24px var(--glow);
       transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 var(--ink);
       outline: none;
     }
 
@@ -116,10 +127,13 @@
     .comic-panel,
     .stats-panel,
     .log-panel {
-      border: 5px solid var(--ink);
+      border: 5px solid var(--line);
       border-radius: 8px;
-      background: var(--panel);
-      box-shadow: 10px 10px 0 var(--shadow);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 40%),
+        var(--panel);
+      box-shadow: 10px 10px 0 var(--shadow), 0 0 34px rgba(143, 92, 255, 0.18);
+      color: var(--text);
     }
 
     .comic-panel {
@@ -134,8 +148,9 @@
       position: absolute;
       inset: 0;
       background-image:
-        radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
-      background-size: 12px 12px;
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(120deg, transparent 0%, rgba(143, 92, 255, 0.12) 48%, transparent 75%);
+      background-size: 12px 12px, 100% 100%;
       pointer-events: none;
     }
 
@@ -144,20 +159,22 @@
       display: inline-block;
       margin-bottom: 18px;
       padding: 8px 12px;
-      border: 3px solid var(--ink);
-      background: var(--accent);
-      color: #fff;
+      border: 3px solid var(--line);
+      background: linear-gradient(135deg, var(--purple), #181832);
+      color: var(--text);
       font-weight: 900;
       text-transform: uppercase;
-      box-shadow: 4px 4px 0 var(--ink);
+      box-shadow: 4px 4px 0 #000, 0 0 20px rgba(143, 92, 255, 0.36);
     }
 
     .story-text {
       position: relative;
       max-width: 760px;
+      color: var(--text);
       font-size: clamp(1.15rem, 2.5vw, 1.55rem);
       line-height: 1.45;
       font-weight: 800;
+      text-shadow: 0 1px 0 #000;
     }
 
     .choices {
@@ -169,12 +186,12 @@
     }
 
     .choice-btn.primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, #5a20a8, #1b6fd6);
       color: #fff;
     }
 
     .choice-btn.secondary {
-      background: var(--blue);
+      background: linear-gradient(135deg, #101625, #30305b);
       color: #fff;
     }
 
@@ -182,7 +199,7 @@
       cursor: not-allowed;
       opacity: 0.62;
       transform: none;
-      box-shadow: 4px 4px 0 var(--ink);
+      box-shadow: 4px 4px 0 #000;
     }
 
     aside {
@@ -197,8 +214,9 @@
 
     .panel-title {
       margin: 0 0 14px;
-      border-bottom: 3px solid var(--ink);
+      border-bottom: 3px solid var(--line);
       padding-bottom: 8px;
+      color: var(--text);
       font-size: 1rem;
       text-transform: uppercase;
     }
@@ -208,22 +226,23 @@
       justify-content: space-between;
       gap: 12px;
       margin: 10px 0;
+      color: var(--text);
       font-weight: 900;
     }
 
     .meter {
       height: 14px;
       overflow: hidden;
-      border: 3px solid var(--ink);
+      border: 3px solid var(--line);
       border-radius: 999px;
-      background: #e1e1e1;
+      background: #050508;
     }
 
     .meter span {
       display: block;
       height: 100%;
       width: 100%;
-      background: var(--green);
+      background: linear-gradient(90deg, var(--green), var(--candle));
       transition: width 180ms ease;
     }
 
@@ -235,10 +254,11 @@
     }
 
     .item-chip {
-      border: 2px solid var(--ink);
+      border: 2px solid var(--line);
       border-radius: 999px;
       padding: 5px 9px;
-      background: var(--paper);
+      background: rgba(248, 213, 107, 0.14);
+      color: var(--text);
       font-size: 0.8rem;
       font-weight: 900;
     }
@@ -247,6 +267,7 @@
       min-height: 92px;
       margin: 0;
       padding-left: 18px;
+      color: var(--muted);
       font-size: 0.92rem;
       font-weight: 700;
     }
@@ -261,7 +282,7 @@
     .utility-btn {
       padding: 10px;
       font-size: 0.82rem;
-      background: var(--paper);
+      background: linear-gradient(135deg, #171729, #0b0b13);
     }
 
     @media (max-width: 860px) {
@@ -295,7 +316,10 @@
       }
 
       .title-block h1 {
-        text-shadow: 3px 3px 0 var(--gold), 5px 5px 0 var(--ink);
+        text-shadow:
+          0 0 16px rgba(143, 92, 255, 0.72),
+          3px 3px 0 #251044,
+          5px 5px 0 #000;
       }
     }
   </style>

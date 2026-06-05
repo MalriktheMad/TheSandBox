@@ -86,33 +86,39 @@
     }
 
     .readout {
-      min-width: 220px;
-      border: 3px solid rgba(247, 244, 255, 0.62);
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      width: 176px;
+      border: 2px solid rgba(247, 244, 255, 0.58);
       border-radius: 8px;
-      padding: 12px;
+      padding: 9px 10px;
       background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.06), transparent 40%),
-        rgba(5, 5, 8, 0.76);
-      box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.72), 0 0 22px rgba(124, 60, 255, 0.2);
+        rgba(5, 5, 8, 0.78);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72), 0 0 18px rgba(124, 60, 255, 0.18);
       text-align: left;
       text-transform: uppercase;
+      pointer-events: none;
     }
 
     .sheet-title {
-      margin: 0 0 10px;
-      border-bottom: 2px solid rgba(247, 244, 255, 0.58);
-      padding-bottom: 7px;
+      margin: 0 0 7px;
+      border-bottom: 2px solid rgba(247, 244, 255, 0.48);
+      padding-bottom: 5px;
       color: var(--text);
-      font-size: 0.82rem;
+      font-size: 0.72rem;
       letter-spacing: 0;
     }
 
     .stat-row {
       display: flex;
       justify-content: space-between;
-      gap: 14px;
-      margin: 7px 0;
+      gap: 10px;
+      margin: 4px 0;
       color: var(--text);
+      font-size: 0.74rem;
+      line-height: 1.15;
     }
 
     .stat-row span:first-child {
@@ -166,31 +172,15 @@
       opacity: 1;
     }
 
-    .label {
-      position: absolute;
-      left: 50%;
-      bottom: 18px;
-      max-width: min(520px, calc(100% - 28px));
-      border: 2px solid rgba(247, 244, 255, 0.48);
-      border-radius: 6px;
-      padding: 10px 12px;
-      background: rgba(5, 5, 8, 0.74);
-      color: var(--muted);
-      font-size: 0.92rem;
-      font-weight: 800;
-      text-align: center;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-
     @media (max-width: 620px) {
       .hud {
         display: grid;
       }
 
       .readout {
-        min-width: 0;
-        width: min(260px, calc(100vw - 28px));
+        left: 10px;
+        bottom: 10px;
+        width: 164px;
       }
 
       .player {
@@ -208,18 +198,17 @@
         <h1>Black Candle Lab Zero</h1>
         <p>Movement test</p>
       </div>
-      <div id="readout" class="readout">
-        <div class="sheet-title">Subject Sheet</div>
-        <div class="stat-row"><span>Subject</span><strong>Zero</strong></div>
-        <div class="stat-row"><span>Status</span><strong>Compiling</strong></div>
-        <div class="stat-row"><span>HP</span><strong>100</strong></div>
-        <div class="stat-row"><span>Level</span><strong>1</strong></div>
-        <div class="stat-row"><span>Action</span><strong>Tap to Move</strong></div>
-      </div>
     </section>
+    <div id="readout" class="readout">
+      <div class="sheet-title">Subject Sheet</div>
+      <div class="stat-row"><span>Subject</span><strong>Zero</strong></div>
+      <div class="stat-row"><span>Status</span><strong>Compiling</strong></div>
+      <div class="stat-row"><span>HP</span><strong>100</strong></div>
+      <div class="stat-row"><span>Level</span><strong>1</strong></div>
+      <div class="stat-row"><span>Action</span><strong>Tap to Move</strong></div>
+    </div>
     <div id="target" class="target" aria-hidden="true"></div>
     <div id="player" class="player" aria-label="Zero"></div>
-    <div class="label">Tap anywhere to move Zero.</div>
   </main>
 
   <script>

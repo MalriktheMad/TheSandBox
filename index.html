@@ -60,6 +60,7 @@
     .shore-cliff,
     .lab,
     .tree,
+    .old-dilly,
     .lab-ground {
       position: absolute;
       pointer-events: none;
@@ -160,6 +161,152 @@
         8px 24px #06100b, 12px 24px #5b3823, 16px 24px #06100b,
         8px 28px #06100b, 12px 28px #5b3823, 16px 28px #06100b;
       image-rendering: pixelated;
+    }
+
+    .old-dilly {
+      left: 330px;
+      top: 118px;
+      width: 188px;
+      height: 206px;
+      z-index: 3;
+    }
+
+    .dilly-shadow {
+      position: absolute;
+      left: 16px;
+      right: 20px;
+      bottom: 10px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.34);
+      transform: skewX(-18deg);
+    }
+
+    .dilly-trunk {
+      position: absolute;
+      left: 78px;
+      top: 86px;
+      width: 34px;
+      height: 108px;
+      border: 4px solid #06100b;
+      background:
+        linear-gradient(90deg, rgba(5, 5, 8, 0.2) 0 8px, transparent 8px 20px),
+        repeating-linear-gradient(90deg, #4c2f1b 0 12px, #2e1b10 12px 17px, #654123 17px 28px);
+      box-shadow: inset -8px 0 0 rgba(0, 0, 0, 0.28);
+    }
+
+    .dilly-canopy {
+      position: absolute;
+      left: 12px;
+      top: 0;
+      width: 164px;
+      height: 124px;
+      background:
+        radial-gradient(circle at 32px 62px, #0a170d 0 22px, transparent 23px),
+        radial-gradient(circle at 58px 34px, #1f6330 0 30px, transparent 31px),
+        radial-gradient(circle at 98px 30px, #2a7a3c 0 34px, transparent 35px),
+        radial-gradient(circle at 130px 64px, #164823 0 28px, transparent 29px),
+        radial-gradient(circle at 86px 80px, #318b46 0 42px, transparent 43px);
+      filter: drop-shadow(8px 10px 0 rgba(0, 0, 0, 0.26));
+      image-rendering: pixelated;
+    }
+
+    .dilly-house {
+      position: absolute;
+      left: 42px;
+      top: 68px;
+      width: 104px;
+      height: 66px;
+      border: 4px solid #06100b;
+      background:
+        linear-gradient(180deg, rgba(255, 230, 150, 0.08), transparent 40%),
+        repeating-linear-gradient(90deg, #6a4425 0 15px, #3b2414 15px 20px, #7a5230 20px 34px);
+      box-shadow: 0 0 18px rgba(91, 177, 78, 0.22), 8px 10px 0 rgba(0, 0, 0, 0.32);
+      z-index: 2;
+    }
+
+    .dilly-house::before {
+      content: "";
+      position: absolute;
+      left: -10px;
+      right: -10px;
+      top: -24px;
+      height: 26px;
+      border: 4px solid #06100b;
+      background:
+        linear-gradient(135deg, transparent 0 14px, #06100b 14px 20px, #2d1b10 20px 100%),
+        repeating-linear-gradient(90deg, #2e1b10 0 18px, #5c3a21 18px 34px);
+    }
+
+    .dilly-door {
+      position: absolute;
+      left: 42px;
+      bottom: 0;
+      width: 24px;
+      height: 34px;
+      border: 3px solid #06100b;
+      border-bottom: 0;
+      background: #25160d;
+    }
+
+    .dilly-window {
+      position: absolute;
+      right: 16px;
+      top: 24px;
+      width: 18px;
+      height: 16px;
+      border: 3px solid #06100b;
+      background: #d2b45c;
+      box-shadow: 0 0 10px rgba(248, 213, 107, 0.34);
+    }
+
+    .dilly-platform {
+      position: absolute;
+      left: 24px;
+      top: 132px;
+      width: 136px;
+      height: 12px;
+      border: 3px solid #06100b;
+      background: repeating-linear-gradient(90deg, #5c3a21 0 16px, #2e1b10 16px 20px);
+      z-index: 2;
+    }
+
+    .dilly-sign {
+      position: absolute;
+      left: 52px;
+      top: 145px;
+      width: 82px;
+      border: 3px solid #06100b;
+      border-radius: 2px;
+      padding: 5px 4px;
+      background: #3b2414;
+      color: #ece2bc;
+      font-size: 0.52rem;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+      text-transform: uppercase;
+      transform: rotate(-7deg);
+      box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.32);
+      z-index: 3;
+    }
+
+    .dilly-sign::before,
+    .dilly-sign::after {
+      content: "";
+      position: absolute;
+      top: -18px;
+      width: 3px;
+      height: 18px;
+      background: #06100b;
+    }
+
+    .dilly-sign::before {
+      left: 14px;
+    }
+
+    .dilly-sign::after {
+      right: 16px;
     }
 
     .lab-ground {
@@ -596,6 +743,17 @@
       <div class="tree" style="left: 860px; top: 630px;"></div>
       <div class="tree" style="left: 1180px; top: 720px;"></div>
       <div class="tree" style="left: 1380px; top: 650px;"></div>
+      <div class="old-dilly" aria-label="Old Dilly's House">
+        <div class="dilly-shadow"></div>
+        <div class="dilly-trunk"></div>
+        <div class="dilly-canopy"></div>
+        <div class="dilly-platform"></div>
+        <div class="dilly-house">
+          <div class="dilly-door"></div>
+          <div class="dilly-window"></div>
+        </div>
+        <div class="dilly-sign">Old Dilly's</div>
+      </div>
       <div class="lab-ground" aria-hidden="true"></div>
       <div class="lab" aria-label="Lab Zero">
         <div class="lab-pipe"></div>

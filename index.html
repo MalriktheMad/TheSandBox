@@ -118,7 +118,7 @@
 
     .shore-cliff {
       left: 0;
-      bottom: 112px;
+      bottom: 136px;
       width: 270px;
       height: 190px;
       background:
@@ -643,6 +643,10 @@
     const MIN_ZOOM = 0.65;
     const MAX_ZOOM = 2;
     const ZOOM_STEP = 0.25;
+    const BLOCKED_TERRAIN = [
+      { left: 0, top: 874, right: 210, bottom: 1028 },
+      { left: 0, top: 1028, right: 132, bottom: 1064 }
+    ];
 
     const stage = document.getElementById("stage");
     const world = document.getElementById("world");
@@ -730,7 +734,7 @@
         const nextX = state.x + (dx / distance) * move;
         const nextY = state.y + (dy / distance) * move;
 
-        if (isUiBlocked(nextX, nextY)) {
+        if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
           state.targetX = state.x;
           state.targetY = state.y;
           targetEl.classList.remove("visible");
@@ -792,6 +796,13 @@
       const screenPoint = worldToScreen(worldX, worldY);
       return getBlockedRects().some((rect) => {
         return screenPoint.x >= rect.left && screenPoint.x <= rect.right && screenPoint.y >= rect.top && screenPoint.y <= rect.bottom;
+      });
+    }
+
+    function isTerrainBlocked(worldX, worldY) {
+      const radius = 18;
+      return BLOCKED_TERRAIN.some((rect) => {
+        return worldX >= rect.left - radius && worldX <= rect.right + radius && worldY >= rect.top - radius && worldY <= rect.bottom + radius;
       });
     }
 

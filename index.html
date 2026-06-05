@@ -57,6 +57,7 @@
     .forest-floor,
     .beach,
     .water,
+    .shore-cliff,
     .lab,
     .tree,
     .lab-ground {
@@ -79,13 +80,54 @@
       left: 0;
       right: 0;
       bottom: 70px;
-      height: 150px;
+      height: 165px;
       background:
-        radial-gradient(circle at 12px 18px, rgba(255, 245, 185, 0.34) 2px, transparent 3px),
-        radial-gradient(circle at 42px 50px, rgba(102, 76, 42, 0.2) 2px, transparent 3px),
-        linear-gradient(180deg, #8c7a45 0%, #d7bc66 18%, #f0d985 56%, #c99f54 100%);
-      background-size: 80px 80px, 90px 90px, auto;
-      border-top: 10px solid rgba(30, 76, 45, 0.88);
+        radial-gradient(circle at 12px 18px, rgba(225, 216, 174, 0.32) 2px, transparent 3px),
+        radial-gradient(circle at 44px 54px, rgba(55, 48, 44, 0.34) 2px, transparent 4px),
+        radial-gradient(circle at 70px 24px, rgba(115, 105, 88, 0.35) 2px, transparent 3px),
+        linear-gradient(180deg, #5d5a48 0%, #918968 20%, #b4a26f 52%, #746c5a 100%);
+      background-size: 82px 82px, 94px 94px, 106px 106px, auto;
+      clip-path: polygon(0 20px, 4% 10px, 9% 26px, 15% 14px, 21% 30px, 28% 18px, 36% 25px, 44% 12px, 52% 28px, 61% 16px, 70% 30px, 79% 18px, 88% 27px, 100% 14px, 100% 100%, 0 100%);
+    }
+
+    .beach::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 34px;
+      background:
+        linear-gradient(90deg, transparent 0 18px, rgba(13, 48, 27, 0.92) 18px 32px, transparent 32px 48px),
+        linear-gradient(180deg, rgba(20, 69, 39, 0.78), transparent);
+      background-size: 64px 100%, auto;
+    }
+
+    .beach::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 36px;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 22px, transparent 22px 60px),
+        linear-gradient(180deg, transparent, rgba(24, 63, 77, 0.36));
+      background-size: 104px 100%, auto;
+    }
+
+    .shore-cliff {
+      left: 0;
+      bottom: 70px;
+      width: 270px;
+      height: 190px;
+      background:
+        radial-gradient(circle at 58px 54px, rgba(18, 17, 17, 0.42) 0 18px, transparent 19px),
+        radial-gradient(circle at 164px 118px, rgba(45, 38, 32, 0.78) 0 24px, transparent 25px),
+        linear-gradient(135deg, #22231f 0%, #5a5142 38%, #302c27 68%, #141410 100%);
+      box-shadow: inset -18px -24px 0 rgba(0, 0, 0, 0.32), 18px 0 18px rgba(0, 0, 0, 0.18);
+      clip-path: polygon(0 0, 74% 0, 62% 12%, 78% 22%, 58% 34%, 68% 45%, 47% 57%, 55% 70%, 36% 84%, 44% 100%, 0 100%);
+      z-index: 2;
     }
 
     .water {
@@ -97,7 +139,7 @@
         linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 18px, transparent 18px 58px),
         linear-gradient(180deg, #145e88 0%, #083e66 100%);
       background-size: 96px 100%, auto;
-      border-top: 6px solid rgba(234, 221, 142, 0.62);
+      border-top: 6px solid rgba(180, 200, 196, 0.42);
     }
 
     .tree {
@@ -535,6 +577,7 @@
       <div class="forest-floor" aria-hidden="true"></div>
       <div class="beach" aria-hidden="true"></div>
       <div class="water" aria-hidden="true"></div>
+      <div class="shore-cliff" aria-hidden="true"></div>
       <div class="tree" style="left: 120px; top: 160px;"></div>
       <div class="tree" style="left: 244px; top: 320px;"></div>
       <div class="tree" style="left: 420px; top: 210px;"></div>

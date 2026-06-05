@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One Cig - Comic Quest RPG</title>
+  <style>
+    :root {
+      --text: #f7f4ff;
+      --muted: #c9c3dd;
+      --line: #f2edff;
+      --purple: #4b1d86;
+      --blue: #1b6fd6;
+      --candle: #f8d56b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(143, 92, 255, 0.32), transparent 30%),
+        radial-gradient(circle at 75% 78%, rgba(27, 111, 214, 0.26), transparent 28%),
+        linear-gradient(135deg, #020204 0%, #0b0714 42%, #08101e 78%, #000 100%);
+      color: var(--text);
+    }
+
+    main {
+      width: min(760px, 100%);
+      border: 5px solid var(--line);
+      border-radius: 8px;
+      padding: clamp(24px, 6vw, 48px);
+      background:
+        radial-gradient(circle at 50% 100%, rgba(248, 213, 107, 0.14), transparent 34%),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 44%),
+        #12121c;
+      box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.72), 0 0 38px rgba(143, 92, 255, 0.24);
+      text-align: center;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 3px solid var(--line);
+      border-radius: 6px;
+      background: linear-gradient(135deg, var(--purple), #181832);
+      box-shadow: 4px 4px 0 #000;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(2rem, 8vw, 4.2rem);
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(143, 92, 255, 0.72), 4px 4px 0 #251044, 7px 7px 0 #000;
+    }
+
+    p {
+      margin: 22px auto 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: clamp(1.2rem, 3vw, 1.65rem);
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 32px;
+      border: 3px solid var(--line);
+      border-radius: 6px;
+      padding: 14px 18px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 4px 4px 0 #000, 0 0 18px rgba(143, 92, 255, 0.2);
+      color: var(--text);
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    a:hover,
+    a:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #000, 0 0 24px rgba(143, 92, 255, 0.34);
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="tag">Lab Zero Pocket Check</div>
+    <h1>All you got is this one cig to get home.</h1>
+    <p>The inventory, map, quest log, and character sheet are all looking at the same sad little resource.</p>
+    <a href="index.html">Save it for later</a>
+  </main>
+</body>
+</html>

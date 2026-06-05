@@ -125,6 +125,41 @@
       color: var(--muted);
     }
 
+    .quick-nav {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 92px));
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .quick-nav a {
+      border: 2px solid rgba(247, 244, 255, 0.58);
+      border-radius: 8px;
+      padding: 8px 9px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 42%),
+        rgba(5, 5, 8, 0.78);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.72), 0 0 16px rgba(124, 60, 255, 0.16);
+      color: var(--text);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .quick-nav a:hover,
+    .quick-nav a:focus-visible {
+      background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 20px rgba(124, 60, 255, 0.32);
+      transform: translate(2px, 2px);
+      outline: none;
+    }
+
     .player {
       position: absolute;
       left: 0;
@@ -183,6 +218,18 @@
         width: 164px;
       }
 
+      .quick-nav {
+        right: 10px;
+        bottom: 10px;
+        grid-template-columns: repeat(2, minmax(0, 74px));
+        gap: 7px;
+      }
+
+      .quick-nav a {
+        padding: 8px 6px;
+        font-size: 0.63rem;
+      }
+
       .player {
         width: 38px;
         height: 38px;
@@ -207,6 +254,12 @@
       <div class="stat-row"><span>Level</span><strong>1</strong></div>
       <div class="stat-row"><span>Action</span><strong>Tap to Move</strong></div>
     </div>
+    <nav class="quick-nav" aria-label="Zero menu">
+      <a href="characters.html">Character</a>
+      <a href="inventory.html">Inventory</a>
+      <a href="map.html">Map</a>
+      <a href="quests.html">Quest</a>
+    </nav>
     <div id="target" class="target" aria-hidden="true"></div>
     <div id="player" class="player" aria-label="Zero"></div>
   </main>

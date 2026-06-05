@@ -364,7 +364,7 @@
         text: "You wake in the margin between panels. The city is inked but unfinished, and a door marked Lab Zero hums with unstable story energy.",
         choices: [
           { label: "Enter Lab Zero", next: "lab", className: "primary", effect: { log: "You step into Lab Zero." } },
-          { label: "Scout the Alley", next: "alley", className: "secondary", effect: { luck: 1, log: "You search the gutter panels for clues." } }
+          { label: "Im to high for this shit right now. I'm going home", next: "alley", className: "secondary", effect: { luck: 1, log: "You search the gutter panels for clues." } }
         ]
       },
       lab: {
@@ -377,7 +377,7 @@
       },
       alley: {
         tag: "Back Alley",
-        text: "The alley walls are covered in speech bubbles with no speakers. One bubble whispers your name. Another offers you a side quest coupon.",
+        text: "You take an alleyway home. The walls are covered in speech bubbles with no speakers. One bubble whispers your name. Another offers you a side quest coupon.",
         choices: [
           { label: "Take the Coupon", next: "coupon", className: "primary", effect: { item: "Side Quest Coupon", log: "You pocket a coupon for future trouble." } },
           { label: "Return to Lab Zero", next: "lab", effect: { log: "The alley folds back toward the lab." } }

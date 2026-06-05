@@ -1,30 +1,537 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comic Book RPG</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comic Quest RPG</title>
+  <style>
+    :root {
+      --ink: #151515;
+      --paper: #fff9de;
+      --panel: #ffffff;
+      --accent: #e84118;
+      --accent-dark: #9f1d10;
+      --gold: #fbc531;
+      --blue: #273c75;
+      --green: #2f8f46;
+      --shadow: rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(251, 197, 49, 0.28), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(39, 60, 117, 0.22), transparent 24%),
+        linear-gradient(135deg, #fff2b8 0%, #f5f6fa 44%, #c8d6e5 100%);
+      color: var(--ink);
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      line-height: 0.92;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 0 var(--gold), 7px 7px 0 var(--ink);
+    }
+
+    .title-block p {
+      margin: 12px 0 0;
+      max-width: 620px;
+      font-weight: 700;
+      color: #343434;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .nav-links a,
+    .choice-btn,
+    .utility-btn {
+      border: 3px solid var(--ink);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 900;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .nav-links a {
+      padding: 10px 12px;
+      font-size: 0.82rem;
+    }
+
+    .choice-btn,
+    .utility-btn {
+      padding: 14px 16px;
+    }
+
+    .nav-links a:hover,
+    .choice-btn:hover,
+    .utility-btn:hover,
+    .nav-links a:focus-visible,
+    .choice-btn:focus-visible,
+    .utility-btn:focus-visible {
+      background: var(--gold);
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--ink);
+      outline: none;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .comic-panel,
+    .stats-panel,
+    .log-panel {
+      border: 5px solid var(--ink);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 10px 10px 0 var(--shadow);
+    }
+
+    .comic-panel {
+      min-height: 430px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .comic-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
+      background-size: 12px 12px;
+      pointer-events: none;
+    }
+
+    .scene-tag {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 8px 12px;
+      border: 3px solid var(--ink);
+      background: var(--accent);
+      color: #fff;
+      font-weight: 900;
+      text-transform: uppercase;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    .story-text {
+      position: relative;
+      max-width: 760px;
+      font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .choices {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .choice-btn.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .choice-btn.secondary {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .choice-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.62;
+      transform: none;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+
+    aside {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stats-panel,
+    .log-panel {
+      padding: 18px;
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      border-bottom: 3px solid var(--ink);
+      padding-bottom: 8px;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 10px 0;
+      font-weight: 900;
+    }
+
+    .meter {
+      height: 14px;
+      overflow: hidden;
+      border: 3px solid var(--ink);
+      border-radius: 999px;
+      background: #e1e1e1;
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: var(--green);
+      transition: width 180ms ease;
+    }
+
+    .inventory {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .item-chip {
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      padding: 5px 9px;
+      background: var(--paper);
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .log-list {
+      min-height: 92px;
+      margin: 0;
+      padding-left: 18px;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .utility-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .utility-btn {
+      padding: 10px;
+      font-size: 0.82rem;
+      background: var(--paper);
+    }
+
+    @media (max-width: 860px) {
+      header,
+      .game-grid {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        display: grid;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .page {
+        width: min(100% - 20px, 1120px);
+        padding: 18px 0;
+      }
+
+      .comic-panel {
+        padding: 18px;
+      }
+
+      .choices,
+      .utility-row {
+        grid-template-columns: 1fr;
+      }
+
+      .title-block h1 {
+        text-shadow: 3px 3px 0 var(--gold), 5px 5px 0 var(--ink);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>⚔️ COMIC QUEST ⚔️</h1>
-        
-        <div class="comic-panel">
-            <div id="story-text"></div>
-        </div>
+  <main class="page">
+    <header>
+      <div class="title-block">
+        <h1>Comic Quest</h1>
+        <p>A single-file RPG prototype for brave experiments, bad decisions, and future portals.</p>
+      </div>
+      <nav class="nav-links" aria-label="Future pages">
+        <a href="characters.html">Characters</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="map.html">Map</a>
+        <a href="quests.html">Quests</a>
+      </nav>
+    </header>
 
-        <div class="choices">
-            <button id="LabZero" class="choice-btn">LabZero</button>
-            <button id="Dylan is to baked to play this game right now." class="choice-btn">Dylan is to baked to play this game right now.</button>
-        </div>
+    <section class="game-grid" aria-label="Comic Quest game">
+      <div class="comic-panel">
+        <div id="scene-tag" class="scene-tag">Issue #0</div>
+        <div id="story-text" class="story-text"></div>
+        <div id="choices" class="choices"></div>
+      </div>
 
-        <div class="stats">
-            <p>HP: <span id="hp">100</span></p>
-            <p>Level: <span id="level">1</span></p>
-        </div>
-    </div>
+      <aside aria-label="Hero status">
+        <section class="stats-panel">
+          <h2 class="panel-title">Hero Sheet</h2>
+          <div class="stat-row"><span>HP</span><span id="hp-value">100</span></div>
+          <div class="meter" aria-hidden="true"><span id="hp-meter"></span></div>
+          <div class="stat-row"><span>Level</span><span id="level-value">1</span></div>
+          <div class="stat-row"><span>Luck</span><span id="luck-value">3</span></div>
+          <div class="stat-row"><span>Grit</span><span id="grit-value">2</span></div>
+          <div class="inventory" id="inventory"></div>
+          <div class="utility-row">
+            <button class="utility-btn" id="save-btn" type="button">Save</button>
+            <button class="utility-btn" id="reset-btn" type="button">Reset</button>
+          </div>
+        </section>
 
-    <script src="game.js"></script>
+        <section class="log-panel">
+          <h2 class="panel-title">Quest Log</h2>
+          <ul id="quest-log" class="log-list"></ul>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const initialState = {
+      hp: 100,
+      level: 1,
+      luck: 3,
+      grit: 2,
+      inventory: ["Panel Key"],
+      log: ["The first page turns."],
+      scene: "intro"
+    };
+
+    let state = loadGame() || structuredClone(initialState);
+
+    const scenes = {
+      intro: {
+        tag: "Issue #0",
+        text: "You wake in the margin between panels. The city is inked but unfinished, and a door marked Lab Zero hums with unstable story energy.",
+        choices: [
+          { label: "Enter Lab Zero", next: "lab", className: "primary", effect: { log: "You step into Lab Zero." } },
+          { label: "Scout the Alley", next: "alley", className: "secondary", effect: { luck: 1, log: "You search the gutter panels for clues." } }
+        ]
+      },
+      lab: {
+        tag: "Lab Zero",
+        text: "Inside the lab, a console spits out hero profiles, broken plot hooks, and one very dramatic warning label: DO NOT PRESS THE SHINY BUTTON.",
+        choices: [
+          { label: "Press the Shiny Button", next: "button", className: "primary", effect: { hp: -12, level: 1, item: "Sparking Cape", log: "The button explodes into a useful cape." } },
+          { label: "Read the Console", next: "console", effect: { grit: 1, log: "You learn the lab was built to test realities." } }
+        ]
+      },
+      alley: {
+        tag: "Back Alley",
+        text: "The alley walls are covered in speech bubbles with no speakers. One bubble whispers your name. Another offers you a side quest coupon.",
+        choices: [
+          { label: "Take the Coupon", next: "coupon", className: "primary", effect: { item: "Side Quest Coupon", log: "You pocket a coupon for future trouble." } },
+          { label: "Return to Lab Zero", next: "lab", effect: { log: "The alley folds back toward the lab." } }
+        ]
+      },
+      button: {
+        tag: "KRAK-BOOM",
+        text: "Smoke clears. Your cape is slightly on fire, but your silhouette is much cooler. Somewhere, a narrator reluctantly approves.",
+        choices: [
+          { label: "Strike a Hero Pose", next: "finale", className: "primary", effect: { luck: 1, log: "The pose works better than expected." } },
+          { label: "Try the Console", next: "console", effect: { log: "You pretend that was all intentional." } }
+        ]
+      },
+      console: {
+        tag: "The Console",
+        text: "The console projects four locked destinations: Characters, Inventory, Map, and Quests. They are not built yet, but the buttons already know where they want to go.",
+        choices: [
+          { label: "Open Characters Page", href: "characters.html" },
+          { label: "Keep Exploring", next: "alley", className: "secondary", effect: { log: "You leave the future pages for later." } }
+        ]
+      },
+      coupon: {
+        tag: "Coupon Trouble",
+        text: "Fine print appears: Valid for one heroic complication. The paper warms in your hand, eager to become important later.",
+        choices: [
+          { label: "Return to the Lab", next: "lab", effect: { log: "You carry the coupon back to Lab Zero." } },
+          { label: "Cash It In", next: "finale", className: "primary", effect: { hp: -8, level: 1, item: "Mystery IOU", log: "The coupon becomes a promise from the plot." } }
+        ]
+      },
+      finale: {
+        tag: "End of Demo",
+        text: "The page ends on a splash panel: you, the lab, and a city full of unfinished adventures. The next issue waits for new pages.",
+        choices: [
+          { label: "Restart Demo", next: "intro", className: "primary", effect: { reset: true } },
+          { label: "Visit Quest Page", href: "quests.html" }
+        ]
+      }
+    };
+
+    const storyText = document.getElementById("story-text");
+    const sceneTag = document.getElementById("scene-tag");
+    const choicesEl = document.getElementById("choices");
+    const hpValue = document.getElementById("hp-value");
+    const hpMeter = document.getElementById("hp-meter");
+    const levelValue = document.getElementById("level-value");
+    const luckValue = document.getElementById("luck-value");
+    const gritValue = document.getElementById("grit-value");
+    const inventoryEl = document.getElementById("inventory");
+    const questLogEl = document.getElementById("quest-log");
+
+    document.getElementById("save-btn").addEventListener("click", () => {
+      saveGame();
+      addLog("Game saved in this browser.");
+      render();
+    });
+
+    document.getElementById("reset-btn").addEventListener("click", () => {
+      state = structuredClone(initialState);
+      localStorage.removeItem("comicQuestSave");
+      render();
+    });
+
+    function render() {
+      const scene = scenes[state.scene] || scenes.intro;
+      sceneTag.textContent = scene.tag;
+      storyText.textContent = scene.text;
+      choicesEl.innerHTML = "";
+
+      scene.choices.forEach((choice) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `choice-btn ${choice.className || ""}`.trim();
+        button.textContent = choice.label;
+        button.addEventListener("click", () => choose(choice));
+        choicesEl.appendChild(button);
+      });
+
+      hpValue.textContent = state.hp;
+      hpMeter.style.width = `${Math.max(0, Math.min(100, state.hp))}%`;
+      levelValue.textContent = state.level;
+      luckValue.textContent = state.luck;
+      gritValue.textContent = state.grit;
+
+      inventoryEl.innerHTML = "";
+      state.inventory.forEach((item) => {
+        const chip = document.createElement("span");
+        chip.className = "item-chip";
+        chip.textContent = item;
+        inventoryEl.appendChild(chip);
+      });
+
+      questLogEl.innerHTML = "";
+      state.log.slice(-4).forEach((entry) => {
+        const li = document.createElement("li");
+        li.textContent = entry;
+        questLogEl.appendChild(li);
+      });
+    }
+
+    function choose(choice) {
+      if (choice.href) {
+        window.location.href = choice.href;
+        return;
+      }
+
+      if (choice.effect?.reset) {
+        state = structuredClone(initialState);
+      } else {
+        applyEffect(choice.effect || {});
+        state.scene = choice.next || state.scene;
+      }
+
+      saveGame();
+      render();
+    }
+
+    function applyEffect(effect) {
+      state.hp = clamp(state.hp + (effect.hp || 0), 0, 100);
+      state.level = Math.max(1, state.level + (effect.level || 0));
+      state.luck = Math.max(0, state.luck + (effect.luck || 0));
+      state.grit = Math.max(0, state.grit + (effect.grit || 0));
+
+      if (effect.item && !state.inventory.includes(effect.item)) {
+        state.inventory.push(effect.item);
+      }
+
+      if (effect.log) {
+        addLog(effect.log);
+      }
+    }
+
+    function addLog(entry) {
+      state.log.push(entry);
+      state.log = state.log.slice(-8);
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function saveGame() {
+      localStorage.setItem("comicQuestSave", JSON.stringify(state));
+    }
+
+    function loadGame() {
+      try {
+        const saved = localStorage.getItem("comicQuestSave");
+        return saved ? JSON.parse(saved) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    render();
+  </script>
 </body>
 </html>

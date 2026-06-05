@@ -13,7 +13,6 @@
       --purple: #7c3cff;
       --blue: #1b6fd6;
       --candle: #f8d56b;
-      --player: #f7f4ff;
     }
 
     * {
@@ -38,11 +37,22 @@
       inset: 0;
       overflow: hidden;
       cursor: crosshair;
+      background: var(--void);
+    }
+
+    .world {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1600px;
+      height: 1200px;
+      transform-origin: 0 0;
       background:
         radial-gradient(circle at 22% 18%, rgba(124, 60, 255, 0.24), transparent 28%),
         radial-gradient(circle at 78% 72%, rgba(27, 111, 214, 0.22), transparent 30%),
         radial-gradient(circle at 50% 50%, rgba(248, 213, 107, 0.07), transparent 18%),
         linear-gradient(135deg, #020204 0%, #090612 42%, #06111f 78%, #000 100%);
+      will-change: transform;
     }
 
     .grid {
@@ -52,7 +62,6 @@
         linear-gradient(rgba(247, 244, 255, 0.055) 1px, transparent 1px),
         linear-gradient(90deg, rgba(247, 244, 255, 0.055) 1px, transparent 1px);
       background-size: 32px 32px;
-      mask-image: radial-gradient(circle at center, #000 20%, transparent 84%);
       pointer-events: none;
     }
 
@@ -135,16 +144,15 @@
       pointer-events: auto;
     }
 
-    .quick-nav a {
+    .quick-nav a,
+    .zoom-controls button {
       border: 2px solid rgba(247, 244, 255, 0.58);
       border-radius: 6px;
-      padding: 6px 7px;
       background:
         linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 42%),
         rgba(5, 5, 8, 0.78);
       box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72), 0 0 12px rgba(124, 60, 255, 0.16);
       color: var(--text);
-      font-size: 0.54rem;
       font-weight: 900;
       text-align: center;
       text-decoration: none;
@@ -152,8 +160,34 @@
       transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
     }
 
+    .quick-nav a {
+      padding: 6px 7px;
+      font-size: 0.54rem;
+    }
+
+    .zoom-controls {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .zoom-controls button {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
     .quick-nav a:hover,
-    .quick-nav a:focus-visible {
+    .quick-nav a:focus-visible,
+    .zoom-controls button:hover,
+    .zoom-controls button:focus-visible {
       background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
       box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 18px rgba(124, 60, 255, 0.32);
       transform: translate(1px, 1px);
@@ -238,6 +272,17 @@
         font-size: 0.5rem;
       }
 
+      .zoom-controls {
+        top: 10px;
+        right: 10px;
+        gap: 6px;
+      }
+
+      .zoom-controls button {
+        width: 38px;
+        height: 38px;
+      }
+
       .player {
         width: 42px;
         height: 42px;
@@ -247,13 +292,24 @@
 </head>
 <body>
   <main id="stage" class="stage" aria-label="Black Candle Lab Zero A Budgie RPG">
-    <div class="grid" aria-hidden="true"></div>
+    <div id="world" class="world">
+      <div class="grid" aria-hidden="true"></div>
+      <div id="target" class="target" aria-hidden="true"></div>
+      <div id="player" class="player" aria-label="Zero"><div class="pixel-bird" aria-hidden="true"></div></div>
+    </div>
+
     <section class="hud" aria-label="Game status">
       <div class="title">
         <h1>Black Candle Lab Zero</h1>
         <p>A Budgie RPG</p>
       </div>
     </section>
+
+    <div id="zoom-controls" class="zoom-controls" aria-label="Zoom controls">
+      <button id="zoom-out" type="button" aria-label="Zoom out">-</button>
+      <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+    </div>
+
     <div id="readout" class="readout">
       <div class="sheet-title">Subject Sheet</div>
       <div class="stat-row"><span>Subject</span><strong>Zero</strong></div>
@@ -262,33 +318,47 @@
       <div class="stat-row"><span>Level</span><strong>1</strong></div>
       <div class="stat-row"><span>Action</span><strong>Tap to Move</strong></div>
     </div>
+
     <nav id="quick-nav" class="quick-nav" aria-label="Zero menu">
       <a href="characters.html">Character</a>
       <a href="inventory.html">Inventory</a>
       <a href="map.html">Map</a>
       <a href="quests.html">Quest</a>
     </nav>
-    <div id="target" class="target" aria-hidden="true"></div>
-    <div id="player" class="player" aria-label="Zero"><div class="pixel-bird" aria-hidden="true"></div></div>
   </main>
 
   <script>
+    const WORLD_WIDTH = 1600;
+    const WORLD_HEIGHT = 1200;
+    const MIN_ZOOM = 0.65;
+    const MAX_ZOOM = 2;
+    const ZOOM_STEP = 0.25;
+
     const stage = document.getElementById("stage");
+    const world = document.getElementById("world");
     const player = document.getElementById("player");
     const targetEl = document.getElementById("target");
     const readout = document.getElementById("readout");
     const quickNav = document.getElementById("quick-nav");
+    const zoomControls = document.getElementById("zoom-controls");
+    const zoomIn = document.getElementById("zoom-in");
+    const zoomOut = document.getElementById("zoom-out");
 
     const state = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
-      targetX: window.innerWidth / 2,
-      targetY: window.innerHeight / 2,
+      x: WORLD_WIDTH / 2,
+      y: WORLD_HEIGHT / 2,
+      targetX: WORLD_WIDTH / 2,
+      targetY: WORLD_HEIGHT / 2,
       speed: 260,
+      zoom: 1,
+      cameraX: 0,
+      cameraY: 0,
       lastTime: performance.now()
     };
 
     placePlayer();
+    placeTarget();
+    placeCamera();
     requestAnimationFrame(tick);
 
     stage.addEventListener("pointerdown", setTarget);
@@ -297,19 +367,22 @@
         setTarget(event);
       }
     });
-    readout.addEventListener("pointerdown", stopUiMovement);
-    quickNav.addEventListener("pointerdown", stopUiMovement);
+
+    [readout, quickNav, zoomControls].forEach((element) => {
+      element.addEventListener("pointerdown", stopUiMovement);
+    });
+
+    zoomIn.addEventListener("click", () => changeZoom(ZOOM_STEP));
+    zoomOut.addEventListener("click", () => changeZoom(-ZOOM_STEP));
 
     window.addEventListener("resize", () => {
-      state.x = clampAllowedX(state.x);
-      state.y = clampAllowedY(state.y);
-      state.targetX = clampAllowedX(state.targetX);
-      state.targetY = clampAllowedY(state.targetY);
-      const adjusted = keepOutOfUi(state.targetX, state.targetY);
-      state.targetX = adjusted.x;
-      state.targetY = adjusted.y;
+      state.x = clampWorldX(state.x);
+      state.y = clampWorldY(state.y);
+      state.targetX = clampWorldX(state.targetX);
+      state.targetY = clampWorldY(state.targetY);
       placePlayer();
       placeTarget();
+      placeCamera();
     });
 
     function stopUiMovement(event) {
@@ -317,11 +390,20 @@
     }
 
     function setTarget(event) {
-      const adjusted = keepOutOfUi(clampAllowedX(event.clientX), clampAllowedY(event.clientY));
-      state.targetX = adjusted.x;
-      state.targetY = adjusted.y;
+      if (event.target.closest(".readout, .quick-nav, .zoom-controls")) {
+        return;
+      }
+
+      const point = screenToWorld(event.clientX, event.clientY);
+      state.targetX = clampWorldX(point.x);
+      state.targetY = clampWorldY(point.y);
       targetEl.classList.add("visible");
       placeTarget();
+    }
+
+    function changeZoom(amount) {
+      state.zoom = clamp(roundZoom(state.zoom + amount), MIN_ZOOM, MAX_ZOOM);
+      placeCamera();
     }
 
     function tick(now) {
@@ -347,6 +429,7 @@
           state.x = nextX;
           state.y = nextY;
           placePlayer();
+          placeCamera();
         }
       } else {
         targetEl.classList.remove("visible");
@@ -365,42 +448,47 @@
       targetEl.style.top = `${state.targetY}px`;
     }
 
-    function keepOutOfUi(x, y) {
-      let point = { x, y };
+    function placeCamera() {
+      const scaledWidth = WORLD_WIDTH * state.zoom;
+      const scaledHeight = WORLD_HEIGHT * state.zoom;
+      const viewWidth = window.innerWidth;
+      const viewHeight = window.innerHeight;
 
-      getBlockedRects().forEach((rect) => {
-        if (!isPointInRect(point.x, point.y, rect)) {
-          return;
-        }
+      state.cameraX = scaledWidth <= viewWidth
+        ? (viewWidth - scaledWidth) / 2
+        : clamp(viewWidth / 2 - state.x * state.zoom, viewWidth - scaledWidth, 0);
+      state.cameraY = scaledHeight <= viewHeight
+        ? (viewHeight - scaledHeight) / 2
+        : clamp(viewHeight / 2 - state.y * state.zoom, viewHeight - scaledHeight, 0);
 
-        const exits = [
-          { x: rect.left, y: point.y, distance: Math.abs(point.x - rect.left) },
-          { x: rect.right, y: point.y, distance: Math.abs(point.x - rect.right) },
-          { x: point.x, y: rect.top, distance: Math.abs(point.y - rect.top) },
-          { x: point.x, y: rect.bottom, distance: Math.abs(point.y - rect.bottom) }
-        ];
-        exits.sort((a, b) => a.distance - b.distance);
-        point = {
-          x: clampAllowedX(exits[0].x),
-          y: clampAllowedY(exits[0].y)
-        };
+      world.style.transform = `translate(${state.cameraX}px, ${state.cameraY}px) scale(${state.zoom})`;
+    }
+
+    function screenToWorld(screenX, screenY) {
+      return {
+        x: (screenX - state.cameraX) / state.zoom,
+        y: (screenY - state.cameraY) / state.zoom
+      };
+    }
+
+    function worldToScreen(worldX, worldY) {
+      return {
+        x: state.cameraX + worldX * state.zoom,
+        y: state.cameraY + worldY * state.zoom
+      };
+    }
+
+    function isUiBlocked(worldX, worldY) {
+      const screenPoint = worldToScreen(worldX, worldY);
+      return getBlockedRects().some((rect) => {
+        return screenPoint.x >= rect.left && screenPoint.x <= rect.right && screenPoint.y >= rect.top && screenPoint.y <= rect.bottom;
       });
-
-      return point;
-    }
-
-    function isUiBlocked(x, y) {
-      return getBlockedRects().some((rect) => isPointInRect(x, y, rect));
-    }
-
-    function isPointInRect(x, y, rect) {
-      return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
     }
 
     function getBlockedRects() {
-      return [readout, quickNav].map((element) => {
+      return [readout, quickNav, zoomControls].map((element) => {
         const rect = element.getBoundingClientRect();
-        const padding = getPlayerRadius() + 8;
+        const padding = getPlayerRadius() * state.zoom + 8;
         return {
           left: rect.left - padding,
           right: rect.right + padding,
@@ -414,12 +502,16 @@
       return player.getBoundingClientRect().width / 2;
     }
 
-    function clampAllowedX(value) {
-      return clamp(value, 20, window.innerWidth - 20);
+    function clampWorldX(value) {
+      return clamp(value, 24, WORLD_WIDTH - 24);
     }
 
-    function clampAllowedY(value) {
-      return clamp(value, 20, window.innerHeight - 20);
+    function clampWorldY(value) {
+      return clamp(value, 24, WORLD_HEIGHT - 24);
+    }
+
+    function roundZoom(value) {
+      return Math.round(value * 100) / 100;
     }
 
     function clamp(value, min, max) {

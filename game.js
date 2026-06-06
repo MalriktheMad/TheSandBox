@@ -2,13 +2,14 @@ const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
 const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
-const DILLY_WIDTH = 760;
-const DILLY_HEIGHT = 560;
+const DILLY_WIDTH = 880;
+const DILLY_HEIGHT = 640;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
 const PATH_GRID_SIZE = 32;
 const PATH_SEARCH_LIMIT = 3000;
+const TRANSITION_COOLDOWN = 0.45;
 const BLOCKED_TERRAIN = [
   { left: 0, top: 585, right: 210, bottom: 860 },
   { left: 0, top: 860, right: 132, bottom: 965 },
@@ -33,14 +34,14 @@ const LAB_BLOCKED_TERRAIN = [
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
   { name: "old-dilly", left: 226, top: 142, right: 288, bottom: 222 },
-  { name: "liz-art-corner", left: 512, top: 124, right: 700, bottom: 262 },
-  { name: "liz", left: 452, top: 162, right: 516, bottom: 238 },
-  { name: "greenhouse-sofa", left: 284, top: 294, right: 476, bottom: 404 },
-  { name: "left-plant-wall", left: 8, top: 224, right: 108, bottom: 540 },
-  { name: "right-plant-wall", left: 652, top: 342, right: 752, bottom: 540 },
-  { name: "plant-cluster-one", left: 282, top: 108, right: 374, bottom: 214 },
-  { name: "plant-cluster-two", left: 420, top: 320, right: 520, bottom: 426 },
-  { name: "plant-cluster-three", left: 120, top: 380, right: 218, bottom: 488 }
+  { name: "liz-art-corner", left: 618, top: 116, right: 826, bottom: 274 },
+  { name: "liz", left: 560, top: 162, right: 624, bottom: 238 },
+  { name: "greenhouse-sofa", left: 332, top: 354, right: 524, bottom: 464 },
+  { name: "left-plant-wall", left: 8, top: 224, right: 108, bottom: 604 },
+  { name: "right-plant-wall", left: 764, top: 430, right: 862, bottom: 604 },
+  { name: "plant-cluster-one", left: 302, top: 108, right: 394, bottom: 214 },
+  { name: "plant-cluster-two", left: 560, top: 382, right: 660, bottom: 488 },
+  { name: "plant-cluster-three", left: 132, top: 432, right: 230, bottom: 536 }
 ];
 
 const stage = document.getElementById("stage");
@@ -68,7 +69,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 386, top: 214, right: 474, bottom: 326, to: "dilly", entryX: 696, entryY: 296 },
+      { left: 378, top: 204, right: 498, bottom: 344, to: "dilly", entryX: 800, entryY: 320 },
       { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
@@ -91,7 +92,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 688, top: 252, right: 750, bottom: 336, to: "outside", entryX: 426, entryY: 304 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 506, entryY: 306 }
     ]
   }
 };
@@ -107,6 +108,7 @@ const state = {
   zoom: 1,
   cameraX: 0,
   cameraY: 0,
+  transitionCooldown: 0,
   lastTime: performance.now()
 };
 
@@ -176,6 +178,7 @@ function changeZoom(amount) {
 function tick(now) {
   const delta = Math.min((now - state.lastTime) / 1000, 0.05);
   state.lastTime = now;
+  state.transitionCooldown = Math.max(0, state.transitionCooldown - delta);
 
   if (state.path.length > 0) {
     followPath(delta);
@@ -199,6 +202,7 @@ function followPath(delta) {
     state.path.shift();
     placePlayer();
     placeCamera();
+    enterTransitionAtCurrentPosition();
     return;
   }
 
@@ -206,7 +210,7 @@ function followPath(delta) {
   const nextY = state.y + (dy / distance) * step;
   const transition = getTransition(nextX, nextY);
 
-  if (transition) {
+  if (transition && state.transitionCooldown === 0) {
     enterArea(transition.to, transition.entryX, transition.entryY);
   } else if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
     state.path = [];
@@ -219,6 +223,14 @@ function followPath(delta) {
     state.y = nextY;
     placePlayer();
     placeCamera();
+  }
+}
+
+function enterTransitionAtCurrentPosition() {
+  const transition = getTransition(state.x, state.y);
+
+  if (transition && state.transitionCooldown === 0) {
+    enterArea(transition.to, transition.entryX, transition.entryY);
   }
 }
 
@@ -300,6 +312,7 @@ function enterArea(areaName, x, y) {
   state.targetX = x;
   state.targetY = y;
   state.path = [];
+  state.transitionCooldown = TRANSITION_COOLDOWN;
 
   const nextArea = getActiveArea();
   nextArea.element.hidden = false;
@@ -339,7 +352,7 @@ function findPath(startX, startY, endX, endY) {
     }
 
     if (current.key === end.key) {
-      return simplifyPath(buildWaypointPath(current, endX, endY));
+      return simplifyPath(buildWaypointPath(current, endX, endY)).slice(1);
     }
 
     closed.add(current.key);

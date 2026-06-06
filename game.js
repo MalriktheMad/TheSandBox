@@ -2,6 +2,8 @@ const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
 const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
+const DILLY_WIDTH = 760;
+const DILLY_HEIGHT = 560;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
@@ -24,6 +26,18 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "empty-wizard-chair", left: 424, top: 34, right: 498, bottom: 146 },
   { name: "wing-master-cricket", left: 752, top: 78, right: 822, bottom: 174 }
 ];
+const DILLY_BLOCKED_TERRAIN = [
+  { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
+  { name: "old-dilly", left: 226, top: 142, right: 288, bottom: 222 },
+  { name: "liz-art-corner", left: 512, top: 124, right: 700, bottom: 262 },
+  { name: "liz", left: 452, top: 162, right: 516, bottom: 238 },
+  { name: "greenhouse-sofa", left: 284, top: 294, right: 476, bottom: 404 },
+  { name: "left-plant-wall", left: 8, top: 224, right: 108, bottom: 540 },
+  { name: "right-plant-wall", left: 652, top: 224, right: 752, bottom: 540 },
+  { name: "plant-cluster-one", left: 282, top: 108, right: 374, bottom: 214 },
+  { name: "plant-cluster-two", left: 420, top: 320, right: 520, bottom: 426 },
+  { name: "plant-cluster-three", left: 120, top: 380, right: 218, bottom: 488 }
+];
 
 const stage = document.getElementById("stage");
 const world = document.getElementById("world");
@@ -32,6 +46,9 @@ const targetEl = document.getElementById("target");
 const labInterior = document.getElementById("lab-interior");
 const interiorPlayer = document.getElementById("interior-player");
 const interiorTarget = document.getElementById("interior-target");
+const dillyInterior = document.getElementById("dilly-interior");
+const dillyPlayer = document.getElementById("dilly-player");
+const dillyTarget = document.getElementById("dilly-target");
 const readout = document.getElementById("readout");
 const quickNav = document.getElementById("quick-nav");
 const zoomControls = document.getElementById("zoom-controls");
@@ -47,6 +64,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
+      { left: 390, top: 224, right: 462, bottom: 292, to: "dilly", entryX: 380, entryY: 466 },
       { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
@@ -59,6 +77,17 @@ const AREAS = {
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
       { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 1354, entryY: 302 }
+    ]
+  },
+  dilly: {
+    width: DILLY_WIDTH,
+    height: DILLY_HEIGHT,
+    element: dillyInterior,
+    player: dillyPlayer,
+    target: dillyTarget,
+    blocked: DILLY_BLOCKED_TERRAIN,
+    transitions: [
+      { left: 346, top: 474, right: 414, bottom: 550, to: "outside", entryX: 426, entryY: 304 }
     ]
   }
 };

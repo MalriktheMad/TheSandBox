@@ -1,3 +1,4 @@
+.pixel-bird,
 .wing-master-cricket,
 .old-dilly-npc,
 .liz-npc {
@@ -5,6 +6,15 @@
   background-repeat: no-repeat;
   background-size: contain;
   image-rendering: pixelated;
+}
+
+.pixel-bird {
+  left: 4px;
+  top: 4px;
+  width: 32px;
+  height: 36px;
+  background-image: url("assets/sprites/little-wing.svg");
+  box-shadow: none;
 }
 
 .wing-master-cricket {

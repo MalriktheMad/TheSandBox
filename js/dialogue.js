@@ -19,7 +19,7 @@ const dialogueLines = [
   {
     speaker: "Wing Master Cricket",
     portrait: "assets/portraits/wing-master.svg",
-    text: "The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for me i put a lot  of work into it."
+    text: "The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it."
   },
   {
     speaker: "Little Wing",

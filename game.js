@@ -29,7 +29,7 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "left-bird-cage", left: 74, top: 462, right: 170, bottom: 586 },
   { name: "right-bird-cage", left: 164, top: 462, right: 260, bottom: 586 },
   { name: "empty-wizard-chair", left: 424, top: 34, right: 498, bottom: 146 },
-  { name: "wing-master-cricket", left: 752, top: 78, right: 822, bottom: 174 }
+  { name: "wing-master-cricket", left: 322, top: 178, right: 438, bottom: 280 }
 ];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },

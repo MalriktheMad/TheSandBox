@@ -1,0 +1,91 @@
+.lab-interior {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 640px;
+  height: 420px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(124, 60, 255, 0.24), transparent 26%),
+    linear-gradient(180deg, #141014 0%, #09080c 100%);
+  border: 8px solid #050508;
+  box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.06);
+  will-change: transform;
+}
+
+.lab-floor,
+.lab-rug,
+.lab-bench,
+.lab-core,
+.lab-exit {
+  position: absolute;
+  pointer-events: none;
+}
+
+.lab-floor {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(247, 244, 255, 0.08) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(247, 244, 255, 0.08) 2px, transparent 2px),
+    linear-gradient(135deg, rgba(124, 60, 255, 0.08), transparent 42%);
+  background-size: 48px 48px, 48px 48px, auto;
+}
+
+.lab-rug {
+  left: 224px;
+  bottom: 42px;
+  width: 192px;
+  height: 74px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(90deg, rgba(248, 213, 107, 0.4) 0 10px, transparent 10px 22px),
+    linear-gradient(135deg, rgba(124, 60, 255, 0.78), rgba(27, 111, 214, 0.62));
+  background-size: 32px 100%, auto;
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+.lab-bench {
+  width: 148px;
+  height: 58px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(90deg, rgba(247, 244, 255, 0.1), transparent 40%),
+    repeating-linear-gradient(90deg, #2e1b10 0 18px, #5c3a21 18px 34px);
+  box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.48);
+}
+
+.lab-bench.one {
+  left: 70px;
+  top: 82px;
+}
+
+.lab-bench.two {
+  right: 70px;
+  top: 82px;
+}
+
+.lab-core {
+  left: 282px;
+  top: 114px;
+  width: 76px;
+  height: 92px;
+  border: 4px solid #050508;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(247, 244, 255, 0.85) 0 10px, rgba(124, 60, 255, 0.72) 11px 24px, transparent 25px),
+    linear-gradient(180deg, #28180f, #0d0806);
+  box-shadow: 0 0 26px rgba(124, 60, 255, 0.72), 8px 8px 0 rgba(0, 0, 0, 0.45);
+}
+
+.lab-exit {
+  left: 292px;
+  bottom: 0;
+  width: 56px;
+  height: 46px;
+  border: 4px solid #050508;
+  border-bottom: 0;
+  background:
+    linear-gradient(90deg, transparent 0 22px, rgba(248, 213, 107, 0.52) 22px 30px, transparent 30px),
+    linear-gradient(180deg, #2b1a10, #0d0806);
+  box-shadow: 0 0 18px rgba(248, 213, 107, 0.22);
+}

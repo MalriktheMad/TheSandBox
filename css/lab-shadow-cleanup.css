@@ -1,4 +1,4 @@
-.lab {
+﻿.lab {
   box-shadow: 0 0 30px rgba(124, 60, 255, 0.26);
 }
 
@@ -38,7 +38,7 @@
   left: 50%;
   bottom: 1px;
   z-index: 0;
-  width: 28px;
+  width: 30px;
   height: 8px;
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.36);
@@ -47,7 +47,12 @@
 }
 
 .pixel-bird {
+  left: -9px;
+  top: 0;
   z-index: 1;
+  width: 58px;
+  height: 40px;
+  background-position: center bottom;
 }
 
 .wing-master-cricket {

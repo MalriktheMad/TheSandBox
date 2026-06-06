@@ -2,8 +2,8 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 760px;
-  height: 560px;
+  width: 880px;
+  height: 640px;
   overflow: hidden;
   transform-origin: 0 0;
   background:
@@ -25,7 +25,8 @@
 .plant-wall,
 .plant-cluster,
 .hanging-planter,
-.dilly-exit {
+.dilly-exit,
+.dilly-walkway {
   position: absolute;
   pointer-events: none;
 }
@@ -39,17 +40,33 @@
   background-size: 48px 48px, 48px 48px, auto;
 }
 
+.dilly-floor::after {
+  content: "";
+  position: absolute;
+  right: 22px;
+  top: 248px;
+  width: 190px;
+  height: 150px;
+  border: 4px solid rgba(6, 16, 11, 0.72);
+  border-right: 0;
+  background:
+    linear-gradient(90deg, rgba(236, 226, 188, 0.22), transparent 72%),
+    repeating-linear-gradient(90deg, rgba(122, 82, 48, 0.62) 0 24px, rgba(59, 36, 20, 0.5) 24px 30px);
+  box-shadow: inset 0 0 0 5px rgba(236, 226, 188, 0.05), 0 0 20px rgba(116, 195, 101, 0.12);
+}
+
 .dilly-canopy-light {
   left: 80px;
   top: 22px;
-  width: 600px;
+  width: 720px;
   height: 92px;
   background:
     radial-gradient(circle at 40px 34px, rgba(116, 195, 101, 0.58) 0 22px, transparent 23px),
     radial-gradient(circle at 132px 16px, rgba(49, 139, 70, 0.6) 0 28px, transparent 29px),
     radial-gradient(circle at 262px 28px, rgba(91, 177, 78, 0.48) 0 34px, transparent 35px),
     radial-gradient(circle at 418px 20px, rgba(42, 122, 60, 0.55) 0 30px, transparent 31px),
-    radial-gradient(circle at 540px 42px, rgba(116, 195, 101, 0.48) 0 28px, transparent 29px);
+    radial-gradient(circle at 540px 42px, rgba(116, 195, 101, 0.48) 0 28px, transparent 29px),
+    radial-gradient(circle at 654px 34px, rgba(49, 139, 70, 0.42) 0 24px, transparent 25px);
   filter: drop-shadow(0 12px 0 rgba(0, 0, 0, 0.22));
 }
 
@@ -144,7 +161,7 @@
 }
 
 .liz-npc {
-  right: 258px;
+  right: 298px;
   top: 174px;
   width: 40px;
   height: 52px;
@@ -160,8 +177,8 @@
 }
 
 .greenhouse-sofa {
-  left: 292px;
-  top: 328px;
+  left: 340px;
+  top: 386px;
   width: 176px;
   height: 66px;
   border: 4px solid #06100b;
@@ -197,11 +214,12 @@
 .plant-wall.left {
   left: 14px;
   top: 232px;
+  height: 372px;
 }
 
 .plant-wall.right {
   right: 14px;
-  top: 348px;
+  top: 430px;
   height: 184px;
   transform: scaleX(-1);
 }
@@ -222,18 +240,18 @@
 }
 
 .plant-cluster.one {
-  left: 290px;
+  left: 310px;
   top: 116px;
 }
 
 .plant-cluster.two {
-  right: 256px;
-  top: 328px;
+  right: 250px;
+  top: 390px;
 }
 
 .plant-cluster.three {
-  left: 128px;
-  top: 388px;
+  left: 140px;
+  top: 440px;
 }
 
 .hanging-planter {
@@ -263,19 +281,19 @@
 }
 
 .hanging-planter.two {
-  right: 222px;
+  right: 268px;
   top: 58px;
 }
 
 .dilly-exit {
   right: 0;
-  top: 268px;
-  width: 46px;
-  height: 56px;
+  top: 284px;
+  width: 62px;
+  height: 84px;
   border: 4px solid #06100b;
   border-right: 0;
   background:
-    linear-gradient(180deg, transparent 0 22px, rgba(236, 226, 188, 0.52) 22px 30px, transparent 30px),
+    linear-gradient(180deg, transparent 0 34px, rgba(236, 226, 188, 0.52) 34px 44px, transparent 44px),
     linear-gradient(90deg, #5c3a21, #25160d);
   box-shadow: 0 0 16px rgba(116, 195, 101, 0.22);
 }

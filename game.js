@@ -14,7 +14,11 @@ const BLOCKED_TERRAIN = [
 const LAB_BLOCKED_TERRAIN = [
   { name: "left-bench", left: 64, top: 74, right: 226, bottom: 154 },
   { name: "right-bench", left: 414, top: 74, right: 576, bottom: 154 },
-  { name: "lab-core", left: 274, top: 106, right: 366, bottom: 218 }
+  { name: "lab-core", left: 274, top: 106, right: 366, bottom: 218 },
+  { name: "weird-console", left: 248, top: 198, right: 392, bottom: 282 },
+  { name: "left-bird-cage", left: 106, top: 184, right: 192, bottom: 290 },
+  { name: "right-bird-cage", left: 448, top: 184, right: 534, bottom: 290 },
+  { name: "empty-wizard-chair", left: 284, top: 24, right: 358, bottom: 128 }
 ];
 
 const stage = document.getElementById("stage");

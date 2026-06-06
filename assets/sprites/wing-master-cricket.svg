@@ -24,7 +24,7 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:zoom="11.208333"
-     inkscape:cx="53.665428"
+     inkscape:cx="53.665429"
      inkscape:cy="28.862454"
      inkscape:window-width="1920"
      inkscape:window-height="1009"
@@ -640,4 +640,59 @@
      fill="#9f2639"
      id="rect51-9-2"
      style="stroke-width:1.8171" />
+  <rect
+     x="29.933084"
+     y="27.315985"
+     width="35.390335"
+     height="13.36803"
+     fill="#1b6f36"
+     id="rect46-9"
+     style="stroke-width:3.84504" />
+  <rect
+     x="28.69145"
+     y="25.828997"
+     width="24.148697"
+     height="4.7137542"
+     fill="#1b6f36"
+     id="rect46-9-2"
+     style="fill:#2839a9;fill-opacity:1;stroke-width:1.88605" />
+  <rect
+     x="14.118959"
+     y="44.468403"
+     width="33.018585"
+     height="4"
+     fill="#9f2639"
+     id="rect51-9-2-2"
+     style="stroke-width:1.8171" />
+  <rect
+     x="29.018587"
+     y="32.018589"
+     width="34.58736"
+     height="11.405204"
+     fill="#1b6f36"
+     id="rect46-9-8"
+     style="stroke-width:3.51103" />
+  <rect
+     x="25.858736"
+     y="29.070633"
+     width="19.241634"
+     height="4.7137542"
+     fill="#1b6f36"
+     id="rect46-9-2-1"
+     style="fill:#2839a9;fill-opacity:1;stroke-width:1.68356" />
+  <rect
+     x="22.029739"
+     y="33.732342"
+     width="17.10037"
+     height="3.1078062"
+     fill="#1b6f36"
+     id="rect46-9-2-11"
+     style="fill:#2839a9;fill-opacity:1;stroke-width:1.2887" />
+  <rect
+     x="24.390335"
+     y="36.736061"
+     width="8"
+     height="4"
+     fill="#1b6f36"
+     id="rect46-2" />
 </svg>

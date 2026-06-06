@@ -18,7 +18,12 @@
 .lab-rug,
 .lab-bench,
 .lab-core,
-.lab-exit {
+.lab-exit,
+.lab-console,
+.lab-candle,
+.bird-cage,
+.wizard-chair,
+.lab-wall-note {
   position: absolute;
   pointer-events: none;
 }
@@ -65,6 +70,66 @@
   top: 82px;
 }
 
+.lab-note,
+.lab-vial,
+.lab-jar {
+  position: absolute;
+  pointer-events: none;
+}
+
+.lab-note {
+  width: 32px;
+  height: 22px;
+  border: 3px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 7px, rgba(5, 5, 8, 0.42) 7px 10px, transparent 10px),
+    linear-gradient(180deg, #ede3bd, #ba9f65);
+  transform: rotate(-7deg);
+}
+
+.lab-note.one {
+  left: 18px;
+  top: 14px;
+}
+
+.lab-note.two {
+  right: 18px;
+  top: 14px;
+  transform: rotate(8deg);
+}
+
+.lab-vial {
+  bottom: 11px;
+  width: 14px;
+  height: 26px;
+  border: 3px solid #050508;
+  border-top-width: 6px;
+  box-shadow: 0 0 12px rgba(124, 60, 255, 0.38);
+}
+
+.lab-vial.purple {
+  left: 74px;
+  background: linear-gradient(180deg, transparent 0 8px, #b65cff 8px 100%);
+}
+
+.lab-vial.blue {
+  left: 98px;
+  background: linear-gradient(180deg, transparent 0 10px, #42a5ff 10px 100%);
+}
+
+.lab-jar {
+  left: 58px;
+  bottom: 11px;
+  width: 24px;
+  height: 30px;
+  border: 3px solid #050508;
+  border-top-width: 7px;
+  background:
+    radial-gradient(circle at 50% 70%, rgba(248, 213, 107, 0.9) 0 5px, transparent 6px),
+    linear-gradient(180deg, rgba(247, 244, 255, 0.22), rgba(124, 60, 255, 0.32));
+  box-shadow: 0 0 14px rgba(248, 213, 107, 0.22);
+}
+
 .lab-core {
   left: 282px;
   top: 114px;
@@ -75,6 +140,172 @@
     radial-gradient(circle at 50% 38%, rgba(247, 244, 255, 0.85) 0 10px, rgba(124, 60, 255, 0.72) 11px 24px, transparent 25px),
     linear-gradient(180deg, #28180f, #0d0806);
   box-shadow: 0 0 26px rgba(124, 60, 255, 0.72), 8px 8px 0 rgba(0, 0, 0, 0.45);
+}
+
+.lab-core::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: 14px;
+  width: 32px;
+  height: 18px;
+  border: 3px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 7px, #42a5ff 7px 12px, transparent 12px 20px, #b65cff 20px 25px, transparent 25px),
+    #151015;
+}
+
+.lab-console {
+  left: 256px;
+  top: 226px;
+  width: 128px;
+  height: 48px;
+  border: 4px solid #050508;
+  background:
+    radial-gradient(circle at 26px 18px, #f8d56b 0 5px, transparent 6px),
+    radial-gradient(circle at 52px 20px, #42a5ff 0 5px, transparent 6px),
+    radial-gradient(circle at 78px 18px, #b65cff 0 5px, transparent 6px),
+    linear-gradient(180deg, #2a2630, #0c0a10);
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.48), 0 0 20px rgba(27, 111, 214, 0.2);
+}
+
+.lab-console::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: -28px;
+  height: 28px;
+  border: 3px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 12px, rgba(248, 213, 107, 0.75) 12px 17px, transparent 17px),
+    linear-gradient(180deg, #19121e, #060508);
+}
+
+.lab-candle {
+  width: 18px;
+  height: 32px;
+  border: 3px solid #050508;
+  background: linear-gradient(180deg, #ede3bd, #947d54);
+  box-shadow: 0 0 20px rgba(248, 213, 107, 0.5);
+}
+
+.lab-candle::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: -16px;
+  width: 8px;
+  height: 14px;
+  background:
+    radial-gradient(circle at 50% 72%, #f8d56b 0 4px, #b65cff 5px 8px, transparent 9px);
+}
+
+.lab-candle.tall {
+  left: 406px;
+  top: 204px;
+}
+
+.lab-candle.small {
+  right: 62px;
+  top: -22px;
+  transform: scale(0.72);
+  transform-origin: bottom center;
+}
+
+.bird-cage {
+  width: 66px;
+  height: 78px;
+  border: 4px solid #050508;
+  border-radius: 24px 24px 6px 6px;
+  background:
+    linear-gradient(90deg, transparent 0 8px, rgba(247, 244, 255, 0.52) 8px 12px, transparent 12px 22px),
+    linear-gradient(90deg, transparent 0 30px, rgba(247, 244, 255, 0.52) 30px 34px, transparent 34px),
+    linear-gradient(90deg, transparent 0 48px, rgba(247, 244, 255, 0.52) 48px 52px, transparent 52px),
+    linear-gradient(180deg, rgba(124, 60, 255, 0.18), rgba(5, 5, 8, 0.18));
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.42), 0 0 16px rgba(124, 60, 255, 0.2);
+}
+
+.bird-cage::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  top: -15px;
+  width: 10px;
+  height: 18px;
+  border: 3px solid #050508;
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.bird-cage::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  bottom: 18px;
+  height: 5px;
+  background: #050508;
+  box-shadow: 0 14px 0 rgba(5, 5, 8, 0.88);
+}
+
+.bird-cage.left {
+  left: 116px;
+  top: 202px;
+}
+
+.bird-cage.right {
+  right: 116px;
+  top: 202px;
+}
+
+.wizard-chair {
+  left: 292px;
+  top: 42px;
+  width: 58px;
+  height: 64px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 9px, rgba(248, 213, 107, 0.24) 9px 13px, transparent 13px 45px, rgba(248, 213, 107, 0.24) 45px 49px, transparent 49px),
+    linear-gradient(180deg, #3b2414, #1b100a);
+  box-shadow: 7px 8px 0 rgba(0, 0, 0, 0.48);
+}
+
+.wizard-chair::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: -24px;
+  width: 32px;
+  height: 24px;
+  border: 4px solid #050508;
+  border-bottom: 0;
+  background:
+    radial-gradient(circle at 50% 8px, rgba(124, 60, 255, 0.7) 0 5px, transparent 6px),
+    #24130c;
+}
+
+.wizard-chair::after {
+  content: "";
+  position: absolute;
+  left: 9px;
+  right: 9px;
+  bottom: -18px;
+  height: 18px;
+  background:
+    linear-gradient(90deg, #050508 0 8px, transparent 8px 32px, #050508 32px 40px);
+}
+
+.lab-wall-note {
+  left: 236px;
+  top: 22px;
+  width: 168px;
+  height: 20px;
+  border: 3px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 18px, rgba(124, 60, 255, 0.42) 18px 24px, transparent 24px 42px),
+    linear-gradient(180deg, #ece2bc, #8f764a);
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.38);
 }
 
 .lab-exit {

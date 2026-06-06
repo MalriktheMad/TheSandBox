@@ -7,6 +7,8 @@ const DILLY_HEIGHT = 560;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
+const PATH_GRID_SIZE = 32;
+const PATH_SEARCH_LIMIT = 3000;
 const BLOCKED_TERRAIN = [
   { left: 0, top: 585, right: 210, bottom: 860 },
   { left: 0, top: 860, right: 132, bottom: 965 },
@@ -100,6 +102,7 @@ const state = {
   y: WORLD_HEIGHT / 2,
   targetX: WORLD_WIDTH / 2,
   targetY: WORLD_HEIGHT / 2,
+  path: [],
   speed: 260,
   zoom: 1,
   cameraX: 0,
@@ -131,6 +134,7 @@ window.addEventListener("resize", () => {
   state.y = clampWorldY(state.y);
   state.targetX = clampWorldX(state.targetX);
   state.targetY = clampWorldY(state.targetY);
+  state.path = [];
   placePlayer();
   placeTarget();
   placeCamera();
@@ -146,8 +150,20 @@ function setTarget(event) {
   }
 
   const point = screenToWorld(event.clientX, event.clientY);
-  state.targetX = clampWorldX(point.x);
-  state.targetY = clampWorldY(point.y);
+  const requested = {
+    x: clampWorldX(point.x),
+    y: clampWorldY(point.y)
+  };
+  const destination = findNearestWalkablePoint(requested.x, requested.y);
+
+  if (!destination) {
+    state.path = [];
+    return;
+  }
+
+  state.targetX = destination.x;
+  state.targetY = destination.y;
+  state.path = findPath(state.x, state.y, destination.x, destination.y);
   getActiveArea().target.classList.add("visible");
   placeTarget();
 }
@@ -161,35 +177,49 @@ function tick(now) {
   const delta = Math.min((now - state.lastTime) / 1000, 0.05);
   state.lastTime = now;
 
-  const dx = state.targetX - state.x;
-  const dy = state.targetY - state.y;
-  const distance = Math.hypot(dx, dy);
-  const step = state.speed * delta;
-
-  if (distance > 1) {
-    const move = Math.min(step, distance);
-    const nextX = state.x + (dx / distance) * move;
-    const nextY = state.y + (dy / distance) * move;
-    const transition = getTransition(nextX, nextY);
-
-    if (transition) {
-      enterArea(transition.to, transition.entryX, transition.entryY);
-    } else if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
-      state.targetX = state.x;
-      state.targetY = state.y;
-      getActiveArea().target.classList.remove("visible");
-    } else {
-      getActiveArea().player.classList.toggle("facing-left", dx < -1);
-      state.x = nextX;
-      state.y = nextY;
-      placePlayer();
-      placeCamera();
-    }
+  if (state.path.length > 0) {
+    followPath(delta);
   } else {
     getActiveArea().target.classList.remove("visible");
   }
 
   requestAnimationFrame(tick);
+}
+
+function followPath(delta) {
+  const waypoint = state.path[0];
+  const dx = waypoint.x - state.x;
+  const dy = waypoint.y - state.y;
+  const distance = Math.hypot(dx, dy);
+  const step = state.speed * delta;
+
+  if (distance <= Math.max(1, step)) {
+    state.x = waypoint.x;
+    state.y = waypoint.y;
+    state.path.shift();
+    placePlayer();
+    placeCamera();
+    return;
+  }
+
+  const nextX = state.x + (dx / distance) * step;
+  const nextY = state.y + (dy / distance) * step;
+  const transition = getTransition(nextX, nextY);
+
+  if (transition) {
+    enterArea(transition.to, transition.entryX, transition.entryY);
+  } else if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
+    state.path = [];
+    state.targetX = state.x;
+    state.targetY = state.y;
+    getActiveArea().target.classList.remove("visible");
+  } else {
+    getActiveArea().player.classList.toggle("facing-left", dx < -1);
+    state.x = nextX;
+    state.y = nextY;
+    placePlayer();
+    placeCamera();
+  }
 }
 
 function placePlayer() {
@@ -249,6 +279,10 @@ function isTerrainBlocked(worldX, worldY) {
   });
 }
 
+function isWalkablePoint(worldX, worldY) {
+  return !isTerrainBlocked(worldX, worldY) && worldX >= 24 && worldX <= getActiveArea().width - 24 && worldY >= 24 && worldY <= getActiveArea().height - 24;
+}
+
 function getTransition(worldX, worldY) {
   return getActiveArea().transitions.find((rect) => {
     return worldX >= rect.left && worldX <= rect.right && worldY >= rect.top && worldY <= rect.bottom;
@@ -265,6 +299,7 @@ function enterArea(areaName, x, y) {
   state.y = y;
   state.targetX = x;
   state.targetY = y;
+  state.path = [];
 
   const nextArea = getActiveArea();
   nextArea.element.hidden = false;
@@ -276,6 +311,220 @@ function enterArea(areaName, x, y) {
 
 function getActiveArea() {
   return AREAS[state.area];
+}
+
+function findPath(startX, startY, endX, endY) {
+  const start = findNearestWalkableCell(worldToCell(startX), worldToCell(startY));
+  const end = findNearestWalkableCell(worldToCell(endX), worldToCell(endY));
+
+  if (!start || !end) {
+    return [];
+  }
+
+  if (start.key === end.key) {
+    return [{ x: endX, y: endY }];
+  }
+
+  const open = [makePathNode(start.x, start.y, null, 0, getCellDistance(start, end))];
+  const best = new Map([[start.key, open[0]]]);
+  const closed = new Set();
+  let searched = 0;
+
+  while (open.length > 0 && searched < PATH_SEARCH_LIMIT) {
+    open.sort((a, b) => a.f - b.f);
+    const current = open.shift();
+
+    if (closed.has(current.key)) {
+      continue;
+    }
+
+    if (current.key === end.key) {
+      return simplifyPath(buildWaypointPath(current, endX, endY));
+    }
+
+    closed.add(current.key);
+    searched += 1;
+
+    getNeighbors(current).forEach((neighbor) => {
+      if (closed.has(neighbor.key) || !isWalkableCell(neighbor.x, neighbor.y)) {
+        return;
+      }
+
+      if (neighbor.diagonal && (!isWalkableCell(current.x + neighbor.dx, current.y) || !isWalkableCell(current.x, current.y + neighbor.dy))) {
+        return;
+      }
+
+      const moveCost = neighbor.diagonal ? Math.SQRT2 : 1;
+      const g = current.g + moveCost;
+      const previous = best.get(neighbor.key);
+
+      if (!previous || g < previous.g) {
+        const node = makePathNode(neighbor.x, neighbor.y, current, g, getCellDistance(neighbor, end));
+        best.set(neighbor.key, node);
+        open.push(node);
+      }
+    });
+  }
+
+  return [];
+}
+
+function buildWaypointPath(node, exactEndX, exactEndY) {
+  const path = [];
+  let current = node;
+
+  while (current) {
+    path.unshift(cellToWorld(current.x, current.y));
+    current = current.parent;
+  }
+
+  path.push({ x: exactEndX, y: exactEndY });
+  return path;
+}
+
+function simplifyPath(path) {
+  if (path.length <= 2) {
+    return path;
+  }
+
+  const simplified = [path[0]];
+  let anchorIndex = 0;
+
+  for (let index = 2; index < path.length; index += 1) {
+    if (!hasLineOfSight(path[anchorIndex], path[index])) {
+      simplified.push(path[index - 1]);
+      anchorIndex = index - 1;
+    }
+  }
+
+  simplified.push(path[path.length - 1]);
+  return simplified;
+}
+
+function hasLineOfSight(from, to) {
+  const distance = Math.hypot(to.x - from.x, to.y - from.y);
+  const samples = Math.max(1, Math.ceil(distance / (PATH_GRID_SIZE / 2)));
+
+  for (let index = 1; index <= samples; index += 1) {
+    const ratio = index / samples;
+    const x = from.x + (to.x - from.x) * ratio;
+    const y = from.y + (to.y - from.y) * ratio;
+
+    if (!isWalkablePoint(x, y)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function findNearestWalkablePoint(worldX, worldY) {
+  if (isWalkablePoint(worldX, worldY)) {
+    return { x: worldX, y: worldY };
+  }
+
+  const cell = findNearestWalkableCell(worldToCell(worldX), worldToCell(worldY));
+  return cell ? cellToWorld(cell.x, cell.y) : null;
+}
+
+function findNearestWalkableCell(startX, startY) {
+  const maxColumns = Math.ceil(getActiveArea().width / PATH_GRID_SIZE);
+  const maxRows = Math.ceil(getActiveArea().height / PATH_GRID_SIZE);
+  const originX = clamp(startX, 0, maxColumns - 1);
+  const originY = clamp(startY, 0, maxRows - 1);
+
+  if (isWalkableCell(originX, originY)) {
+    return makeCell(originX, originY);
+  }
+
+  const maxRadius = Math.max(maxColumns, maxRows);
+
+  for (let radius = 1; radius <= maxRadius; radius += 1) {
+    for (let y = originY - radius; y <= originY + radius; y += 1) {
+      for (let x = originX - radius; x <= originX + radius; x += 1) {
+        const onEdge = x === originX - radius || x === originX + radius || y === originY - radius || y === originY + radius;
+
+        if (onEdge && isWalkableCell(x, y)) {
+          return makeCell(x, y);
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+function getNeighbors(cell) {
+  const directions = [
+    { dx: 0, dy: -1 },
+    { dx: 1, dy: 0 },
+    { dx: 0, dy: 1 },
+    { dx: -1, dy: 0 },
+    { dx: 1, dy: -1, diagonal: true },
+    { dx: 1, dy: 1, diagonal: true },
+    { dx: -1, dy: 1, diagonal: true },
+    { dx: -1, dy: -1, diagonal: true }
+  ];
+
+  return directions.map((direction) => ({
+    x: cell.x + direction.dx,
+    y: cell.y + direction.dy,
+    dx: direction.dx,
+    dy: direction.dy,
+    diagonal: Boolean(direction.diagonal),
+    key: getCellKey(cell.x + direction.dx, cell.y + direction.dy)
+  }));
+}
+
+function isWalkableCell(cellX, cellY) {
+  const maxColumns = Math.ceil(getActiveArea().width / PATH_GRID_SIZE);
+  const maxRows = Math.ceil(getActiveArea().height / PATH_GRID_SIZE);
+
+  if (cellX < 0 || cellX >= maxColumns || cellY < 0 || cellY >= maxRows) {
+    return false;
+  }
+
+  const point = cellToWorld(cellX, cellY);
+  return isWalkablePoint(point.x, point.y);
+}
+
+function makePathNode(x, y, parent, g, h) {
+  return {
+    x,
+    y,
+    parent,
+    g,
+    h,
+    f: g + h,
+    key: getCellKey(x, y)
+  };
+}
+
+function makeCell(x, y) {
+  return {
+    x,
+    y,
+    key: getCellKey(x, y)
+  };
+}
+
+function getCellDistance(a, b) {
+  return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function worldToCell(value) {
+  return Math.floor(value / PATH_GRID_SIZE);
+}
+
+function cellToWorld(cellX, cellY) {
+  return {
+    x: clamp(cellX * PATH_GRID_SIZE + PATH_GRID_SIZE / 2, 24, getActiveArea().width - 24),
+    y: clamp(cellY * PATH_GRID_SIZE + PATH_GRID_SIZE / 2, 24, getActiveArea().height - 24)
+  };
+}
+
+function getCellKey(cellX, cellY) {
+  return `${cellX},${cellY}`;
 }
 
 function getBlockedRects() {

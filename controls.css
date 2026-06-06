@@ -1,0 +1,17 @@
+html,
+body,
+.stage {
+  overscroll-behavior: none;
+}
+
+.zoom-controls,
+.zoom-controls button {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.zoom-controls button {
+  appearance: none;
+}

@@ -69,7 +69,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 378, top: 204, right: 498, bottom: 344, to: "dilly", entryX: 800, entryY: 320 },
+      { left: 378, top: 204, right: 498, bottom: 344, to: "dilly", entryX: 748, entryY: 320 },
       { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
     ]
   },

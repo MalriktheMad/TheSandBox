@@ -27,6 +27,42 @@
   content: none;
 }
 
+.player,
+.wing-master-cricket {
+  filter: none;
+}
+
+.player::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 1px;
+  z-index: 0;
+  width: 28px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.36);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.pixel-bird {
+  z-index: 1;
+}
+
 .wing-master-cricket {
   pointer-events: auto;
+}
+
+.wing-master-cricket::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  bottom: -3px;
+  z-index: -1;
+  width: 60px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.32);
+  pointer-events: none;
 }

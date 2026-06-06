@@ -52,14 +52,8 @@
   line-height: 1.45;
 }
 
-
-
-.lab {
-  box-shadow: 0 0 30px rgba(124, 60, 255, 0.32);
-}
-
-.lab::after {
-  content: none;
+.wing-master-cricket {
+  pointer-events: auto;
 }
 
 @media (max-width: 560px) {
@@ -79,4 +73,3 @@
     font-size: 0.88rem;
   }
 }
-

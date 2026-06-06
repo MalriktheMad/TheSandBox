@@ -1,0 +1,32 @@
+﻿.lab {
+  box-shadow: 0 0 30px rgba(124, 60, 255, 0.26);
+}
+
+.lab::before,
+.lab::after,
+.lab-ground,
+.lab-ground::before,
+.lab-rug,
+.lab-bench,
+.lab-core,
+.lab-console,
+.codex-terminal,
+.lab-candle,
+.bird-cage,
+.wizard-chair,
+.lab-wall-note,
+.lab-exit,
+.lab-note,
+.lab-vial,
+.lab-jar {
+  box-shadow: none;
+  filter: none;
+}
+
+.lab::after {
+  content: none;
+}
+
+.wing-master-cricket {
+  pointer-events: auto;
+}

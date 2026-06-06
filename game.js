@@ -7,7 +7,9 @@ const BLOCKED_TERRAIN = [
   { left: 0, top: 585, right: 210, bottom: 860 },
   { left: 0, top: 860, right: 132, bottom: 965 },
   { name: "old-dilly-liz-house", left: 292, top: 116, right: 536, bottom: 350 },
-  { name: "lab-zero", left: 1248, top: 78, right: 1478, bottom: 266 }
+  { name: "lab-zero-left-wall", left: 1248, top: 78, right: 1327, bottom: 266 },
+  { name: "lab-zero-right-wall", left: 1407, top: 78, right: 1478, bottom: 266 },
+  { name: "lab-zero-back-wall", left: 1328, top: 78, right: 1406, bottom: 216 }
 ];
 const LAB_BLOCKED_TERRAIN = [
   { name: "left-bench", left: 64, top: 74, right: 226, bottom: 154 },
@@ -37,7 +39,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 1328, top: 224, right: 1386, bottom: 292, to: "lab", entryX: 320, entryY: 326 }
+      { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 320, entryY: 326 }
     ]
   },
   lab: {

@@ -2,12 +2,13 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 640px;
-  height: 420px;
+  width: 840px;
+  height: 560px;
   overflow: hidden;
   transform-origin: 0 0;
   background:
     radial-gradient(circle at 50% 34%, rgba(124, 60, 255, 0.24), transparent 26%),
+    radial-gradient(circle at 70% 62%, rgba(27, 111, 214, 0.14), transparent 24%),
     linear-gradient(180deg, #141014 0%, #09080c 100%);
   border: 8px solid #050508;
   box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.06);
@@ -20,9 +21,11 @@
 .lab-core,
 .lab-exit,
 .lab-console,
+.codex-terminal,
 .lab-candle,
 .bird-cage,
 .wizard-chair,
+.wing-master-cricket,
 .lab-wall-note {
   position: absolute;
   pointer-events: none;
@@ -38,8 +41,8 @@
 }
 
 .lab-rug {
-  left: 224px;
-  bottom: 42px;
+  left: 324px;
+  bottom: 58px;
   width: 192px;
   height: 74px;
   border: 4px solid #050508;
@@ -61,13 +64,13 @@
 }
 
 .lab-bench.one {
-  left: 70px;
-  top: 82px;
+  left: 88px;
+  top: 96px;
 }
 
 .lab-bench.two {
-  right: 70px;
-  top: 82px;
+  right: 88px;
+  top: 96px;
 }
 
 .lab-note,
@@ -131,8 +134,8 @@
 }
 
 .lab-core {
-  left: 282px;
-  top: 114px;
+  left: 382px;
+  top: 132px;
   width: 76px;
   height: 92px;
   border: 4px solid #050508;
@@ -156,8 +159,8 @@
 }
 
 .lab-console {
-  left: 256px;
-  top: 226px;
+  left: 356px;
+  top: 292px;
   width: 128px;
   height: 48px;
   border: 4px solid #050508;
@@ -182,6 +185,43 @@
     linear-gradient(180deg, #19121e, #060508);
 }
 
+.codex-terminal {
+  left: 82px;
+  top: 338px;
+  width: 142px;
+  height: 82px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 15px, rgba(66, 165, 255, 0.7) 15px 20px, transparent 20px 38px, rgba(182, 92, 255, 0.7) 38px 43px, transparent 43px),
+    linear-gradient(180deg, #171b24, #07080c);
+  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.45), 0 0 22px rgba(66, 165, 255, 0.18);
+}
+
+.codex-terminal::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: -42px;
+  width: 78px;
+  height: 36px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 12px, #42a5ff 12px 17px, transparent 17px 32px, #b65cff 32px 37px, transparent 37px),
+    #0b1018;
+  box-shadow: 0 0 18px rgba(66, 165, 255, 0.28);
+}
+
+.codex-terminal::after {
+  content: "";
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: 34px;
+  height: 12px;
+  background:
+    linear-gradient(90deg, #050508 0 5px, transparent 5px 12px, #050508 12px 17px, transparent 17px 24px, #050508 24px 29px);
+}
+
 .lab-candle {
   width: 18px;
   height: 32px;
@@ -202,8 +242,8 @@
 }
 
 .lab-candle.tall {
-  left: 406px;
-  top: 204px;
+  left: 506px;
+  top: 256px;
 }
 
 .lab-candle.small {
@@ -250,18 +290,18 @@
 }
 
 .bird-cage.left {
-  left: 116px;
-  top: 202px;
+  left: 160px;
+  top: 212px;
 }
 
 .bird-cage.right {
-  right: 116px;
-  top: 202px;
+  right: 160px;
+  top: 212px;
 }
 
 .wizard-chair {
-  left: 292px;
-  top: 42px;
+  left: 392px;
+  top: 54px;
   width: 58px;
   height: 64px;
   border: 4px solid #050508;
@@ -296,9 +336,51 @@
     linear-gradient(90deg, #050508 0 8px, transparent 8px 32px, #050508 32px 40px);
 }
 
+.wing-master-cricket {
+  left: 610px;
+  top: 358px;
+  width: 46px;
+  height: 56px;
+  background: transparent;
+  image-rendering: pixelated;
+  filter: drop-shadow(6px 8px 0 rgba(0, 0, 0, 0.42));
+  box-shadow:
+    16px 0 #050508, 24px 0 #050508,
+    8px 8px #050508, 16px 8px #8a6a2e, 24px 8px #c7a64c, 32px 8px #050508,
+    0 16px #050508, 8px 16px #3a2913, 16px 16px #d8bf62, 24px 16px #d8bf62, 32px 16px #3a2913, 40px 16px #050508,
+    8px 24px #050508, 16px 24px #6d4f21, 24px 24px #6d4f21, 32px 24px #050508,
+    12px 32px #050508, 20px 32px #2c5f3a, 28px 32px #050508,
+    8px 40px #050508, 16px 40px #2c5f3a, 24px 40px #2c5f3a, 32px 40px #050508,
+    0 48px #050508, 12px 48px #7c3cff, 28px 48px #42a5ff, 40px 48px #050508;
+}
+
+.wing-master-cricket::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -18px;
+  width: 36px;
+  height: 14px;
+  border: 3px solid #050508;
+  background:
+    linear-gradient(90deg, #7c3cff 0 9px, #050508 9px 13px, #f8d56b 13px 25px, #050508 25px 29px, #42a5ff 29px 100%);
+}
+
+.wing-master-cricket::after {
+  content: "";
+  position: absolute;
+  left: 58px;
+  top: -30px;
+  width: 82px;
+  height: 24px;
+  border: 3px solid #050508;
+  background: rgba(247, 244, 255, 0.9);
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.38);
+}
+
 .lab-wall-note {
-  left: 236px;
-  top: 22px;
+  left: 336px;
+  top: 24px;
   width: 168px;
   height: 20px;
   border: 3px solid #050508;
@@ -309,7 +391,7 @@
 }
 
 .lab-exit {
-  left: 292px;
+  left: 392px;
   bottom: 0;
   width: 56px;
   height: 46px;

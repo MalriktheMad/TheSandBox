@@ -9,18 +9,52 @@ const BLOCKED_TERRAIN = [
   { name: "old-dilly-liz-house", left: 292, top: 116, right: 536, bottom: 350 },
   { name: "lab-zero", left: 1248, top: 78, right: 1478, bottom: 266 }
 ];
+const LAB_BLOCKED_TERRAIN = [
+  { name: "left-bench", left: 64, top: 74, right: 226, bottom: 154 },
+  { name: "right-bench", left: 414, top: 74, right: 576, bottom: 154 },
+  { name: "lab-core", left: 274, top: 106, right: 366, bottom: 218 }
+];
 
 const stage = document.getElementById("stage");
 const world = document.getElementById("world");
 const player = document.getElementById("player");
 const targetEl = document.getElementById("target");
+const labInterior = document.getElementById("lab-interior");
+const interiorPlayer = document.getElementById("interior-player");
+const interiorTarget = document.getElementById("interior-target");
 const readout = document.getElementById("readout");
 const quickNav = document.getElementById("quick-nav");
 const zoomControls = document.getElementById("zoom-controls");
 const zoomIn = document.getElementById("zoom-in");
 const zoomOut = document.getElementById("zoom-out");
 
+const AREAS = {
+  outside: {
+    width: WORLD_WIDTH,
+    height: WORLD_HEIGHT,
+    element: world,
+    player,
+    target: targetEl,
+    blocked: BLOCKED_TERRAIN,
+    transitions: [
+      { left: 1328, top: 224, right: 1386, bottom: 292, to: "lab", entryX: 320, entryY: 326 }
+    ]
+  },
+  lab: {
+    width: 640,
+    height: 420,
+    element: labInterior,
+    player: interiorPlayer,
+    target: interiorTarget,
+    blocked: LAB_BLOCKED_TERRAIN,
+    transitions: [
+      { left: 286, top: 332, right: 354, bottom: 410, to: "outside", entryX: 1354, entryY: 302 }
+    ]
+  }
+};
+
 const state = {
+  area: "outside",
   x: WORLD_WIDTH / 2,
   y: WORLD_HEIGHT / 2,
   targetX: WORLD_WIDTH / 2,
@@ -73,7 +107,7 @@ function setTarget(event) {
   const point = screenToWorld(event.clientX, event.clientY);
   state.targetX = clampWorldX(point.x);
   state.targetY = clampWorldY(point.y);
-  targetEl.classList.add("visible");
+  getActiveArea().target.classList.add("visible");
   placeTarget();
 }
 
@@ -95,38 +129,44 @@ function tick(now) {
     const move = Math.min(step, distance);
     const nextX = state.x + (dx / distance) * move;
     const nextY = state.y + (dy / distance) * move;
+    const transition = getTransition(nextX, nextY);
 
-    if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
+    if (transition) {
+      enterArea(transition.to, transition.entryX, transition.entryY);
+    } else if (isUiBlocked(nextX, nextY) || isTerrainBlocked(nextX, nextY)) {
       state.targetX = state.x;
       state.targetY = state.y;
-      targetEl.classList.remove("visible");
+      getActiveArea().target.classList.remove("visible");
     } else {
-      player.classList.toggle("facing-left", dx < -1);
+      getActiveArea().player.classList.toggle("facing-left", dx < -1);
       state.x = nextX;
       state.y = nextY;
       placePlayer();
       placeCamera();
     }
   } else {
-    targetEl.classList.remove("visible");
+    getActiveArea().target.classList.remove("visible");
   }
 
   requestAnimationFrame(tick);
 }
 
 function placePlayer() {
-  player.style.left = `${state.x}px`;
-  player.style.top = `${state.y}px`;
+  const area = getActiveArea();
+  area.player.style.left = `${state.x}px`;
+  area.player.style.top = `${state.y}px`;
 }
 
 function placeTarget() {
-  targetEl.style.left = `${state.targetX}px`;
-  targetEl.style.top = `${state.targetY}px`;
+  const area = getActiveArea();
+  area.target.style.left = `${state.targetX}px`;
+  area.target.style.top = `${state.targetY}px`;
 }
 
 function placeCamera() {
-  const scaledWidth = WORLD_WIDTH * state.zoom;
-  const scaledHeight = WORLD_HEIGHT * state.zoom;
+  const area = getActiveArea();
+  const scaledWidth = area.width * state.zoom;
+  const scaledHeight = area.height * state.zoom;
   const viewWidth = window.innerWidth;
   const viewHeight = window.innerHeight;
 
@@ -137,7 +177,7 @@ function placeCamera() {
     ? (viewHeight - scaledHeight) / 2
     : clamp(viewHeight / 2 - state.y * state.zoom, viewHeight - scaledHeight, 0);
 
-  world.style.transform = `translate(${state.cameraX}px, ${state.cameraY}px) scale(${state.zoom})`;
+  area.element.style.transform = `translate(${state.cameraX}px, ${state.cameraY}px) scale(${state.zoom})`;
 }
 
 function screenToWorld(screenX, screenY) {
@@ -163,9 +203,38 @@ function isUiBlocked(worldX, worldY) {
 
 function isTerrainBlocked(worldX, worldY) {
   const radius = 18;
-  return BLOCKED_TERRAIN.some((rect) => {
+  return getActiveArea().blocked.some((rect) => {
     return worldX >= rect.left - radius && worldX <= rect.right + radius && worldY >= rect.top - radius && worldY <= rect.bottom + radius;
   });
+}
+
+function getTransition(worldX, worldY) {
+  return getActiveArea().transitions.find((rect) => {
+    return worldX >= rect.left && worldX <= rect.right && worldY >= rect.top && worldY <= rect.bottom;
+  });
+}
+
+function enterArea(areaName, x, y) {
+  const currentArea = getActiveArea();
+  currentArea.target.classList.remove("visible");
+  currentArea.element.hidden = true;
+
+  state.area = areaName;
+  state.x = x;
+  state.y = y;
+  state.targetX = x;
+  state.targetY = y;
+
+  const nextArea = getActiveArea();
+  nextArea.element.hidden = false;
+  nextArea.player.classList.remove("facing-left");
+  placePlayer();
+  placeTarget();
+  placeCamera();
+}
+
+function getActiveArea() {
+  return AREAS[state.area];
 }
 
 function getBlockedRects() {
@@ -186,11 +255,11 @@ function getPlayerRadius() {
 }
 
 function clampWorldX(value) {
-  return clamp(value, 24, WORLD_WIDTH - 24);
+  return clamp(value, 24, getActiveArea().width - 24);
 }
 
 function clampWorldY(value) {
-  return clamp(value, 24, WORLD_HEIGHT - 24);
+  return clamp(value, 24, getActiveArea().height - 24);
 }
 
 function roundZoom(value) {

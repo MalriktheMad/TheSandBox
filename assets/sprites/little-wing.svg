@@ -435,58 +435,51 @@
      style="stroke-width:0.724179" />
   <rect
      style="fill:#000000"
-     id="rect48"
-     width="13.323421"
-     height="0.23791821"
-     x="39.018589"
-     y="6.8996282" />
-  <rect
-     style="fill:#000000"
-     id="rect48-9"
-     width="13.323421"
-     height="0.23791821"
-     x="39.776951"
-     y="8.3085499" />
-  <rect
-     style="fill:#000000"
-     id="rect48-8"
-     width="13.323421"
-     height="0.23791821"
-     x="38.368031"
-     y="9.8327141" />
-  <rect
-     style="fill:#000000"
-     id="rect48-2"
-     width="13.323421"
-     height="0.23791821"
-     x="33.513012"
-     y="11.141264" />
-  <rect
-     style="fill:#000000"
-     id="rect48-5"
-     width="13.323421"
-     height="0.23791821"
-     x="32.657993"
-     y="12.498141" />
-  <rect
-     style="fill:#000000"
      id="rect48-1"
      width="9.7546482"
      height="0"
      x="31.92565"
      y="13.832713" />
-  <rect
-     style="fill:#000000"
-     id="rect48-11"
-     width="10.349442"
-     height="0.2379179"
-     x="29.773235"
-     y="14.929368" />
-  <rect
-     style="fill:#000000"
-     id="rect48-27"
-     width="13.323421"
-     height="0.23791821"
-     x="31.747211"
-     y="13.524163" />
+  <ellipse
+     style="fill:#ffff00;stroke-width:0.954869"
+     id="path1"
+     cx="27.003719"
+     cy="24.981413"
+     rx="18.438662"
+     ry="0.35687733" />
+  <ellipse
+     style="fill:#ffff00;stroke-width:0.497616"
+     id="path2"
+     cx="31.643122"
+     cy="27.776953"
+     rx="15.464684"
+     ry="0.17843871" />
+  <ellipse
+     style="fill:#ffff00;stroke-width:0.730081"
+     id="path3"
+     cx="35.687733"
+     cy="30.453531"
+     rx="13.44238"
+     ry="0.35687733" />
+  <ellipse
+     style="fill:#1a1a1a"
+     id="path4"
+     cx="37.888477"
+     cy="14.215613"
+     rx="7.5539036"
+     ry="0.17843866" />
+  <ellipse
+     style="fill:#1a1a1a;stroke-width:0.932861"
+     id="path5"
+     cx="38.185875"
+     cy="11.360595"
+     rx="6.7806692"
+     ry="0.17843866" />
+  <ellipse
+     style="fill:#1a1a1a;stroke-width:0.832053"
+     id="path6"
+     ry="0.17843866"
+     rx="4.8178439"
+     cy="7.4349442"
+     cx="41.457253" />
 </svg>

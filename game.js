@@ -10,7 +10,9 @@ const ZOOM_STEP = 0.25;
 const BLOCKED_TERRAIN = [
   { left: 0, top: 585, right: 210, bottom: 860 },
   { left: 0, top: 860, right: 132, bottom: 965 },
-  { name: "old-dilly-liz-house", left: 292, top: 116, right: 536, bottom: 350 },
+  { name: "old-dilly-roof", left: 330, top: 116, right: 518, bottom: 198 },
+  { name: "old-dilly-left-wall", left: 330, top: 198, right: 410, bottom: 262 },
+  { name: "old-dilly-right-wall", left: 456, top: 198, right: 518, bottom: 262 },
   { name: "lab-zero-left-wall", left: 1248, top: 78, right: 1327, bottom: 266 },
   { name: "lab-zero-right-wall", left: 1407, top: 78, right: 1478, bottom: 266 },
   { name: "lab-zero-back-wall", left: 1328, top: 78, right: 1406, bottom: 216 }
@@ -64,7 +66,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 390, top: 224, right: 462, bottom: 292, to: "dilly", entryX: 696, entryY: 296 },
+      { left: 386, top: 214, right: 474, bottom: 326, to: "dilly", entryX: 696, entryY: 296 },
       { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
     ]
   },

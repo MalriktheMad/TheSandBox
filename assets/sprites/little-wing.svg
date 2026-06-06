@@ -111,7 +111,7 @@
      height="4"
      fill="#ead28a"
      id="rect11"
-     style="stroke-width:0.829294" />
+     style="stroke-width:0.829294;fill:#00ffff" />
   <rect
      x="28.517103"
      y="14"
@@ -232,7 +232,8 @@
      width="4"
      height="4"
      fill="#08080d"
-     id="rect28" />
+     id="rect28"
+     style="fill:#00ff00" />
   <rect
      x="30.517103"
      y="26"
@@ -266,10 +267,11 @@
   <rect
      x="60.517105"
      y="26"
-     width="4"
+     width="0.074349441"
      height="4"
      fill="#08080d"
-     id="rect33" />
+     id="rect33"
+     style="stroke-width:0.136335" />
   <rect
      x="32.517105"
      y="30"
@@ -299,7 +301,8 @@
      width="6"
      height="4"
      fill="#08080d"
-     id="rect37" />
+     id="rect37"
+     style="fill:#00ff00" />
   <rect
      x="36.517105"
      y="34"
@@ -313,7 +316,8 @@
      width="14"
      height="4"
      fill="#08080d"
-     id="rect39" />
+     id="rect39"
+     style="fill:#000000" />
   <rect
      x="42.517105"
      y="38"
@@ -429,4 +433,60 @@
      fill="#ead28a"
      id="rect11-6"
      style="stroke-width:0.724179" />
+  <rect
+     style="fill:#000000"
+     id="rect48"
+     width="13.323421"
+     height="0.23791821"
+     x="39.018589"
+     y="6.8996282" />
+  <rect
+     style="fill:#000000"
+     id="rect48-9"
+     width="13.323421"
+     height="0.23791821"
+     x="39.776951"
+     y="8.3085499" />
+  <rect
+     style="fill:#000000"
+     id="rect48-8"
+     width="13.323421"
+     height="0.23791821"
+     x="38.368031"
+     y="9.8327141" />
+  <rect
+     style="fill:#000000"
+     id="rect48-2"
+     width="13.323421"
+     height="0.23791821"
+     x="33.513012"
+     y="11.141264" />
+  <rect
+     style="fill:#000000"
+     id="rect48-5"
+     width="13.323421"
+     height="0.23791821"
+     x="32.657993"
+     y="12.498141" />
+  <rect
+     style="fill:#000000"
+     id="rect48-1"
+     width="9.7546482"
+     height="0"
+     x="31.92565"
+     y="13.832713" />
+  <rect
+     style="fill:#000000"
+     id="rect48-11"
+     width="10.349442"
+     height="0.2379179"
+     x="29.773235"
+     y="14.929368" />
+  <rect
+     style="fill:#000000"
+     id="rect48-27"
+     width="13.323421"
+     height="0.23791821"
+     x="31.747211"
+     y="13.524163" />
 </svg>

@@ -13,12 +13,12 @@ const dialogueLines = [
   {
     speaker: "Wing Master Cricket",
     portrait: "assets/portraits/wing-master.svg",
-    text: "The lab is quiet today. That means it is time to listen twice."
+    text: "The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for me i put a lot  of work into it."
   },
   {
     speaker: "Little Wing",
     portrait: "assets/portraits/little-wing.svg",
-    text: "I will listen twice, then move like a shadow."
+    text: "I'll keep poking around then."
   }
 ];
 

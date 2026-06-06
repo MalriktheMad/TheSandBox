@@ -64,13 +64,13 @@
 }
 
 .lab-bench.one {
-  left: 96px;
-  top: 108px;
+  left: 72px;
+  top: 96px;
 }
 
 .lab-bench.two {
-  right: 96px;
-  top: 108px;
+  left: 238px;
+  top: 96px;
 }
 
 .lab-note,
@@ -290,13 +290,13 @@
 }
 
 .bird-cage.left {
-  left: 170px;
-  top: 244px;
+  left: 84px;
+  top: 480px;
 }
 
 .bird-cage.right {
-  right: 170px;
-  top: 244px;
+  left: 174px;
+  top: 480px;
 }
 
 .wizard-chair {
@@ -337,8 +337,8 @@
 }
 
 .wing-master-cricket {
-  left: 716px;
-  top: 424px;
+  left: 760px;
+  top: 96px;
   width: 46px;
   height: 56px;
   background: transparent;
@@ -369,7 +369,7 @@
 .wing-master-cricket::after {
   content: "";
   position: absolute;
-  left: 58px;
+  left: -96px;
   top: -30px;
   width: 82px;
   height: 24px;

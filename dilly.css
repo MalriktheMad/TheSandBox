@@ -1,0 +1,280 @@
+.dilly-interior {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 760px;
+  height: 560px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  background:
+    radial-gradient(circle at 24% 22%, rgba(116, 195, 101, 0.22), transparent 28%),
+    radial-gradient(circle at 78% 16%, rgba(248, 213, 107, 0.16), transparent 26%),
+    linear-gradient(180deg, #142719 0%, #0b1710 100%);
+  border: 8px solid #06100b;
+  box-shadow: inset 0 0 0 8px rgba(236, 226, 188, 0.08);
+  will-change: transform;
+}
+
+.dilly-floor,
+.dilly-canopy-light,
+.dilly-kitchen,
+.old-dilly-npc,
+.liz-art-corner,
+.liz-npc,
+.greenhouse-sofa,
+.plant-wall,
+.plant-cluster,
+.hanging-planter,
+.dilly-exit {
+  position: absolute;
+  pointer-events: none;
+}
+
+.dilly-floor {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(236, 226, 188, 0.08) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(236, 226, 188, 0.06) 2px, transparent 2px),
+    repeating-linear-gradient(90deg, rgba(92, 58, 33, 0.42) 0 42px, rgba(46, 27, 16, 0.34) 42px 48px);
+  background-size: 48px 48px, 48px 48px, auto;
+}
+
+.dilly-canopy-light {
+  left: 80px;
+  top: 22px;
+  width: 600px;
+  height: 92px;
+  background:
+    radial-gradient(circle at 40px 34px, rgba(116, 195, 101, 0.58) 0 22px, transparent 23px),
+    radial-gradient(circle at 132px 16px, rgba(49, 139, 70, 0.6) 0 28px, transparent 29px),
+    radial-gradient(circle at 262px 28px, rgba(91, 177, 78, 0.48) 0 34px, transparent 35px),
+    radial-gradient(circle at 418px 20px, rgba(42, 122, 60, 0.55) 0 30px, transparent 31px),
+    radial-gradient(circle at 540px 42px, rgba(116, 195, 101, 0.48) 0 28px, transparent 29px);
+  filter: drop-shadow(0 12px 0 rgba(0, 0, 0, 0.22));
+}
+
+.dilly-kitchen {
+  left: 54px;
+  top: 118px;
+  width: 170px;
+  height: 104px;
+  border: 4px solid #06100b;
+  background:
+    radial-gradient(circle at 116px 46px, rgba(248, 213, 107, 0.9) 0 8px, rgba(177, 84, 36, 0.86) 9px 18px, transparent 19px),
+    linear-gradient(90deg, transparent 0 28px, rgba(236, 226, 188, 0.2) 28px 34px, transparent 34px),
+    repeating-linear-gradient(90deg, #5c3a21 0 20px, #2e1b10 20px 26px);
+  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.42), 0 0 22px rgba(248, 213, 107, 0.2);
+}
+
+.dilly-kitchen::before {
+  content: "";
+  position: absolute;
+  left: 98px;
+  top: 58px;
+  width: 42px;
+  height: 24px;
+  border: 3px solid #06100b;
+  background: linear-gradient(180deg, #2b2a24, #0d0a08);
+}
+
+.dilly-kitchen::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 18px;
+  width: 42px;
+  height: 26px;
+  border: 3px solid #06100b;
+  background:
+    radial-gradient(circle at 24px 13px, #74c365 0 5px, transparent 6px),
+    #3b2414;
+}
+
+.old-dilly-npc {
+  left: 236px;
+  top: 154px;
+  width: 42px;
+  height: 54px;
+  image-rendering: pixelated;
+  filter: drop-shadow(5px 7px 0 rgba(0, 0, 0, 0.36));
+  box-shadow:
+    12px 0 #06100b, 20px 0 #06100b,
+    4px 8px #06100b, 12px 8px #d8bf62, 20px 8px #ece2bc, 28px 8px #06100b,
+    0 16px #06100b, 8px 16px #7a5230, 16px 16px #2a7a3c, 24px 16px #7a5230, 32px 16px #06100b,
+    8px 24px #06100b, 16px 24px #318b46, 24px 24px #06100b,
+    8px 32px #06100b, 16px 32px #5c3a21, 24px 32px #06100b,
+    0 40px #06100b, 12px 40px #2a7a3c, 28px 40px #06100b;
+}
+
+.liz-art-corner {
+  right: 70px;
+  top: 132px;
+  width: 172px;
+  height: 120px;
+  border: 4px solid #06100b;
+  background:
+    linear-gradient(135deg, transparent 0 24px, rgba(248, 213, 107, 0.6) 24px 30px, transparent 30px),
+    linear-gradient(180deg, #ece2bc, #8f764a);
+  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.38);
+}
+
+.liz-art-corner::before {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 20px;
+  width: 72px;
+  height: 48px;
+  border: 3px solid #06100b;
+  background:
+    radial-gradient(circle at 22px 22px, #b65cff 0 8px, transparent 9px),
+    radial-gradient(circle at 48px 28px, #42a5ff 0 7px, transparent 8px),
+    linear-gradient(180deg, #f7f4ff, #d8d1f0);
+}
+
+.liz-art-corner::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  width: 44px;
+  height: 18px;
+  background:
+    linear-gradient(90deg, #06100b 0 5px, transparent 5px 13px, #06100b 13px 18px, transparent 18px 26px, #06100b 26px 31px, transparent 31px);
+}
+
+.liz-npc {
+  right: 258px;
+  top: 174px;
+  width: 40px;
+  height: 52px;
+  image-rendering: pixelated;
+  filter: drop-shadow(5px 7px 0 rgba(0, 0, 0, 0.34));
+  box-shadow:
+    12px 0 #06100b, 20px 0 #06100b,
+    4px 8px #06100b, 12px 8px #7c3cff, 20px 8px #d8d1f0, 28px 8px #06100b,
+    0 16px #06100b, 8px 16px #b65cff, 16px 16px #5bb14e, 24px 16px #b65cff, 32px 16px #06100b,
+    8px 24px #06100b, 16px 24px #42a5ff, 24px 24px #06100b,
+    8px 32px #06100b, 16px 32px #5c3a21, 24px 32px #06100b,
+    0 40px #06100b, 12px 40px #b65cff, 28px 40px #06100b;
+}
+
+.greenhouse-sofa {
+  left: 292px;
+  top: 328px;
+  width: 176px;
+  height: 66px;
+  border: 4px solid #06100b;
+  background:
+    linear-gradient(90deg, rgba(236, 226, 188, 0.16), transparent 36%),
+    linear-gradient(180deg, #2a7a3c, #164823);
+  box-shadow: 7px 9px 0 rgba(0, 0, 0, 0.42);
+}
+
+.greenhouse-sofa::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: -26px;
+  height: 28px;
+  border: 4px solid #06100b;
+  border-bottom: 0;
+  background: linear-gradient(180deg, #318b46, #164823);
+}
+
+.plant-wall {
+  width: 88px;
+  height: 300px;
+  background:
+    radial-gradient(circle at 16px 30px, #74c365 0 10px, transparent 11px),
+    radial-gradient(circle at 54px 70px, #318b46 0 16px, transparent 17px),
+    radial-gradient(circle at 30px 132px, #5bb14e 0 14px, transparent 15px),
+    radial-gradient(circle at 62px 198px, #2a7a3c 0 18px, transparent 19px),
+    radial-gradient(circle at 24px 244px, #74c365 0 13px, transparent 14px);
+}
+
+.plant-wall.left {
+  left: 14px;
+  top: 232px;
+}
+
+.plant-wall.right {
+  right: 14px;
+  top: 232px;
+  transform: scaleX(-1);
+}
+
+.plant-cluster {
+  width: 74px;
+  height: 82px;
+  image-rendering: pixelated;
+  background: transparent;
+  box-shadow:
+    28px 0 #06100b,
+    20px 8px #2a7a3c, 28px 8px #74c365, 36px 8px #2a7a3c,
+    12px 16px #1f6330, 24px 16px #5bb14e, 40px 16px #1f6330,
+    20px 24px #74c365, 32px 24px #318b46,
+    28px 32px #5c3a21,
+    20px 40px #06100b, 28px 40px #5c3a21, 36px 40px #06100b,
+    16px 48px #3b2414, 24px 48px #3b2414, 32px 48px #3b2414, 40px 48px #3b2414;
+}
+
+.plant-cluster.one {
+  left: 290px;
+  top: 116px;
+}
+
+.plant-cluster.two {
+  right: 256px;
+  top: 328px;
+}
+
+.plant-cluster.three {
+  left: 128px;
+  top: 388px;
+}
+
+.hanging-planter {
+  width: 48px;
+  height: 58px;
+  border-top: 4px solid #06100b;
+  background:
+    linear-gradient(90deg, transparent 0 18px, #06100b 18px 24px, transparent 24px),
+    radial-gradient(circle at 12px 34px, #74c365 0 10px, transparent 11px),
+    radial-gradient(circle at 30px 34px, #318b46 0 12px, transparent 13px);
+}
+
+.hanging-planter::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 36px;
+  width: 28px;
+  height: 18px;
+  border: 3px solid #06100b;
+  background: #5c3a21;
+}
+
+.hanging-planter.one {
+  left: 232px;
+  top: 58px;
+}
+
+.hanging-planter.two {
+  right: 222px;
+  top: 58px;
+}
+
+.dilly-exit {
+  left: 352px;
+  bottom: 0;
+  width: 56px;
+  height: 46px;
+  border: 4px solid #06100b;
+  border-bottom: 0;
+  background:
+    linear-gradient(90deg, transparent 0 22px, rgba(236, 226, 188, 0.52) 22px 30px, transparent 30px),
+    linear-gradient(180deg, #5c3a21, #25160d);
+  box-shadow: 0 0 16px rgba(116, 195, 101, 0.22);
+}

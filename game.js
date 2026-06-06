@@ -1,5 +1,7 @@
 const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
+const LAB_WIDTH = 840;
+const LAB_HEIGHT = 560;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
@@ -12,13 +14,15 @@ const BLOCKED_TERRAIN = [
   { name: "lab-zero-back-wall", left: 1328, top: 78, right: 1406, bottom: 216 }
 ];
 const LAB_BLOCKED_TERRAIN = [
-  { name: "left-bench", left: 64, top: 74, right: 226, bottom: 154 },
-  { name: "right-bench", left: 414, top: 74, right: 576, bottom: 154 },
-  { name: "lab-core", left: 274, top: 106, right: 366, bottom: 218 },
-  { name: "weird-console", left: 248, top: 198, right: 392, bottom: 282 },
-  { name: "left-bird-cage", left: 106, top: 184, right: 192, bottom: 290 },
-  { name: "right-bird-cage", left: 448, top: 184, right: 534, bottom: 290 },
-  { name: "empty-wizard-chair", left: 284, top: 24, right: 358, bottom: 128 }
+  { name: "left-bench", left: 82, top: 88, right: 244, bottom: 164 },
+  { name: "right-bench", left: 596, top: 88, right: 758, bottom: 164 },
+  { name: "lab-core", left: 374, top: 124, right: 466, bottom: 236 },
+  { name: "weird-console", left: 348, top: 264, right: 492, bottom: 348 },
+  { name: "codex-workstation", left: 74, top: 296, right: 232, bottom: 428 },
+  { name: "left-bird-cage", left: 150, top: 194, right: 246, bottom: 318 },
+  { name: "right-bird-cage", left: 594, top: 194, right: 690, bottom: 318 },
+  { name: "empty-wizard-chair", left: 384, top: 30, right: 458, bottom: 142 },
+  { name: "wing-master-cricket", left: 602, top: 340, right: 672, bottom: 430 }
 ];
 
 const stage = document.getElementById("stage");
@@ -43,18 +47,18 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 320, entryY: 326 }
+      { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 420, entryY: 466 }
     ]
   },
   lab: {
-    width: 640,
-    height: 420,
+    width: LAB_WIDTH,
+    height: LAB_HEIGHT,
     element: labInterior,
     player: interiorPlayer,
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 286, top: 332, right: 354, bottom: 410, to: "outside", entryX: 1354, entryY: 302 }
+      { left: 386, top: 474, right: 454, bottom: 550, to: "outside", entryX: 1354, entryY: 302 }
     ]
   }
 };

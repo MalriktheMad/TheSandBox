@@ -8,6 +8,8 @@
 }
 
 .wing-master-cricket {
+  width: 56px;
+  height: 72px;
   background-image: url("assets/sprites/wing-master-cricket.svg");
   box-shadow: none;
 }

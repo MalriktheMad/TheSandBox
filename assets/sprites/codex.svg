@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 142 124" shape-rendering="crispEdges">
+  <title>Codex</title>
+  <rect width="142" height="124" fill="none"/>
+
+  <rect x="18" y="0" width="78" height="36" fill="#050508"/>
+  <rect x="22" y="4" width="70" height="28" fill="#0b1018"/>
+  <rect x="34" y="8" width="5" height="20" fill="#42a5ff"/>
+  <rect x="54" y="8" width="5" height="20" fill="#b65cff"/>
+  <rect x="72" y="8" width="10" height="4" fill="#f7f4ff" opacity="0.5"/>
+  <rect x="72" y="18" width="6" height="4" fill="#42a5ff"/>
+
+  <rect x="0" y="42" width="142" height="82" fill="#050508"/>
+  <rect x="4" y="46" width="134" height="74" fill="#07080c"/>
+  <rect x="4" y="46" width="134" height="24" fill="#171b24"/>
+  <rect x="19" y="46" width="5" height="74" fill="#42a5ff" opacity="0.75"/>
+  <rect x="42" y="46" width="5" height="74" fill="#b65cff" opacity="0.75"/>
+  <rect x="64" y="52" width="42" height="6" fill="#f7f4ff" opacity="0.16"/>
+  <rect x="64" y="66" width="58" height="6" fill="#42a5ff" opacity="0.28"/>
+  <rect x="64" y="80" width="34" height="6" fill="#b65cff" opacity="0.32"/>
+
+  <rect x="94" y="96" width="34" height="12" fill="#050508"/>
+  <rect x="99" y="96" width="7" height="12" fill="#07080c"/>
+  <rect x="111" y="96" width="5" height="12" fill="#42a5ff"/>
+  <rect x="123" y="96" width="5" height="12" fill="#b65cff"/>
+
+  <rect x="7" y="51" width="3" height="64" fill="#2a2630"/>
+  <rect x="132" y="51" width="3" height="64" fill="#000000" opacity="0.36"/>
+  <rect x="8" y="112" width="124" height="4" fill="#050508" opacity="0.8"/>
+</svg>

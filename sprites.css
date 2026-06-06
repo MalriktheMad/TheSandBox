@@ -1,7 +1,8 @@
 .pixel-bird,
 .wing-master-cricket,
 .old-dilly-npc,
-.liz-npc {
+.liz-npc,
+.codex-terminal {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -28,6 +29,22 @@
 
 .wing-master-cricket::before,
 .wing-master-cricket::after {
+  content: none;
+}
+
+.codex-terminal {
+  left: 526px;
+  top: 90px;
+  width: 142px;
+  height: 124px;
+  border: 0;
+  background-color: transparent;
+  background-image: url("assets/sprites/codex.svg");
+  box-shadow: none;
+}
+
+.codex-terminal::before,
+.codex-terminal::after {
   content: none;
 }
 

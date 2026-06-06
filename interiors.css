@@ -2,13 +2,13 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 840px;
-  height: 560px;
+  width: 920px;
+  height: 620px;
   overflow: hidden;
   transform-origin: 0 0;
   background:
     radial-gradient(circle at 50% 34%, rgba(124, 60, 255, 0.24), transparent 26%),
-    radial-gradient(circle at 70% 62%, rgba(27, 111, 214, 0.14), transparent 24%),
+    radial-gradient(circle at 72% 64%, rgba(27, 111, 214, 0.14), transparent 24%),
     linear-gradient(180deg, #141014 0%, #09080c 100%);
   border: 8px solid #050508;
   box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.06);
@@ -41,7 +41,7 @@
 }
 
 .lab-rug {
-  left: 324px;
+  left: 364px;
   bottom: 58px;
   width: 192px;
   height: 74px;
@@ -64,13 +64,13 @@
 }
 
 .lab-bench.one {
-  left: 88px;
-  top: 96px;
+  left: 96px;
+  top: 108px;
 }
 
 .lab-bench.two {
-  right: 88px;
-  top: 96px;
+  right: 96px;
+  top: 108px;
 }
 
 .lab-note,
@@ -134,8 +134,8 @@
 }
 
 .lab-core {
-  left: 382px;
-  top: 132px;
+  left: 422px;
+  top: 156px;
   width: 76px;
   height: 92px;
   border: 4px solid #050508;
@@ -159,8 +159,8 @@
 }
 
 .lab-console {
-  left: 356px;
-  top: 292px;
+  left: 396px;
+  top: 340px;
   width: 128px;
   height: 48px;
   border: 4px solid #050508;
@@ -186,8 +186,8 @@
 }
 
 .codex-terminal {
-  left: 82px;
-  top: 338px;
+  left: 526px;
+  top: 132px;
   width: 142px;
   height: 82px;
   border: 4px solid #050508;
@@ -242,8 +242,8 @@
 }
 
 .lab-candle.tall {
-  left: 506px;
-  top: 256px;
+  left: 546px;
+  top: 298px;
 }
 
 .lab-candle.small {
@@ -290,18 +290,18 @@
 }
 
 .bird-cage.left {
-  left: 160px;
-  top: 212px;
+  left: 170px;
+  top: 244px;
 }
 
 .bird-cage.right {
-  right: 160px;
-  top: 212px;
+  right: 170px;
+  top: 244px;
 }
 
 .wizard-chair {
-  left: 392px;
-  top: 54px;
+  left: 432px;
+  top: 58px;
   width: 58px;
   height: 64px;
   border: 4px solid #050508;
@@ -337,8 +337,8 @@
 }
 
 .wing-master-cricket {
-  left: 610px;
-  top: 358px;
+  left: 716px;
+  top: 424px;
   width: 46px;
   height: 56px;
   background: transparent;
@@ -346,12 +346,12 @@
   filter: drop-shadow(6px 8px 0 rgba(0, 0, 0, 0.42));
   box-shadow:
     16px 0 #050508, 24px 0 #050508,
-    8px 8px #050508, 16px 8px #8a6a2e, 24px 8px #c7a64c, 32px 8px #050508,
-    0 16px #050508, 8px 16px #3a2913, 16px 16px #d8bf62, 24px 16px #d8bf62, 32px 16px #3a2913, 40px 16px #050508,
-    8px 24px #050508, 16px 24px #6d4f21, 24px 24px #6d4f21, 32px 24px #050508,
-    12px 32px #050508, 20px 32px #2c5f3a, 28px 32px #050508,
-    8px 40px #050508, 16px 40px #2c5f3a, 24px 40px #2c5f3a, 32px 40px #050508,
-    0 48px #050508, 12px 48px #7c3cff, 28px 48px #42a5ff, 40px 48px #050508;
+    8px 8px #050508, 16px 8px #55605a, 24px 8px #8f9a85, 32px 8px #050508,
+    0 16px #050508, 8px 16px #2f5f36, 16px 16px #71a84a, 24px 16px #86bd55, 32px 16px #2f5f36, 40px 16px #050508,
+    8px 24px #050508, 16px 24px #2e7b3a, 24px 24px #4d9345, 32px 24px #050508,
+    12px 32px #050508, 20px 32px #1b6fd6, 28px 32px #050508,
+    8px 40px #050508, 16px 40px #2f8a3e, 24px 40px #2f8a3e, 32px 40px #050508,
+    0 48px #050508, 12px 48px #8b2f3f, 28px 48px #a63e4e, 40px 48px #050508;
 }
 
 .wing-master-cricket::before {
@@ -363,7 +363,7 @@
   height: 14px;
   border: 3px solid #050508;
   background:
-    linear-gradient(90deg, #7c3cff 0 9px, #050508 9px 13px, #f8d56b 13px 25px, #050508 25px 29px, #42a5ff 29px 100%);
+    linear-gradient(90deg, #2f8a3e 0 9px, #050508 9px 13px, #d8d1f0 13px 25px, #050508 25px 29px, #1b6fd6 29px 100%);
 }
 
 .wing-master-cricket::after {
@@ -379,7 +379,7 @@
 }
 
 .lab-wall-note {
-  left: 336px;
+  left: 376px;
   top: 24px;
   width: 168px;
   height: 20px;
@@ -391,7 +391,7 @@
 }
 
 .lab-exit {
-  left: 392px;
+  left: 432px;
   bottom: 0;
   width: 56px;
   height: 46px;

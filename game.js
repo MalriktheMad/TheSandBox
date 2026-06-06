@@ -1,7 +1,7 @@
 const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
-const LAB_WIDTH = 840;
-const LAB_HEIGHT = 560;
+const LAB_WIDTH = 920;
+const LAB_HEIGHT = 620;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
@@ -14,15 +14,15 @@ const BLOCKED_TERRAIN = [
   { name: "lab-zero-back-wall", left: 1328, top: 78, right: 1406, bottom: 216 }
 ];
 const LAB_BLOCKED_TERRAIN = [
-  { name: "left-bench", left: 82, top: 88, right: 244, bottom: 164 },
-  { name: "right-bench", left: 596, top: 88, right: 758, bottom: 164 },
-  { name: "lab-core", left: 374, top: 124, right: 466, bottom: 236 },
-  { name: "weird-console", left: 348, top: 264, right: 492, bottom: 348 },
-  { name: "codex-workstation", left: 74, top: 296, right: 232, bottom: 428 },
-  { name: "left-bird-cage", left: 150, top: 194, right: 246, bottom: 318 },
-  { name: "right-bird-cage", left: 594, top: 194, right: 690, bottom: 318 },
-  { name: "empty-wizard-chair", left: 384, top: 30, right: 458, bottom: 142 },
-  { name: "wing-master-cricket", left: 602, top: 340, right: 672, bottom: 430 }
+  { name: "left-bench", left: 90, top: 100, right: 252, bottom: 176 },
+  { name: "right-bench", left: 668, top: 100, right: 830, bottom: 176 },
+  { name: "lab-core", left: 414, top: 148, right: 506, bottom: 260 },
+  { name: "weird-console", left: 388, top: 312, right: 532, bottom: 396 },
+  { name: "codex-workstation", left: 518, top: 90, right: 676, bottom: 222 },
+  { name: "left-bird-cage", left: 160, top: 226, right: 256, bottom: 350 },
+  { name: "right-bird-cage", left: 664, top: 226, right: 760, bottom: 350 },
+  { name: "empty-wizard-chair", left: 424, top: 34, right: 498, bottom: 146 },
+  { name: "wing-master-cricket", left: 708, top: 406, right: 778, bottom: 496 }
 ];
 
 const stage = document.getElementById("stage");
@@ -47,7 +47,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 420, entryY: 466 }
+      { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
   lab: {
@@ -58,7 +58,7 @@ const AREAS = {
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 386, top: 474, right: 454, bottom: 550, to: "outside", entryX: 1354, entryY: 302 }
+      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 1354, entryY: 302 }
     ]
   }
 };

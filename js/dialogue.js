@@ -1,4 +1,10 @@
-const dialogueStage = document.getElementById("stage");
+﻿const dialogueStage = document.getElementById("stage");
+const cricketTalkZone = {
+  left: 160,
+  top: 158,
+  right: 316,
+  bottom: 292
+};
 const dialogueLines = [
   {
     speaker: "Wing Master Cricket",
@@ -55,14 +61,27 @@ function handleDialoguePointer(event) {
     return;
   }
 
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .dialogue-box")) {
+    return;
+  }
+
   const cricket = event.target.closest(".wing-master-cricket");
 
-  if (!cricket || state.area !== "lab") {
+  if (state.area !== "lab" || (!cricket && !isCricketTalkPoint(event))) {
     return;
   }
 
   swallowDialoguePointer(event);
   startDialogue();
+}
+
+function isCricketTalkPoint(event) {
+  const point = screenToWorld(event.clientX, event.clientY);
+
+  return point.x >= cricketTalkZone.left
+    && point.x <= cricketTalkZone.right
+    && point.y >= cricketTalkZone.top
+    && point.y <= cricketTalkZone.bottom;
 }
 
 function startDialogue() {

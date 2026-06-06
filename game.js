@@ -33,7 +33,7 @@ const DILLY_BLOCKED_TERRAIN = [
   { name: "liz", left: 452, top: 162, right: 516, bottom: 238 },
   { name: "greenhouse-sofa", left: 284, top: 294, right: 476, bottom: 404 },
   { name: "left-plant-wall", left: 8, top: 224, right: 108, bottom: 540 },
-  { name: "right-plant-wall", left: 652, top: 224, right: 752, bottom: 540 },
+  { name: "right-plant-wall", left: 652, top: 342, right: 752, bottom: 540 },
   { name: "plant-cluster-one", left: 282, top: 108, right: 374, bottom: 214 },
   { name: "plant-cluster-two", left: 420, top: 320, right: 520, bottom: 426 },
   { name: "plant-cluster-three", left: 120, top: 380, right: 218, bottom: 488 }
@@ -64,7 +64,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 390, top: 224, right: 462, bottom: 292, to: "dilly", entryX: 380, entryY: 466 },
+      { left: 390, top: 224, right: 462, bottom: 292, to: "dilly", entryX: 696, entryY: 296 },
       { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
@@ -87,7 +87,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 346, top: 474, right: 414, bottom: 550, to: "outside", entryX: 426, entryY: 304 }
+      { left: 688, top: 252, right: 750, bottom: 336, to: "outside", entryX: 426, entryY: 304 }
     ]
   }
 };

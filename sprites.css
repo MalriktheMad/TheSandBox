@@ -1,0 +1,28 @@
+.wing-master-cricket,
+.old-dilly-npc,
+.liz-npc {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  image-rendering: pixelated;
+}
+
+.wing-master-cricket {
+  background-image: url("assets/sprites/wing-master-cricket.svg");
+  box-shadow: none;
+}
+
+.wing-master-cricket::before,
+.wing-master-cricket::after {
+  content: none;
+}
+
+.old-dilly-npc {
+  background-image: url("assets/sprites/old-dilly.svg");
+  box-shadow: none;
+}
+
+.liz-npc {
+  background-image: url("assets/sprites/liz.svg");
+  box-shadow: none;
+}

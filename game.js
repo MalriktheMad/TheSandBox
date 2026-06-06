@@ -5,7 +5,9 @@ const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
 const BLOCKED_TERRAIN = [
   { left: 0, top: 585, right: 210, bottom: 860 },
-  { left: 0, top: 860, right: 132, bottom: 965 }
+  { left: 0, top: 860, right: 132, bottom: 965 },
+  { name: "old-dilly-liz-house", left: 292, top: 116, right: 536, bottom: 350 },
+  { name: "lab-zero", left: 1248, top: 78, right: 1478, bottom: 266 }
 ];
 
 const stage = document.getElementById("stage");

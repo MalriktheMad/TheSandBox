@@ -100,7 +100,7 @@ function getCricketDialogueLines() {
   if (hasCricketSeed()) {
     return [
       cricketLine("The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it. By the way do you have any sunflower Seeds?"),
-      littleWingLine("Give Wing Master Cricket one sunflower seed."),
+      littleWingLine("Alright here is what i could find."),
       {
         ...cricketLine("Thank you my young friend. If you keep collecting these perhaps one day i will teach you the ancient wing-haiatii tequnique."),
         onShow: completeCricketSeedQuest
@@ -110,9 +110,9 @@ function getCricketDialogueLines() {
   }
 
   return [
-    cricketLine("Quest intro placeholder. Cricket asks Little Wing to bring her one sunflower seed."),
-    littleWingLine("Quest accepted placeholder. Little Wing should find a sunflower outside."),
-    cricketLine("Reminder placeholder. Come back after collecting a sunflower seed.")
+    cricketLine("The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it."),
+    littleWingLine("I'll go poke around then."),
+    cricketLine("Come back if you find a sunflower seed and i'll open it for you and share it.")
   ];
 }
 

@@ -90,22 +90,23 @@ function startDialogue() {
 }
 
 function getCricketDialogueLines() {
-  if (isCricketSeedQuestComplete()) {
-    return [
-      cricketLine("Hello, Little Wing."),
-      littleWingLine("Hello, Wing Master Cricket.")
-    ];
-  }
-
   if (hasCricketSeed()) {
     return [
       cricketLine("The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it. By the way do you have any sunflower Seeds?"),
       littleWingLine("Alright here is what i could find."),
       {
         ...cricketLine("Thank you my young friend. If you keep collecting these perhaps one day i will teach you the ancient wing-haiatii tequnique."),
-        onShow: completeCricketSeedQuest
+        onShow: completeCricketSeedTraining
       },
       littleWingLine("I will not fail you Wing Master Cricket!")
+    ];
+  }
+
+  if (isCricketSeedQuestComplete()) {
+    return [
+      cricketLine("Hello, Little Wing."),
+      littleWingLine("Hello, Wing Master Cricket."),
+      cricketLine("Bring me another sunflower seed when you find one and we will keep training.")
     ];
   }
 
@@ -116,11 +117,7 @@ function getCricketDialogueLines() {
   ];
 }
 
-function completeCricketSeedQuest() {
-  if (isCricketSeedQuestComplete()) {
-    return;
-  }
-
+function completeCricketSeedTraining() {
   if (!removeCricketSeed()) {
     return;
   }

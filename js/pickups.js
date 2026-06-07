@@ -1,67 +1,18 @@
 const PICKUP_STORAGE_KEY = "lab-zero-collected-pickups";
 const PICKUP_INVENTORY_KEY = "lab-zero-inventory";
+const DEFAULT_PICKUP_INVENTORY = {
+  sunflowerSeeds: 0,
+  milletSeeds: 0,
+  cig: 1
+};
 
 const PICKUPS = [
-  {
-    id: "dilly-sunflower-1",
-    area: "outside",
-    x: 344,
-    y: 300,
-    itemId: "sunflowerSeeds",
-    amount: 1,
-    label: "Sunflower Seeds",
-    className: "sunflower-pickup"
-  },
-  {
-    id: "dilly-sunflower-2",
-    area: "outside",
-    x: 292,
-    y: 278,
-    itemId: "sunflowerSeeds",
-    amount: 1,
-    label: "Sunflower Seeds",
-    className: "sunflower-pickup"
-  },
-  {
-    id: "dilly-sunflower-3",
-    area: "outside",
-    x: 306,
-    y: 336,
-    itemId: "sunflowerSeeds",
-    amount: 1,
-    label: "Sunflower Seeds",
-    className: "sunflower-pickup"
-  },
-  {
-    id: "dilly-sunflower-4",
-    area: "outside",
-    x: 552,
-    y: 304,
-    itemId: "sunflowerSeeds",
-    amount: 1,
-    label: "Sunflower Seeds",
-    className: "sunflower-pickup"
-  },
-  {
-    id: "forest-sunflower-1",
-    area: "outside",
-    x: 628,
-    y: 420,
-    itemId: "sunflowerSeeds",
-    amount: 1,
-    label: "Sunflower Seeds",
-    className: "sunflower-pickup"
-  },
-  {
-    id: "forest-sunflower-2",
-    area: "outside",
-    x: 238,
-    y: 452,
-    itemId: "sunflowerSeeds",
-    amount: 1,
-    label: "Sunflower Seeds",
-    className: "sunflower-pickup"
-  }
+  makeSunflowerPickup("dilly-sunflower-1", 344, 300),
+  makeSunflowerPickup("dilly-sunflower-2", 292, 278),
+  makeSunflowerPickup("dilly-sunflower-3", 306, 336),
+  makeSunflowerPickup("dilly-sunflower-4", 552, 304),
+  makeSunflowerPickup("forest-sunflower-1", 628, 420),
+  makeSunflowerPickup("forest-sunflower-2", 238, 452)
 ];
 
 const pickupElements = new Map();
@@ -70,6 +21,19 @@ let pickupToastTimeout;
 installPickupStyles();
 placePickups();
 requestAnimationFrame(checkPickups);
+
+function makeSunflowerPickup(id, x, y) {
+  return {
+    id,
+    area: "outside",
+    x,
+    y,
+    itemId: "sunflowerSeeds",
+    amount: 1,
+    label: "Sunflower Seeds",
+    className: "sunflower-pickup"
+  };
+}
 
 function installPickupStyles() {
   const style = document.createElement("style");
@@ -190,18 +154,16 @@ function getPickupInventory() {
   const savedInventory = sessionStorage.getItem(PICKUP_INVENTORY_KEY);
 
   if (!savedInventory) {
-    return { sunflowerSeeds: 0, milletSeeds: 0, cig: 1 };
+    return { ...DEFAULT_PICKUP_INVENTORY };
   }
 
   try {
     return {
-      sunflowerSeeds: 0,
-      milletSeeds: 0,
-      cig: 1,
+      ...DEFAULT_PICKUP_INVENTORY,
       ...JSON.parse(savedInventory)
     };
   } catch (error) {
-    return { sunflowerSeeds: 0, milletSeeds: 0, cig: 1 };
+    return { ...DEFAULT_PICKUP_INVENTORY };
   }
 }
 

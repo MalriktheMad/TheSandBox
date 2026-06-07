@@ -1,4 +1,5 @@
 ﻿const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
+const RETURN_TO_GAME_STORAGE_KEY = "lab-zero-return-to-game";
 const START_MENU_NEW_GAME_KEYS = [
   GAME_STATE_STORAGE_KEY,
   "lab-zero-opening-bedroom-dialogue",
@@ -38,6 +39,12 @@ function setupStartMenu() {
     return;
   }
 
+  if (sessionStorage.getItem(RETURN_TO_GAME_STORAGE_KEY)) {
+    sessionStorage.removeItem(RETURN_TO_GAME_STORAGE_KEY);
+    startGame({ playOpening: false });
+    return;
+  }
+
   continueGameButton.hidden = !sessionStorage.getItem(GAME_STATE_STORAGE_KEY);
   startMenu.hidden = false;
 
@@ -47,15 +54,17 @@ function setupStartMenu() {
     startGame();
   });
 
-  continueGameButton.addEventListener("click", startGame);
+  continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 }
 
-function startGame() {
+function startGame(options = {}) {
   if (startMenu) {
     startMenu.hidden = true;
   }
 
-  if (typeof playOpeningBedroomDialogue === "function") {
+  const shouldPlayOpening = options.playOpening !== false;
+
+  if (shouldPlayOpening && typeof playOpeningBedroomDialogue === "function") {
     window.setTimeout(playOpeningBedroomDialogue, 80);
   }
 }
@@ -159,3 +168,5 @@ function loadScript(src, onLoad) {
 
   document.body.append(script);
 }
+
+

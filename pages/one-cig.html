@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -115,7 +115,7 @@
     <h1>All you got is this one cig to get home.</h1>
     <p>Better use it wisely.</p>
     <div class="actions">
-      <a href="../index.html">Save it for later</a>
+      <a href="../index.html" onclick="sessionStorage.setItem('lab-zero-return-to-game', 'true')">Save it for later</a>
       <a class="smoke-link" href="../index.html" onclick="return smokeTheCig()">Smoke the cig and head home</a>
     </div>
   </main>
@@ -133,8 +133,10 @@
 
       removeInventoryItem("cig", 1);
       sessionStorage.setItem("lab-zero-game-state", JSON.stringify(labState));
+        sessionStorage.setItem("lab-zero-return-to-game", "true");
       return true;
     }
   </script>
 </body>
 </html>
+

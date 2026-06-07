@@ -1,4 +1,4 @@
-.lab {
+﻿.lab {
   box-shadow: 0 0 30px rgba(124, 60, 255, 0.26);
 }
 
@@ -66,4 +66,17 @@
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.32);
   pointer-events: none;
+}
+.old-dilly-npc {
+  left: 225px;
+  top: 112px;
+  width: 64px;
+  height: 96px;
+}
+
+.liz-npc {
+  right: 286px;
+  top: 130px;
+  width: 64px;
+  height: 96px;
 }

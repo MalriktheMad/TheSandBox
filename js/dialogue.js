@@ -1,4 +1,4 @@
-const dialogueStage = document.getElementById("stage");
+﻿const dialogueStage = document.getElementById("stage");
 const CRICKET_SEED_QUEST_ID = "cricket-seed-lesson";
 const CRICKET_SEED_ITEM_ID = "sunflowerSeeds";
 const dialogueInventoryDefaults = {
@@ -16,6 +16,12 @@ const cricketTalkZone = {
   top: 158,
   right: 316,
   bottom: 292
+};
+const codexTalkZone = {
+  left: 500,
+  top: 72,
+  right: 702,
+  bottom: 248
 };
 
 const dialogueState = {
@@ -56,26 +62,43 @@ function handleDialoguePointer(event) {
     return;
   }
 
-  const cricket = event.target.closest(".wing-master-cricket");
-
-  if (state.area !== "lab" || (!cricket && !isCricketTalkPoint(event))) {
+  if (state.area !== "lab") {
     return;
   }
 
-  swallowDialoguePointer(event);
-  startDialogue();
+  const cricket = event.target.closest(".wing-master-cricket");
+  const codex = event.target.closest(".codex-terminal");
+
+  if (cricket || isCricketTalkPoint(event)) {
+    swallowDialoguePointer(event);
+    startDialogue(getCricketDialogueLines());
+    return;
+  }
+
+  if (codex || isCodexTalkPoint(event)) {
+    swallowDialoguePointer(event);
+    startDialogue(getCodexDialogueLines());
+  }
 }
 
 function isCricketTalkPoint(event) {
-  const point = screenToWorld(event.clientX, event.clientY);
-
-  return point.x >= cricketTalkZone.left
-    && point.x <= cricketTalkZone.right
-    && point.y >= cricketTalkZone.top
-    && point.y <= cricketTalkZone.bottom;
+  return isPointInTalkZone(event, cricketTalkZone);
 }
 
-function startDialogue() {
+function isCodexTalkPoint(event) {
+  return isPointInTalkZone(event, codexTalkZone);
+}
+
+function isPointInTalkZone(event, zone) {
+  const point = screenToWorld(event.clientX, event.clientY);
+
+  return point.x >= zone.left
+    && point.x <= zone.right
+    && point.y >= zone.top
+    && point.y <= zone.bottom;
+}
+
+function startDialogue(lines) {
   const area = getActiveArea();
   state.path = [];
   state.targetX = state.x;
@@ -84,7 +107,7 @@ function startDialogue() {
 
   dialogueState.active = true;
   dialogueState.index = 0;
-  dialogueState.lines = getCricketDialogueLines();
+  dialogueState.lines = lines;
   dialogueBox.hidden = false;
   showDialogueLine();
 }
@@ -114,6 +137,15 @@ function getCricketDialogueLines() {
     cricketLine("The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it."),
     littleWingLine("I'll go poke around then."),
     cricketLine("Come back if you find a sunflower seed and i'll open it for you and share it.")
+  ];
+}
+
+function getCodexDialogueLines() {
+  return [
+    codexLine("Hello, Little Wing. The machine is awake."),
+    littleWingLine("You can talk?"),
+    codexLine("A little. The wizard gave me a glowing eye, a friendly face, and far too many loose wires."),
+    littleWingLine("That sounds about right.")
   ];
 }
 
@@ -235,6 +267,14 @@ function littleWingLine(text) {
   };
 }
 
+function codexLine(text) {
+  return {
+    speaker: "Codex",
+    portrait: "assets/portraits/codex.png",
+    text
+  };
+}
+
 function advanceDialogue() {
   dialogueState.index += 1;
 
@@ -268,3 +308,5 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
+

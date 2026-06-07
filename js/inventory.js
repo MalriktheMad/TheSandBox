@@ -84,7 +84,7 @@ function renderInventory() {
     itemName.textContent = item.name;
 
     const itemDescription = document.createElement("p");
-    itemDescription.textContent = item.description;
+    itemDescription.textContent = count > 0 ? item.description : "Used up.";
 
     const itemCount = document.createElement("strong");
     itemCount.textContent = `x${count}`;
@@ -95,7 +95,7 @@ function renderInventory() {
     if (item.usable) {
       const useButton = document.createElement("button");
       useButton.type = "button";
-      useButton.textContent = "Use";
+      useButton.textContent = count > 0 ? "Use" : "Gone";
       useButton.disabled = count <= 0;
       useButton.addEventListener("click", () => useInventoryItem(itemId));
       itemElement.append(useButton);

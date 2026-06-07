@@ -115,12 +115,13 @@
     <h1>All you got is this one cig to get home.</h1>
     <p>Better use it wisely.</p>
     <div class="actions">
-      <a href="../index.html" onclick="sessionStorage.setItem('lab-zero-return-to-game', 'true')">Save it for later</a>
+      <a href="../index.html" data-return-to-game>Save it for later</a>
       <a class="smoke-link" href="../index.html" onclick="return smokeTheCig()">Smoke the cig and head home</a>
     </div>
   </main>
 
   <script src="../js/inventory.js"></script>
+  <script src="../js/menu-return.js"></script>
   <script>
     function smokeTheCig() {
       const labState = {
@@ -133,10 +134,13 @@
 
       removeInventoryItem("cig", 1);
       sessionStorage.setItem("lab-zero-game-state", JSON.stringify(labState));
-        sessionStorage.setItem("lab-zero-return-to-game", "true");
+        markReturnToGame();
       return true;
     }
   </script>
 </body>
 </html>
+
+
+
 

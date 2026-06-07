@@ -1,5 +1,16 @@
 const dialogueStage = document.getElementById("stage");
 const CRICKET_SEED_QUEST_ID = "cricket-seed-lesson";
+const CRICKET_SEED_ITEM_ID = "sunflowerSeeds";
+const dialogueInventoryDefaults = {
+  sunflowerSeeds: 0,
+  milletSeeds: 0,
+  cig: 1
+};
+const dialogueProgressDefaults = {
+  level: 1,
+  hp: 100,
+  completedQuests: []
+};
 const cricketTalkZone = {
   left: 160,
   top: 158,
@@ -79,14 +90,14 @@ function startDialogue() {
 }
 
 function getCricketDialogueLines() {
-  if (hasCompletedQuest(CRICKET_SEED_QUEST_ID)) {
+  if (isCricketSeedQuestComplete()) {
     return [
       cricketLine("Quest complete placeholder. Replace this with Cricket's post-lesson greeting."),
       littleWingLine("Post-quest placeholder response.")
     ];
   }
 
-  if (hasInventoryItem("sunflowerSeeds")) {
+  if (hasCricketSeed()) {
     return [
       cricketLine("Quest turn-in placeholder. Cricket notices Little Wing has a sunflower seed."),
       littleWingLine("Give Wing Master Cricket one sunflower seed."),
@@ -106,16 +117,109 @@ function getCricketDialogueLines() {
 }
 
 function completeCricketSeedQuest() {
-  if (hasCompletedQuest(CRICKET_SEED_QUEST_ID)) {
+  if (isCricketSeedQuestComplete()) {
     return;
   }
 
-  if (!removeInventoryItem("sunflowerSeeds", 1)) {
+  if (!removeCricketSeed()) {
     return;
   }
 
-  completeQuest(CRICKET_SEED_QUEST_ID);
-  levelUpPlayer(1);
+  markCricketSeedQuestComplete();
+  raiseLittleWingLevel();
+}
+
+function hasCricketSeed() {
+  if (typeof hasInventoryItem === "function") {
+    return hasInventoryItem(CRICKET_SEED_ITEM_ID);
+  }
+
+  return getDialogueInventory()[CRICKET_SEED_ITEM_ID] > 0;
+}
+
+function removeCricketSeed() {
+  if (typeof removeInventoryItem === "function") {
+    return removeInventoryItem(CRICKET_SEED_ITEM_ID, 1);
+  }
+
+  const inventory = getDialogueInventory();
+
+  if ((inventory[CRICKET_SEED_ITEM_ID] || 0) <= 0) {
+    return false;
+  }
+
+  inventory[CRICKET_SEED_ITEM_ID] -= 1;
+  sessionStorage.setItem("lab-zero-inventory", JSON.stringify(inventory));
+  return true;
+}
+
+function isCricketSeedQuestComplete() {
+  if (typeof hasCompletedQuest === "function") {
+    return hasCompletedQuest(CRICKET_SEED_QUEST_ID);
+  }
+
+  return getDialogueProgress().completedQuests.includes(CRICKET_SEED_QUEST_ID);
+}
+
+function markCricketSeedQuestComplete() {
+  if (typeof completeQuest === "function") {
+    completeQuest(CRICKET_SEED_QUEST_ID);
+    return;
+  }
+
+  const progress = getDialogueProgress();
+
+  if (!progress.completedQuests.includes(CRICKET_SEED_QUEST_ID)) {
+    progress.completedQuests.push(CRICKET_SEED_QUEST_ID);
+    sessionStorage.setItem("lab-zero-player-progress", JSON.stringify(progress));
+  }
+}
+
+function raiseLittleWingLevel() {
+  if (typeof levelUpPlayer === "function") {
+    levelUpPlayer(1);
+    return;
+  }
+
+  const progress = getDialogueProgress();
+  progress.level += 1;
+  sessionStorage.setItem("lab-zero-player-progress", JSON.stringify(progress));
+}
+
+function getDialogueInventory() {
+  const savedInventory = sessionStorage.getItem("lab-zero-inventory");
+
+  if (!savedInventory) {
+    return { ...dialogueInventoryDefaults };
+  }
+
+  try {
+    return {
+      ...dialogueInventoryDefaults,
+      ...JSON.parse(savedInventory)
+    };
+  } catch (error) {
+    return { ...dialogueInventoryDefaults };
+  }
+}
+
+function getDialogueProgress() {
+  const savedProgress = sessionStorage.getItem("lab-zero-player-progress");
+
+  if (!savedProgress) {
+    return { ...dialogueProgressDefaults };
+  }
+
+  try {
+    const progress = JSON.parse(savedProgress);
+    return {
+      ...dialogueProgressDefaults,
+      ...progress,
+      completedQuests: Array.isArray(progress.completedQuests) ? progress.completedQuests : []
+    };
+  } catch (error) {
+    return { ...dialogueProgressDefaults };
+  }
 }
 
 function cricketLine(text) {

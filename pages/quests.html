@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -82,7 +82,21 @@
 <body>
   <main class="quest-message" aria-label="Quests">
     <h1>Little Wing can't read his quest log yet.</h1>
-    <a class="back-link" href="../index.html">Back</a>
+    <a class="back-link" href="../index.html" onclick="return goBack(event)">Back</a>
   </main>
+
+  <script>
+    function goBack(event) {
+      event.preventDefault();
+
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "../index.html";
+      }
+
+      return false;
+    }
+  </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
-﻿const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
+const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
 
 restoreGameState();
+loadPickupSystem();
 
 if (quickNav) {
   quickNav.addEventListener("click", (event) => {
@@ -71,3 +72,8 @@ function restoreGameState() {
   placeCamera();
 }
 
+function loadPickupSystem() {
+  const script = document.createElement("script");
+  script.src = "js/pickups.js";
+  document.body.append(script);
+}

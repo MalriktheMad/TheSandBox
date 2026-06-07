@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -121,6 +121,8 @@
   </main>
 
   <script>
+    const INVENTORY_STORAGE_KEY = "lab-zero-inventory";
+
     function smokeTheCig() {
       const labState = {
         area: "lab",
@@ -129,9 +131,34 @@
         zoom: 1,
         facingLeft: false
       };
+      const inventory = getInventory();
 
+      inventory.cig = Math.max(0, (inventory.cig || 0) - 1);
+      sessionStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(inventory));
       sessionStorage.setItem("lab-zero-game-state", JSON.stringify(labState));
       return true;
+    }
+
+    function getInventory() {
+      const savedInventory = sessionStorage.getItem(INVENTORY_STORAGE_KEY);
+      const startingInventory = {
+        sunflowerSeeds: 0,
+        milletSeeds: 0,
+        cig: 1
+      };
+
+      if (!savedInventory) {
+        return startingInventory;
+      }
+
+      try {
+        return {
+          ...startingInventory,
+          ...JSON.parse(savedInventory)
+        };
+      } catch (error) {
+        return startingInventory;
+      }
     }
   </script>
 </body>

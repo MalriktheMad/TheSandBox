@@ -8,8 +8,10 @@
     :root {
       --void: #030306;
       --text: #f7f4ff;
+      --muted: #bdb6d7;
       --purple: #7c3cff;
       --blue: #1b6fd6;
+      --candle: #f8d56b;
     }
 
     * {
@@ -36,7 +38,7 @@
     }
 
     .quest-message {
-      width: min(420px, 100%);
+      width: min(460px, 100%);
       border: 3px solid rgba(247, 244, 255, 0.72);
       border-radius: 6px;
       padding: 24px;
@@ -54,6 +56,31 @@
       line-height: 1.15;
       text-transform: uppercase;
       text-shadow: 0 0 16px rgba(124, 60, 255, 0.72), 3px 3px 0 #000;
+    }
+
+    .quest-card {
+      margin-bottom: 18px;
+      border: 2px solid rgba(247, 244, 255, 0.18);
+      border-radius: 6px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.06);
+      text-align: left;
+    }
+
+    .quest-card h2 {
+      margin: 0 0 8px;
+      color: var(--candle);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .quest-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 900;
+      line-height: 1.35;
+      text-transform: uppercase;
     }
 
     .back-link {
@@ -81,8 +108,23 @@
 </head>
 <body>
   <main class="quest-message" aria-label="Quests">
-    <h1>Little Wing can't read his quest log yet.</h1>
+    <h1>Quest Log</h1>
+    <section class="quest-card" aria-label="Wing Master Cricket quest">
+      <h2>Wing Master Cricket</h2>
+      <p data-quest-status>Little Wing can't read his quest log yet.</p>
+    </section>
     <a class="back-link" href="../index.html">Back</a>
   </main>
+
+  <script src="../js/progress.js"></script>
+  <script>
+    const questStatus = document.querySelector("[data-quest-status]");
+
+    if (hasCompletedQuest("cricket-seed-lesson")) {
+      questStatus.textContent = "Complete placeholder. Cricket accepted the sunflower seed and Little Wing leveled up.";
+    } else {
+      questStatus.textContent = "Bring Wing Master Cricket one sunflower seed.";
+    }
+  </script>
 </body>
 </html>

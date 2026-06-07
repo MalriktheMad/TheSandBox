@@ -59,11 +59,24 @@ function hasCompletedQuest(questId) {
 }
 
 function syncPlayerProgressReadout() {
-  const levelValue = document.querySelector('[data-stat="level"]');
+  const levelValue = findReadoutStat("level");
 
   if (levelValue) {
     levelValue.textContent = getPlayerProgress().level;
   }
+}
+
+function findReadoutStat(statName) {
+  const markedStat = document.querySelector(`[data-stat="${statName}"]`);
+
+  if (markedStat) {
+    return markedStat;
+  }
+
+  return Array.from(document.querySelectorAll(".readout .stat-row")).find((row) => {
+    const label = row.querySelector("span");
+    return label && label.textContent.trim().toLowerCase() === statName;
+  })?.querySelector("strong") || null;
 }
 
 syncPlayerProgressReadout();

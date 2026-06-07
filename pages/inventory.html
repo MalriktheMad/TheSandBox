@@ -128,9 +128,17 @@
       box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 20px rgba(124, 60, 255, 0.38);
     }
 
+    .inventory-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 2px solid rgba(247, 244, 255, 0.14);
+    }
+
     .back-link {
-      display: block;
-      margin-top: 16px;
+      display: inline-block;
+      min-width: 160px;
     }
 
     @media (max-width: 480px) {
@@ -145,6 +153,10 @@
       .inventory-item button {
         grid-column: 1 / -1;
       }
+
+      .back-link {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -153,7 +165,9 @@
     <h1>Inventory</h1>
     <p class="subtitle">Little Wing's pocket check</p>
     <section class="inventory-list" data-inventory-list aria-label="Inventory items"></section>
-    <a class="back-link" href="../index.html">Back</a>
+    <div class="inventory-actions">
+      <a class="back-link" href="../index.html">Back</a>
+    </div>
   </main>
 
   <script src="../js/inventory.js"></script>

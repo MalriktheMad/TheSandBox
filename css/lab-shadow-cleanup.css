@@ -47,11 +47,7 @@
 }
 
 .pixel-bird {
-  left: -9px;
-  top: 0;
   z-index: 1;
-  width: 58px;
-  height: 40px;
   background-position: center bottom;
 }
 

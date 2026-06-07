@@ -67,3 +67,17 @@
   background: rgba(0, 0, 0, 0.32);
   pointer-events: none;
 }
+
+.old-dilly-npc {
+  left: 225px;
+  top: 112px;
+  width: 64px;
+  height: 96px;
+}
+
+.liz-npc {
+  right: 286px;
+  top: 130px;
+  width: 64px;
+  height: 96px;
+}

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -158,8 +158,22 @@
       <div class="stat-row"><span>Status</span><strong>Bird Assassin</strong></div>
       <div class="stat-row"><span>HP</span><strong>100</strong></div>
       <div class="stat-row"><span>Level</span><strong>1</strong></div>
-      <a class="back-link" href="../index.html">Back</a>
+      <a class="back-link" href="../index.html" onclick="return goBack(event)">Back</a>
     </section>
   </main>
+
+  <script>
+    function goBack(event) {
+      event.preventDefault();
+
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = "../index.html";
+      }
+
+      return false;
+    }
+  </script>
 </body>
 </html>

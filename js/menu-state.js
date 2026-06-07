@@ -1,6 +1,21 @@
-const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
+﻿const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
+const START_MENU_NEW_GAME_KEYS = [
+  GAME_STATE_STORAGE_KEY,
+  "lab-zero-opening-bedroom-dialogue",
+  "lab-zero-inventory",
+  "lab-zero-player-progress",
+  "lab-zero-collected-pickups"
+];
+const START_AREA = "bedroom";
+const START_X = 228;
+const START_Y = 324;
+
+const startMenu = document.getElementById("start-menu");
+const newGameButton = document.getElementById("new-game");
+const continueGameButton = document.getElementById("continue-game");
 
 restoreGameState();
+setupStartMenu();
 loadGameSystems();
 
 if (quickNav) {
@@ -17,7 +32,61 @@ if (quickNav) {
 
 window.addEventListener("pagehide", saveGameState);
 
+function setupStartMenu() {
+  if (!startMenu || !newGameButton || !continueGameButton) {
+    startGame();
+    return;
+  }
+
+  continueGameButton.hidden = !sessionStorage.getItem(GAME_STATE_STORAGE_KEY);
+  startMenu.hidden = false;
+
+  newGameButton.addEventListener("click", () => {
+    START_MENU_NEW_GAME_KEYS.forEach((key) => sessionStorage.removeItem(key));
+    movePlayerToStart();
+    startGame();
+  });
+
+  continueGameButton.addEventListener("click", startGame);
+}
+
+function startGame() {
+  if (startMenu) {
+    startMenu.hidden = true;
+  }
+
+  if (typeof playOpeningBedroomDialogue === "function") {
+    window.setTimeout(playOpeningBedroomDialogue, 80);
+  }
+}
+
+function movePlayerToStart() {
+  getActiveArea().element.hidden = true;
+
+  state.area = START_AREA;
+  state.x = START_X;
+  state.y = START_Y;
+  state.targetX = START_X;
+  state.targetY = START_Y;
+  state.path = [];
+  state.zoom = 1;
+  state.transitionCooldown = 0;
+
+  const area = getActiveArea();
+  area.element.hidden = false;
+  area.player.classList.remove("facing-left");
+  area.target.classList.remove("visible");
+
+  placePlayer();
+  placeTarget();
+  placeCamera();
+}
+
 function saveGameState() {
+  if (startMenu && !startMenu.hidden) {
+    return;
+  }
+
   const area = getActiveArea();
   const snapshot = {
     area: state.area,

@@ -830,3 +830,84 @@ a {
 
 
 
+
+.start-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 34%, rgba(124, 60, 255, 0.24), transparent 28%),
+    radial-gradient(circle at 68% 58%, rgba(27, 111, 214, 0.18), transparent 30%),
+    rgba(3, 3, 6, 0.94);
+  color: var(--text);
+  pointer-events: auto;
+}
+
+.start-menu[hidden] {
+  display: none;
+}
+
+.start-menu-panel {
+  width: min(440px, 100%);
+  border: 3px solid rgba(247, 244, 255, 0.72);
+  border-radius: 6px;
+  padding: 24px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    rgba(5, 5, 8, 0.88);
+  box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.68), 0 0 28px rgba(124, 60, 255, 0.28);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.start-menu-kicker {
+  margin-bottom: 8px;
+  color: var(--candle);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.start-menu h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 2rem;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(124, 60, 255, 0.7), 3px 3px 0 #000;
+}
+
+.start-menu p {
+  margin: 10px 0 22px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.start-menu-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.start-menu button {
+  min-height: 42px;
+  border: 2px solid rgba(247, 244, 255, 0.7);
+  border-radius: 6px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), transparent 42%),
+    rgba(5, 5, 8, 0.84);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72), 0 0 14px rgba(124, 60, 255, 0.2);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.start-menu button:hover,
+.start-menu button:focus-visible {
+  background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
+  outline: none;
+}

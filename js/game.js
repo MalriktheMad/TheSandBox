@@ -175,7 +175,7 @@ function stopUiMovement(event) {
 }
 
 function setTarget(event) {
-  if (event.target.closest(".readout, .quick-nav, .zoom-controls")) {
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .start-menu")) {
     return;
   }
 
@@ -600,6 +600,7 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
 
 
 

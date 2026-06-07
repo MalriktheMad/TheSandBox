@@ -68,7 +68,7 @@ function handleDialoguePointer(event) {
     return;
   }
 
-  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .dialogue-box")) {
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .dialogue-box, .start-menu")) {
     return;
   }
 
@@ -328,6 +328,7 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
 
 
 

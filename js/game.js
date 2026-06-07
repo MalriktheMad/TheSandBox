@@ -91,7 +91,7 @@ const AREAS = {
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
       { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 1354, entryY: 302 },
-      { left: 74, top: 420, right: 258, bottom: 586, to: "bedroom", entryX: 638, entryY: 420 }
+      { left: 92, top: 438, right: 224, bottom: 556, to: "bedroom", entryX: 548, entryY: 420 }
     ]
   },
   bedroom: {
@@ -102,7 +102,7 @@ const AREAS = {
     target: bedroomTarget,
     blocked: BEDROOM_BLOCKED_TERRAIN,
     transitions: [
-      { left: 584, top: 402, right: 768, bottom: 548, to: "lab", entryX: 156, entryY: 430 }
+      { left: 604, top: 430, right: 746, bottom: 526, to: "lab", entryX: 258, entryY: 430 }
     ]
   },
   dilly: {
@@ -600,6 +600,7 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
 
 
 

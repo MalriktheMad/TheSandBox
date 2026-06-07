@@ -1,6 +1,7 @@
 ﻿const dialogueStage = document.getElementById("stage");
 const CRICKET_SEED_QUEST_ID = "cricket-seed-lesson";
 const CRICKET_SEED_ITEM_ID = "sunflowerSeeds";
+const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
 const dialogueInventoryDefaults = {
   sunflowerSeeds: 0,
   milletSeeds: 0,
@@ -49,6 +50,15 @@ const dialogueText = document.getElementById("dialogue-text");
 
 if (dialogueStage) {
   dialogueStage.addEventListener("pointerdown", handleDialoguePointer, { capture: true });
+}
+
+function playOpeningBedroomDialogue() {
+  if (dialogueState.active || state.area !== "bedroom" || sessionStorage.getItem(OPENING_BEDROOM_DIALOGUE_KEY)) {
+    return;
+  }
+
+  sessionStorage.setItem(OPENING_BEDROOM_DIALOGUE_KEY, "true");
+  startDialogue(getOpeningBedroomDialogueLines());
 }
 
 function handleDialoguePointer(event) {
@@ -110,6 +120,13 @@ function startDialogue(lines) {
   dialogueState.lines = lines;
   dialogueBox.hidden = false;
   showDialogueLine();
+}
+
+function getOpeningBedroomDialogueLines() {
+  return [
+    littleWingLine("Oh, I must have slept in..."),
+    littleWingLine("Where is the wizard and the Wing Master?")
+  ];
 }
 
 function getCricketDialogueLines() {
@@ -311,6 +328,7 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
 
 
 

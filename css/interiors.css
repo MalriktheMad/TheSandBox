@@ -1,4 +1,4 @@
-.lab-interior {
+﻿.lab-interior {
   position: absolute;
   left: 0;
   top: 0;
@@ -401,4 +401,195 @@
     linear-gradient(90deg, transparent 0 22px, rgba(248, 213, 107, 0.52) 22px 30px, transparent 30px),
     linear-gradient(180deg, #2b1a10, #0d0806);
   box-shadow: 0 0 18px rgba(248, 213, 107, 0.22);
+}
+
+.lab-stairs {
+  position: absolute;
+  left: 92px;
+  top: 438px;
+  width: 132px;
+  height: 118px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(135deg, rgba(124, 60, 255, 0.22), transparent 42%),
+    repeating-linear-gradient(180deg, #2b1a10 0 14px, #0d0806 14px 22px);
+  box-shadow: 0 0 18px rgba(124, 60, 255, 0.2);
+  pointer-events: none;
+}
+
+.lab-stairs::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 3px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 18px, rgba(248, 213, 107, 0.34) 18px 24px, transparent 24px 42px),
+    rgba(5, 5, 8, 0.72);
+}
+
+.bedroom-interior {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 820px;
+  height: 560px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  border: 8px solid #050508;
+  background:
+    radial-gradient(circle at 23% 30%, rgba(248, 213, 107, 0.12), transparent 24%),
+    radial-gradient(circle at 73% 22%, rgba(124, 60, 255, 0.18), transparent 28%),
+    linear-gradient(180deg, #151018 0%, #09070c 100%);
+  box-shadow: inset 0 0 0 8px rgba(247, 244, 255, 0.06);
+  will-change: transform;
+}
+
+.bedroom-floor,
+.bedroom-cage,
+.bedroom-cage-door,
+.bedroom-perch,
+.wizard-bed,
+.wizard-nightstand,
+.bedroom-desk,
+.bedroom-candle,
+.bedroom-rug,
+.bedroom-stairs {
+  position: absolute;
+  pointer-events: none;
+}
+
+.bedroom-floor {
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(247, 244, 255, 0.07) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(247, 244, 255, 0.07) 2px, transparent 2px),
+    linear-gradient(135deg, rgba(91, 56, 35, 0.18), transparent 48%);
+  background-size: 46px 46px, 46px 46px, auto;
+}
+
+.bedroom-cage {
+  left: 54px;
+  top: 72px;
+  width: 290px;
+  height: 284px;
+  border: 5px solid #050508;
+  border-radius: 42px 42px 8px 8px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 26px, rgba(216, 209, 240, 0.55) 26px 31px),
+    repeating-linear-gradient(180deg, transparent 0 54px, rgba(216, 209, 240, 0.38) 54px 59px),
+    linear-gradient(180deg, rgba(124, 60, 255, 0.18), rgba(5, 5, 8, 0.16));
+  box-shadow: 0 0 22px rgba(124, 60, 255, 0.18), inset 0 -16px 0 rgba(5, 5, 8, 0.28);
+}
+
+.bedroom-cage::before {
+  content: "";
+  position: absolute;
+  left: 126px;
+  top: -30px;
+  width: 34px;
+  height: 34px;
+  border: 5px solid #050508;
+  border-bottom: 0;
+  border-radius: 18px 18px 0 0;
+}
+
+.bedroom-cage-door {
+  left: 176px;
+  bottom: -5px;
+  width: 80px;
+  height: 112px;
+  border: 5px solid #050508;
+  border-bottom: 0;
+  background: rgba(5, 5, 8, 0.32);
+  transform: skewY(-6deg);
+  transform-origin: bottom left;
+}
+
+.bedroom-perch {
+  left: 46px;
+  top: 166px;
+  width: 182px;
+  height: 10px;
+  border: 3px solid #050508;
+  background: #7a5230;
+  box-shadow: 0 42px 0 #3b2414;
+}
+
+.wizard-bed {
+  right: 58px;
+  top: 96px;
+  width: 214px;
+  height: 104px;
+  border: 5px solid #050508;
+  background:
+    linear-gradient(90deg, rgba(248, 213, 107, 0.28) 0 22px, transparent 22px 48px),
+    linear-gradient(180deg, #7c3cff 0 34px, #2b1a10 34px 100%);
+  box-shadow: 8px 9px 0 rgba(0, 0, 0, 0.42);
+}
+
+.wizard-nightstand {
+  right: 282px;
+  top: 146px;
+  width: 48px;
+  height: 46px;
+  border: 4px solid #050508;
+  background: linear-gradient(180deg, #6a4425, #2e1b10);
+  box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.38);
+}
+
+.bedroom-desk {
+  right: 76px;
+  top: 296px;
+  width: 224px;
+  height: 72px;
+  border: 5px solid #050508;
+  background:
+    linear-gradient(90deg, transparent 0 28px, rgba(66, 165, 255, 0.38) 28px 36px, transparent 36px 74px, rgba(182, 92, 255, 0.4) 74px 82px, transparent 82px),
+    repeating-linear-gradient(90deg, #3b2414 0 28px, #6a4425 28px 46px);
+  box-shadow: 8px 9px 0 rgba(0, 0, 0, 0.42);
+}
+
+.bedroom-candle {
+  right: 118px;
+  top: 264px;
+  width: 18px;
+  height: 30px;
+  border: 3px solid #050508;
+  background: linear-gradient(180deg, #ede3bd, #947d54);
+  box-shadow: 0 0 18px rgba(248, 213, 107, 0.46);
+}
+
+.bedroom-candle::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: -15px;
+  width: 8px;
+  height: 14px;
+  background: radial-gradient(circle at 50% 72%, #f8d56b 0 4px, #b65cff 5px 8px, transparent 9px);
+}
+
+.bedroom-rug {
+  left: 352px;
+  bottom: 72px;
+  width: 184px;
+  height: 84px;
+  border: 4px solid #050508;
+  background:
+    linear-gradient(90deg, rgba(248, 213, 107, 0.42) 0 10px, transparent 10px 24px),
+    linear-gradient(135deg, rgba(124, 60, 255, 0.75), rgba(27, 111, 214, 0.58));
+  background-size: 34px 100%, auto;
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.38);
+}
+
+.bedroom-stairs {
+  right: 74px;
+  bottom: 34px;
+  width: 142px;
+  height: 96px;
+  border: 5px solid #050508;
+  background:
+    linear-gradient(135deg, rgba(124, 60, 255, 0.2), transparent 42%),
+    repeating-linear-gradient(180deg, #2b1a10 0 13px, #0d0806 13px 21px);
+  box-shadow: 0 0 18px rgba(124, 60, 255, 0.24);
 }

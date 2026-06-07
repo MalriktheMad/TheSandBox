@@ -4,6 +4,8 @@ const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
 const DILLY_WIDTH = 880;
 const DILLY_HEIGHT = 640;
+const BEDROOM_WIDTH = 820;
+const BEDROOM_HEIGHT = 560;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
@@ -26,10 +28,14 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "lab-core", left: 414, top: 148, right: 506, bottom: 260 },
   { name: "weird-console", left: 388, top: 312, right: 532, bottom: 396 },
   { name: "codex-workstation", left: 518, top: 90, right: 676, bottom: 222 },
-  { name: "left-bird-cage", left: 74, top: 462, right: 170, bottom: 586 },
-  { name: "right-bird-cage", left: 164, top: 462, right: 260, bottom: 586 },
   { name: "empty-wizard-chair", left: 424, top: 34, right: 498, bottom: 146 },
   { name: "wing-master-cricket", left: 174, top: 178, right: 290, bottom: 280 }
+];
+const BEDROOM_BLOCKED_TERRAIN = [
+  { name: "cage-back-wall", left: 54, top: 72, right: 344, bottom: 118 },
+  { name: "wizard-bed", left: 518, top: 86, right: 762, bottom: 214 },
+  { name: "nightstand", left: 466, top: 128, right: 522, bottom: 206 },
+  { name: "writing-desk", left: 480, top: 282, right: 744, bottom: 390 }
 ];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
@@ -51,6 +57,9 @@ const targetEl = document.getElementById("target");
 const labInterior = document.getElementById("lab-interior");
 const interiorPlayer = document.getElementById("interior-player");
 const interiorTarget = document.getElementById("interior-target");
+const bedroomInterior = document.getElementById("bedroom-interior");
+const bedroomPlayer = document.getElementById("bedroom-player");
+const bedroomTarget = document.getElementById("bedroom-target");
 const dillyInterior = document.getElementById("dilly-interior");
 const dillyPlayer = document.getElementById("dilly-player");
 const dillyTarget = document.getElementById("dilly-target");
@@ -81,7 +90,19 @@ const AREAS = {
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 1354, entryY: 302 }
+      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 1354, entryY: 302 },
+      { left: 74, top: 420, right: 258, bottom: 586, to: "bedroom", entryX: 638, entryY: 420 }
+    ]
+  },
+  bedroom: {
+    width: BEDROOM_WIDTH,
+    height: BEDROOM_HEIGHT,
+    element: bedroomInterior,
+    player: bedroomPlayer,
+    target: bedroomTarget,
+    blocked: BEDROOM_BLOCKED_TERRAIN,
+    transitions: [
+      { left: 584, top: 402, right: 768, bottom: 548, to: "lab", entryX: 156, entryY: 430 }
     ]
   },
   dilly: {
@@ -98,11 +119,11 @@ const AREAS = {
 };
 
 const state = {
-  area: "lab",
-  x: 232,
-  y: 328,
-  targetX: 232,
-  targetY: 328,
+  area: "bedroom",
+  x: 228,
+  y: 324,
+  targetX: 228,
+  targetY: 324,
   path: [],
   speed: 260,
   zoom: 1,
@@ -579,4 +600,8 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
+
+
+
 

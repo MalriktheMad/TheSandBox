@@ -3,11 +3,159 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=one-cig.html">
   <title>Inventory</title>
-  <script>window.location.replace("one-cig.html");</script>
+  <style>
+    :root {
+      --void: #030306;
+      --text: #f7f4ff;
+      --muted: #bdb6d7;
+      --purple: #7c3cff;
+      --blue: #1b6fd6;
+      --candle: #f8d56b;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 24% 18%, rgba(124, 60, 255, 0.2), transparent 30%),
+        radial-gradient(circle at 78% 72%, rgba(27, 111, 214, 0.14), transparent 32%),
+        var(--void);
+      color: var(--text);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    body {
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 18px;
+    }
+
+    .inventory-page {
+      width: min(520px, 100%);
+      border: 3px solid rgba(247, 244, 255, 0.72);
+      border-radius: 6px;
+      padding: 22px;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.07), transparent 42%),
+        rgba(5, 5, 8, 0.88);
+      box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.72), 0 0 28px rgba(124, 60, 255, 0.24);
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      color: var(--text);
+      font-size: 1.45rem;
+      line-height: 1;
+      text-transform: uppercase;
+      text-shadow: 0 0 16px rgba(124, 60, 255, 0.72), 3px 3px 0 #000;
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .inventory-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .inventory-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 12px;
+      border: 2px solid rgba(247, 244, 255, 0.2);
+      border-radius: 6px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .item-details h2 {
+      margin: 0 0 4px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .item-details p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.25;
+    }
+
+    strong {
+      color: var(--candle);
+      font-size: 0.9rem;
+    }
+
+    button,
+    .back-link {
+      border: 2px solid rgba(247, 244, 255, 0.62);
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: linear-gradient(135deg, rgba(124, 60, 255, 0.9), rgba(27, 111, 214, 0.88));
+      box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    button:disabled {
+      opacity: 0.42;
+    }
+
+    button:not(:disabled):focus-visible,
+    button:not(:disabled):hover,
+    .back-link:focus-visible,
+    .back-link:hover {
+      outline: none;
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 20px rgba(124, 60, 255, 0.38);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 480px) {
+      .inventory-page {
+        padding: 16px;
+      }
+
+      .inventory-item {
+        grid-template-columns: 1fr auto;
+      }
+
+      .inventory-item button {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
 </head>
 <body>
-  <p><a href="one-cig.html">Continue</a></p>
+  <main class="inventory-page" aria-label="Inventory">
+    <h1>Inventory</h1>
+    <p class="subtitle">Little Wing's pocket check</p>
+    <section class="inventory-list" data-inventory-list aria-label="Inventory items"></section>
+    <a class="back-link" href="../index.html">Back</a>
+  </main>
+
+  <script src="../js/inventory.js"></script>
 </body>
 </html>

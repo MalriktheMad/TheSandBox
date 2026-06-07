@@ -549,52 +549,28 @@
      fill="#08080d"
      id="rect29-11-2-6"
      style="fill:#0000ff;stroke-width:1.70843" />
-  <path
-     style="fill:#1a1a1a;fill-opacity:1"
-     id="path1"
-     sodipodi:type="arc"
-     sodipodi:cx="33.665428"
-     sodipodi:cy="38.959106"
-     sodipodi:rx="6.5427508"
-     sodipodi:ry="1.2490706"
-     sodipodi:start="0"
-     sodipodi:end="0.28404507"
-     sodipodi:arc-type="slice"
-     d="m 40.208179,38.959106 a 6.5427508,1.2490706 0 0 1 -0.26217,0.350041 l -6.280581,-0.350041 z" />
-  <path
-     style="fill:#1a1a1a;fill-opacity:1"
-     id="path2"
-     sodipodi:type="arc"
-     sodipodi:cx="31.226767"
-     sodipodi:cy="42.230484"
-     sodipodi:rx="7.7918215"
-     sodipodi:ry="1.1895911"
-     sodipodi:start="0"
-     sodipodi:end="0.28404507"
-     sodipodi:arc-type="slice"
-     d="m 39.018588,42.230484 a 7.7918215,1.1895911 0 0 1 -0.312221,0.333372 l -7.4796,-0.333372 z" />
-  <path
-     style="fill:#1a1a1a;fill-opacity:1"
-     id="path3"
-     sodipodi:type="arc"
-     sodipodi:cx="27.003717"
-     sodipodi:cy="45.085503"
-     sodipodi:rx="7.0185876"
-     sodipodi:ry="1.3085502"
-     sodipodi:start="0"
-     sodipodi:end="0.28404507"
-     sodipodi:arc-type="slice"
-     d="m 34.022305,45.085503 a 7.0185876,1.3085502 0 0 1 -0.281237,0.366709 l -6.737351,-0.366709 z" />
-  <path
-     style="fill:#1a1a1a;fill-opacity:1"
-     id="path7"
-     sodipodi:type="arc"
-     sodipodi:cx="23.197025"
-     sodipodi:cy="41.100372"
-     sodipodi:rx="4.2825279"
-     sodipodi:ry="0.89219332"
-     sodipodi:start="0"
-     sodipodi:end="0.28404507"
-     sodipodi:arc-type="slice"
-     d="m 27.479553,41.100372 a 4.2825279,0.89219332 0 0 1 -0.171602,0.250029 l -4.110926,-0.250029 z" />
+  <rect
+     x="23.022305"
+     y="37.832714"
+     width="16.582561"
+     height="1.7668132"
+     fill="#08080d"
+     id="rect2-7-9"
+     style="stroke-width:0.637906" />
+  <rect
+     x="15.8513"
+     y="41.754646"
+     width="22.887394"
+     height="1.7668132"
+     fill="#08080d"
+     id="rect2-7-9-8"
+     style="stroke-width:0.749427" />
+  <rect
+     x="15.494423"
+     y="45.799255"
+     width="20.865089"
+     height="0.93409944"
+     fill="#08080d"
+     id="rect2-7-9-2"
+     style="stroke-width:0.520286" />
 </svg>

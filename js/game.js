@@ -1,4 +1,4 @@
-const WORLD_WIDTH = 1600;
+﻿const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
 const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
@@ -98,11 +98,11 @@ const AREAS = {
 };
 
 const state = {
-  area: "outside",
-  x: WORLD_WIDTH / 2,
-  y: WORLD_HEIGHT / 2,
-  targetX: WORLD_WIDTH / 2,
-  targetY: WORLD_HEIGHT / 2,
+  area: "lab",
+  x: 232,
+  y: 328,
+  targetX: 232,
+  targetY: 328,
   path: [],
   speed: 260,
   zoom: 1,
@@ -112,6 +112,7 @@ const state = {
   lastTime: performance.now()
 };
 
+initializeAreaVisibility();
 placePlayer();
 placeTarget();
 placeCamera();
@@ -141,6 +142,12 @@ window.addEventListener("resize", () => {
   placeTarget();
   placeCamera();
 });
+
+function initializeAreaVisibility() {
+  Object.values(AREAS).forEach((area) => {
+    area.element.hidden = area !== getActiveArea();
+  });
+}
 
 function stopUiMovement(event) {
   event.stopPropagation();
@@ -572,3 +579,4 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+

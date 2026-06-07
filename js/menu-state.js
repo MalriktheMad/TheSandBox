@@ -70,3 +70,4 @@ function restoreGameState() {
   placeTarget();
   placeCamera();
 }
+

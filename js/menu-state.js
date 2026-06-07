@@ -1,7 +1,7 @@
 const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
 
 restoreGameState();
-loadPickupSystem();
+loadGameSystems();
 
 if (quickNav) {
   quickNav.addEventListener("click", (event) => {
@@ -72,8 +72,21 @@ function restoreGameState() {
   placeCamera();
 }
 
-function loadPickupSystem() {
+function loadGameSystems() {
+  loadScript("js/inventory.js", () => {
+    loadScript("js/progress.js", () => {
+      loadScript("js/pickups.js");
+    });
+  });
+}
+
+function loadScript(src, onLoad) {
   const script = document.createElement("script");
-  script.src = "js/pickups.js";
+  script.src = src;
+
+  if (onLoad) {
+    script.addEventListener("load", onLoad, { once: true });
+  }
+
   document.body.append(script);
 }

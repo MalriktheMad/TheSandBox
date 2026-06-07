@@ -11,6 +11,56 @@ const PICKUPS = [
     amount: 1,
     label: "Sunflower Seeds",
     className: "sunflower-pickup"
+  },
+  {
+    id: "dilly-sunflower-2",
+    area: "outside",
+    x: 292,
+    y: 278,
+    itemId: "sunflowerSeeds",
+    amount: 1,
+    label: "Sunflower Seeds",
+    className: "sunflower-pickup"
+  },
+  {
+    id: "dilly-sunflower-3",
+    area: "outside",
+    x: 306,
+    y: 336,
+    itemId: "sunflowerSeeds",
+    amount: 1,
+    label: "Sunflower Seeds",
+    className: "sunflower-pickup"
+  },
+  {
+    id: "dilly-sunflower-4",
+    area: "outside",
+    x: 552,
+    y: 304,
+    itemId: "sunflowerSeeds",
+    amount: 1,
+    label: "Sunflower Seeds",
+    className: "sunflower-pickup"
+  },
+  {
+    id: "forest-sunflower-1",
+    area: "outside",
+    x: 628,
+    y: 420,
+    itemId: "sunflowerSeeds",
+    amount: 1,
+    label: "Sunflower Seeds",
+    className: "sunflower-pickup"
+  },
+  {
+    id: "forest-sunflower-2",
+    area: "outside",
+    x: 238,
+    y: 452,
+    itemId: "sunflowerSeeds",
+    amount: 1,
+    label: "Sunflower Seeds",
+    className: "sunflower-pickup"
   }
 ];
 

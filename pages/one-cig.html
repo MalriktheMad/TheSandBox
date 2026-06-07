@@ -75,9 +75,16 @@
       line-height: 1.35;
     }
 
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
     a {
       display: inline-block;
-      margin-top: 32px;
       border: 3px solid var(--line);
       border-radius: 6px;
       padding: 14px 18px;
@@ -88,6 +95,10 @@
       text-decoration: none;
       text-transform: uppercase;
       transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .smoke-link {
+      background: linear-gradient(135deg, #7a5230, var(--purple));
     }
 
     a:hover,
@@ -103,7 +114,25 @@
     <div class="tag">Lab Zero Pocket Check</div>
     <h1>All you got is this one cig to get home.</h1>
     <p>Better use it wisely.</p>
-    <a href="../index.html">Save it for later</a>
+    <div class="actions">
+      <a href="../index.html">Save it for later</a>
+      <a class="smoke-link" href="../index.html" onclick="return smokeTheCig()">Smoke the cig and head home</a>
+    </div>
   </main>
+
+  <script>
+    function smokeTheCig() {
+      const labState = {
+        area: "lab",
+        x: 460,
+        y: 526,
+        zoom: 1,
+        facingLeft: false
+      };
+
+      sessionStorage.setItem("lab-zero-game-state", JSON.stringify(labState));
+      return true;
+    }
+  </script>
 </body>
 </html>

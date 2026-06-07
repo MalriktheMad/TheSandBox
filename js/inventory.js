@@ -1,21 +1,27 @@
 const INVENTORY_STORAGE_KEY = "lab-zero-inventory";
 
 const ITEM_DEFINITIONS = {
-  cig: {
-    name: "Cig",
-    description: "A questionable emergency escape plan.",
-    usable: true
-  },
   sunflowerSeeds: {
     name: "Sunflower Seeds",
     description: "Tiny treasures for hungry birds and future trades.",
     usable: false
+  },
+  milletSeeds: {
+    name: "Millet Seeds",
+    description: "A classic bird snack with excellent negotiation potential.",
+    usable: false
+  },
+  cig: {
+    name: "Cig",
+    description: "A questionable emergency escape plan.",
+    usable: true
   }
 };
 
 const STARTING_INVENTORY = {
-  cig: 1,
-  sunflowerSeeds: 0
+  sunflowerSeeds: 0,
+  milletSeeds: 0,
+  cig: 1
 };
 
 function getInventory() {

@@ -1,36 +1,16 @@
-﻿const dialogueStage = document.getElementById("stage");
+const dialogueStage = document.getElementById("stage");
+const CRICKET_SEED_QUEST_ID = "cricket-seed-lesson";
 const cricketTalkZone = {
   left: 160,
   top: 158,
   right: 316,
   bottom: 292
 };
-const dialogueLines = [
-  {
-    speaker: "Wing Master Cricket",
-    portrait: "assets/portraits/wing-master.svg",
-    text: "Hello, Little Wing."
-  },
-  {
-    speaker: "Little Wing",
-    portrait: "assets/portraits/little-wing.svg",
-    text: "Hello, Wing Master Cricket."
-  },
-  {
-    speaker: "Wing Master Cricket",
-    portrait: "assets/portraits/wing-master.svg",
-    text: "The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it."
-  },
-  {
-    speaker: "Little Wing",
-    portrait: "assets/portraits/little-wing.svg",
-    text: "I'll keep poking around then."
-  }
-];
 
 const dialogueState = {
   active: false,
-  index: 0
+  index: 0,
+  lines: []
 };
 
 const dialogueBox = document.createElement("div");
@@ -93,14 +73,71 @@ function startDialogue() {
 
   dialogueState.active = true;
   dialogueState.index = 0;
+  dialogueState.lines = getCricketDialogueLines();
   dialogueBox.hidden = false;
   showDialogueLine();
+}
+
+function getCricketDialogueLines() {
+  if (hasCompletedQuest(CRICKET_SEED_QUEST_ID)) {
+    return [
+      cricketLine("Quest complete placeholder. Replace this with Cricket's post-lesson greeting."),
+      littleWingLine("Post-quest placeholder response.")
+    ];
+  }
+
+  if (hasInventoryItem("sunflowerSeeds")) {
+    return [
+      cricketLine("Quest turn-in placeholder. Cricket notices Little Wing has a sunflower seed."),
+      littleWingLine("Give Wing Master Cricket one sunflower seed."),
+      {
+        ...cricketLine("Reward placeholder. Cricket accepts the seed and teaches Little Wing something important."),
+        onShow: completeCricketSeedQuest
+      },
+      littleWingLine("Level up placeholder response.")
+    ];
+  }
+
+  return [
+    cricketLine("Quest intro placeholder. Cricket asks Little Wing to bring her one sunflower seed."),
+    littleWingLine("Quest accepted placeholder. Little Wing should find a sunflower outside."),
+    cricketLine("Reminder placeholder. Come back after collecting a sunflower seed.")
+  ];
+}
+
+function completeCricketSeedQuest() {
+  if (hasCompletedQuest(CRICKET_SEED_QUEST_ID)) {
+    return;
+  }
+
+  if (!removeInventoryItem("sunflowerSeeds", 1)) {
+    return;
+  }
+
+  completeQuest(CRICKET_SEED_QUEST_ID);
+  levelUpPlayer(1);
+}
+
+function cricketLine(text) {
+  return {
+    speaker: "Wing Master Cricket",
+    portrait: "assets/portraits/wing-master.svg",
+    text
+  };
+}
+
+function littleWingLine(text) {
+  return {
+    speaker: "Little Wing",
+    portrait: "assets/portraits/little-wing.svg",
+    text
+  };
 }
 
 function advanceDialogue() {
   dialogueState.index += 1;
 
-  if (dialogueState.index >= dialogueLines.length) {
+  if (dialogueState.index >= dialogueState.lines.length) {
     closeDialogue();
     return;
   }
@@ -114,11 +151,15 @@ function closeDialogue() {
 }
 
 function showDialogueLine() {
-  const line = dialogueLines[dialogueState.index];
+  const line = dialogueState.lines[dialogueState.index];
   dialoguePortrait.src = line.portrait;
   dialoguePortrait.alt = `${line.speaker} portrait`;
   dialogueSpeaker.textContent = line.speaker;
   dialogueText.textContent = line.text;
+
+  if (line.onShow) {
+    line.onShow();
+  }
 }
 
 function swallowDialoguePointer(event) {

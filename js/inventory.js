@@ -4,16 +4,19 @@ const ITEM_DEFINITIONS = {
   sunflowerSeeds: {
     name: "Sunflower Seeds",
     description: "Tiny treasures for hungry birds and future trades.",
+    emptyDescription: "None yet.",
     usable: false
   },
   milletSeeds: {
     name: "Millet Seeds",
     description: "A classic bird snack with excellent negotiation potential.",
+    emptyDescription: "None yet.",
     usable: false
   },
   cig: {
     name: "Cig",
     description: "A questionable emergency escape plan.",
+    emptyDescription: "Used up.",
     usable: true
   }
 };
@@ -43,21 +46,44 @@ function getInventory() {
 }
 
 function saveInventory(inventory) {
-  sessionStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(inventory));
+  sessionStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify({
+    ...STARTING_INVENTORY,
+    ...inventory
+  }));
+}
+
+function getInventoryItemCount(itemId) {
+  return getInventory()[itemId] || 0;
+}
+
+function hasInventoryItem(itemId, amount = 1) {
+  return getInventoryItemCount(itemId) >= amount;
 }
 
 function addInventoryItem(itemId, amount = 1) {
   if (!ITEM_DEFINITIONS[itemId]) {
-    return;
+    return false;
   }
 
   const inventory = getInventory();
   inventory[itemId] = Math.max(0, (inventory[itemId] || 0) + amount);
   saveInventory(inventory);
+  return true;
+}
+
+function removeInventoryItem(itemId, amount = 1) {
+  if (!ITEM_DEFINITIONS[itemId] || !hasInventoryItem(itemId, amount)) {
+    return false;
+  }
+
+  const inventory = getInventory();
+  inventory[itemId] = Math.max(0, (inventory[itemId] || 0) - amount);
+  saveInventory(inventory);
+  return true;
 }
 
 function useInventoryItem(itemId) {
-  if (itemId === "cig" && getInventory().cig > 0) {
+  if (itemId === "cig" && hasInventoryItem("cig")) {
     window.location.href = "one-cig.html";
   }
 }
@@ -84,7 +110,7 @@ function renderInventory() {
     itemName.textContent = item.name;
 
     const itemDescription = document.createElement("p");
-    itemDescription.textContent = count > 0 ? item.description : "Used up.";
+    itemDescription.textContent = count > 0 ? item.description : item.emptyDescription;
 
     const itemCount = document.createElement("strong");
     itemCount.textContent = `x${count}`;

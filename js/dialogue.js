@@ -32,6 +32,12 @@ const oldDillyTalkZone = {
   right: 330,
   bottom: 270
 };
+const lizTalkZone = {
+  left: 520,
+  top: 126,
+  right: 672,
+  bottom: 276
+};
 
 const dialogueState = {
   active: false,
@@ -120,6 +126,10 @@ function isOldDillyTalkPoint(event) {
   return isPointInTalkZone(event, oldDillyTalkZone);
 }
 
+function isLizTalkPoint(event) {
+  return isPointInTalkZone(event, lizTalkZone);
+}
+
 function isPointInTalkZone(event, zone) {
   const point = screenToWorld(event.clientX, event.clientY);
 
@@ -190,6 +200,14 @@ function getCodexDialogueLines() {
   ];
 }
 
+
+function getLizDialogueLines() {
+  return [
+    lizLine("Hold still a second, Little Wing. I am trying to remember the shape of this light."),
+    littleWingLine("I am very still. Extremely still."),
+    lizLine("You are a blur with feathers, but I like the energy.")
+  ];
+}
 function getOldDillyDialogueLines() {
   if (hasOldDillyTreat()) {
     return [
@@ -364,6 +382,14 @@ function oldDillyLine(text) {
     text
   };
 }
+
+function lizLine(text) {
+  return {
+    speaker: "Liz",
+    portrait: "assets/portraits/liz.png",
+    text
+  };
+}
 function advanceDialogue() {
   dialogueState.index += 1;
 
@@ -397,6 +423,7 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
 
 
 

@@ -1,4 +1,4 @@
-.pixel-bird,
+﻿.pixel-bird,
 .wing-master-cricket,
 .old-dilly-npc,
 .liz-npc,
@@ -56,4 +56,31 @@
 .liz-npc {
   background-image: url("../assets/sprites/liz.svg");
   box-shadow: none;
+}
+
+.player.is-moving .pixel-bird {
+  animation: little-wing-walk 360ms steps(1, end) infinite;
+}
+
+@keyframes little-wing-walk {
+  0% {
+    background-image: url("../assets/sprites/little-wing-animation/little-wing-64x64.png");
+  }
+
+  20% {
+    background-image: url("../assets/sprites/little-wing-animation/little-wing-64x65.png");
+  }
+
+  40% {
+    background-image: url("../assets/sprites/little-wing-animation/little-wing-64x66.png");
+  }
+
+  60% {
+    background-image: url("../assets/sprites/little-wing-animation/little-wing-64x67.png");
+  }
+
+  80%,
+  100% {
+    background-image: url("../assets/sprites/little-wing-animation/little-wing-64x68.png");
+  }
 }

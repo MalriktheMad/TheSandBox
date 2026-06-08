@@ -188,6 +188,7 @@ function setTarget(event) {
 
   if (!destination) {
     state.path = [];
+    setPlayerMoving(false);
     return;
   }
 
@@ -214,6 +215,7 @@ function tick(now) {
     getActiveArea().target.classList.remove("visible");
   }
 
+  setPlayerMoving(state.path.length > 0);
   requestAnimationFrame(tick);
 }
 
@@ -266,6 +268,12 @@ function placePlayer() {
   const area = getActiveArea();
   area.player.style.left = `${state.x}px`;
   area.player.style.top = `${state.y}px`;
+}
+
+function setPlayerMoving(isMoving) {
+  Object.values(AREAS).forEach((area) => {
+    area.player.classList.toggle("is-moving", area === getActiveArea() && isMoving);
+  });
 }
 
 function placeTarget() {
@@ -344,6 +352,7 @@ function enterArea(areaName, x, y) {
 
   const nextArea = getActiveArea();
   nextArea.element.hidden = false;
+  Object.values(AREAS).forEach((area) => area.player.classList.remove("is-moving"));
   nextArea.player.classList.remove("facing-left");
   placePlayer();
   placeTarget();
@@ -600,6 +609,7 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
 
 
 

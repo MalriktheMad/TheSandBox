@@ -47,7 +47,7 @@ function setupStartMenu() {
     return;
   }
 
-  continueGameButton.hidden = !sessionStorage.getItem(GAME_STATE_STORAGE_KEY);
+  continueGameButton.hidden = !hasSavedGame();
   startMenu.hidden = false;
 
   newGameButton.addEventListener("click", () => {
@@ -58,14 +58,28 @@ function setupStartMenu() {
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
 
-  clearSaveButton.addEventListener("click", () => {
-    clearSavedGame();
-    continueGameButton.hidden = true;
-  });
+  clearSaveButton.addEventListener("pointerup", handleClearSave);
+  clearSaveButton.addEventListener("click", handleClearSave);
+}
+
+function hasSavedGame() {
+  return Boolean(sessionStorage.getItem(GAME_STATE_STORAGE_KEY) || localStorage.getItem(GAME_STATE_STORAGE_KEY));
+}
+
+function handleClearSave(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  clearSavedGame();
+  movePlayerToStart();
+  continueGameButton.hidden = true;
+  startMenu.hidden = false;
 }
 
 function clearSavedGame() {
-  START_MENU_NEW_GAME_KEYS.forEach((key) => sessionStorage.removeItem(key));
+  START_MENU_NEW_GAME_KEYS.forEach((key) => {
+    sessionStorage.removeItem(key);
+    localStorage.removeItem(key);
+  });
 }
 
 function startGame(options = {}) {
@@ -179,6 +193,7 @@ function loadScript(src, onLoad) {
 
   document.body.append(script);
 }
+
 
 
 

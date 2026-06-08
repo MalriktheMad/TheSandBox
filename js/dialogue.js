@@ -196,7 +196,7 @@ function getDialogueProgress() {
 function cricketLine(text) {
   return {
     speaker: "Wing Master Cricket",
-    portrait: "assets/portraits/wing-master.svg",
+    portrait: "assets/portraits/wing-master.png",
     text
   };
 }
@@ -204,7 +204,7 @@ function cricketLine(text) {
 function littleWingLine(text) {
   return {
     speaker: "Little Wing",
-    portrait: "assets/portraits/little-wing.svg",
+    portrait: "assets/portraits/little-wing.png",
     text
   };
 }
@@ -266,3 +266,4 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+

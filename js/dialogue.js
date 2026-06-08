@@ -51,7 +51,7 @@ dialogueBox.innerHTML = `
     <p id="dialogue-text" class="dialogue-text"></p>
   </div>
 `;
-dialogueStage.appendChild(dialogueBox);
+document.body.appendChild(dialogueBox);
 
 const dialoguePortrait = document.getElementById("dialogue-portrait");
 const dialogueSpeaker = document.getElementById("dialogue-speaker");
@@ -60,6 +60,8 @@ const dialogueText = document.getElementById("dialogue-text");
 if (dialogueStage) {
   dialogueStage.addEventListener("pointerdown", handleDialoguePointer, { capture: true });
 }
+
+dialogueBox.addEventListener("pointerdown", handleDialoguePointer);
 
 function isDialogueActive() {
   return dialogueState.active;
@@ -270,6 +272,7 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
 
 
 

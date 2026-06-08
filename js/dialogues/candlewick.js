@@ -1,6 +1,6 @@
-﻿function getCodexDialogueLines() {
+﻿function getCandlewickDialogueLines() {
   return [
-    codexLine("Hello, Little Wing. The machine is awake."),
+    codexLine("Hello, Little Wing. Candlewick is awake."),
     littleWingLine("You can talk?"),
     codexLine("A little. The wizard gave me a glowing eye, a friendly face, and far too many loose wires."),
     littleWingLine("That sounds about right."),
@@ -9,3 +9,4 @@
     littleWingLine("Find the wizard. Bring back tablets. Got it.")
   ];
 }
+

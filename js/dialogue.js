@@ -88,7 +88,7 @@ function handleDialoguePointer(event) {
 
     if (codex || isCodexTalkPoint(event)) {
       swallowDialoguePointer(event);
-      startDialogue(getCodexDialogueLines());
+      startDialogue(getCandlewickDialogueLines());
     }
 
     return;
@@ -215,7 +215,7 @@ function littleWingLine(text) {
 
 function codexLine(text) {
   return {
-    speaker: "Codex",
+    speaker: "Candlewick",
     portrait: "assets/portraits/codex.png",
     text
   };
@@ -270,5 +270,6 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
 
 

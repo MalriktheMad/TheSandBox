@@ -34,8 +34,7 @@ const LAB_BLOCKED_TERRAIN = [
 const BEDROOM_BLOCKED_TERRAIN = [
   { name: "cage-back-wall", left: 54, top: 72, right: 344, bottom: 118 },
   { name: "wizard-bed", left: 518, top: 86, right: 762, bottom: 214 },
-  { name: "nightstand", left: 466, top: 128, right: 522, bottom: 206 },
-  { name: "writing-desk", left: 480, top: 282, right: 744, bottom: 390 }
+  { name: "nightstand", left: 466, top: 128, right: 522, bottom: 206 }
 ];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
@@ -102,7 +101,7 @@ const AREAS = {
     target: bedroomTarget,
     blocked: BEDROOM_BLOCKED_TERRAIN,
     transitions: [
-      { left: 604, top: 430, right: 746, bottom: 526, to: "lab", entryX: 258, entryY: 430 }
+      { left: 568, top: 392, right: 790, bottom: 552, to: "lab", entryX: 258, entryY: 430 }
     ]
   },
   dilly: {
@@ -174,7 +173,14 @@ function stopUiMovement(event) {
   event.stopPropagation();
 }
 
+function isGamePausedForDialogue() {
+  return typeof isDialogueActive === "function" && isDialogueActive();
+}
+
 function setTarget(event) {
+  if (isGamePausedForDialogue()) {
+    return;
+  }
   if (event.target.closest(".readout, .quick-nav, .zoom-controls, .start-menu")) {
     return;
   }
@@ -208,6 +214,15 @@ function tick(now) {
   const delta = Math.min((now - state.lastTime) / 1000, 0.05);
   state.lastTime = now;
   state.transitionCooldown = Math.max(0, state.transitionCooldown - delta);
+
+  
+  if (isGamePausedForDialogue()) {
+    state.path = [];
+    getActiveArea().target.classList.remove("visible");
+    setPlayerMoving(false);
+    requestAnimationFrame(tick);
+    return;
+  }
 
   if (state.path.length > 0) {
     followPath(delta);
@@ -609,6 +624,11 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
+
+
+
+
 
 
 

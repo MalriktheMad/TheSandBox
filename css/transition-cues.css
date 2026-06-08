@@ -101,10 +101,10 @@
 }
 
 .bedroom-stairs::after {
-  left: 18px;
-  bottom: 12px;
-  width: 104px;
-  height: 24px;
+  left: 4px;
+  bottom: 4px;
+  width: 134px;
+  height: 34px;
   border-top: 4px solid rgba(248, 213, 107, 0.76);
   background:
     linear-gradient(90deg, transparent 0 15px, rgba(124, 60, 255, 0.72) 15px 23px, transparent 23px 38px),
@@ -148,3 +148,4 @@
     linear-gradient(45deg, transparent 0 8px, #9ade7e 8px 14px, transparent 14px);
   filter: drop-shadow(0 0 5px rgba(154, 222, 126, 0.62));
 }
+

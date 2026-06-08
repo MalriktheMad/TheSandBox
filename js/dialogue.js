@@ -61,6 +61,10 @@ if (dialogueStage) {
   dialogueStage.addEventListener("pointerdown", handleDialoguePointer, { capture: true });
 }
 
+function isDialogueActive() {
+  return dialogueState.active;
+}
+
 function handleDialoguePointer(event) {
   if (dialogueState.active) {
     swallowDialoguePointer(event);
@@ -266,4 +270,5 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
 

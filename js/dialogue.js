@@ -2,6 +2,8 @@
 const CRICKET_SEED_QUEST_ID = "cricket-seed-lesson";
 const CRICKET_SEED_ITEM_ID = "sunflowerSeeds";
 const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
+const OLD_DILLY_TREAT_KEY = "lab-zero-old-dilly-treat";
+const OLD_DILLY_TREAT_ITEM_ID = "milletSeeds";
 const dialogueInventoryDefaults = {
   sunflowerSeeds: 0,
   milletSeeds: 0,
@@ -23,6 +25,12 @@ const codexTalkZone = {
   top: 72,
   right: 702,
   bottom: 248
+};
+const oldDillyTalkZone = {
+  left: 190,
+  top: 112,
+  right: 330,
+  bottom: 270
 };
 
 const dialogueState = {
@@ -72,22 +80,31 @@ function handleDialoguePointer(event) {
     return;
   }
 
-  if (state.area !== "lab") {
+  if (state.area === "lab") {
+    const cricket = event.target.closest(".wing-master-cricket");
+    const codex = event.target.closest(".codex-terminal");
+
+    if (cricket || isCricketTalkPoint(event)) {
+      swallowDialoguePointer(event);
+      startDialogue(getCricketDialogueLines());
+      return;
+    }
+
+    if (codex || isCodexTalkPoint(event)) {
+      swallowDialoguePointer(event);
+      startDialogue(getCodexDialogueLines());
+    }
+
     return;
   }
 
-  const cricket = event.target.closest(".wing-master-cricket");
-  const codex = event.target.closest(".codex-terminal");
+  if (state.area === "dilly") {
+    const oldDilly = event.target.closest(".old-dilly-npc");
 
-  if (cricket || isCricketTalkPoint(event)) {
-    swallowDialoguePointer(event);
-    startDialogue(getCricketDialogueLines());
-    return;
-  }
-
-  if (codex || isCodexTalkPoint(event)) {
-    swallowDialoguePointer(event);
-    startDialogue(getCodexDialogueLines());
+    if (oldDilly || isOldDillyTalkPoint(event)) {
+      swallowDialoguePointer(event);
+      startDialogue(getOldDillyDialogueLines());
+    }
   }
 }
 
@@ -97,6 +114,10 @@ function isCricketTalkPoint(event) {
 
 function isCodexTalkPoint(event) {
   return isPointInTalkZone(event, codexTalkZone);
+}
+
+function isOldDillyTalkPoint(event) {
+  return isPointInTalkZone(event, oldDillyTalkZone);
 }
 
 function isPointInTalkZone(event, zone) {
@@ -167,6 +188,46 @@ function getCodexDialogueLines() {
     codexLine("And if you uncover any ancient tablets out there, bring them back to me. I may be able to decipher what the old magic forgot."),
     littleWingLine("Find the wizard. Bring back tablets. Got it.")
   ];
+}
+
+function getOldDillyDialogueLines() {
+  if (hasOldDillyTreat()) {
+    return [
+      oldDillyLine("Come back later when my sunflowers have grown back.")
+    ];
+  }
+
+  return [
+    {
+      ...oldDillyLine("Hello Yoshi, Here's a treat my young lad!"),
+      onShow: giveOldDillyTreat
+    },
+    littleWingLine("Millet!")
+  ];
+}
+
+function hasOldDillyTreat() {
+  return sessionStorage.getItem(OLD_DILLY_TREAT_KEY) === "true";
+}
+
+function giveOldDillyTreat() {
+  if (hasOldDillyTreat()) {
+    return;
+  }
+
+  addDialogueInventoryItem(OLD_DILLY_TREAT_ITEM_ID, 1);
+  sessionStorage.setItem(OLD_DILLY_TREAT_KEY, "true");
+}
+
+function addDialogueInventoryItem(itemId, amount = 1) {
+  if (typeof addInventoryItem === "function") {
+    addInventoryItem(itemId, amount);
+    return;
+  }
+
+  const inventory = getDialogueInventory();
+  inventory[itemId] = Math.max(0, (inventory[itemId] || 0) + amount);
+  sessionStorage.setItem("lab-zero-inventory", JSON.stringify(inventory));
 }
 
 function completeCricketSeedTraining() {
@@ -295,6 +356,14 @@ function codexLine(text) {
   };
 }
 
+
+function oldDillyLine(text) {
+  return {
+    speaker: "Old Dilly",
+    portrait: "assets/portraits/old-dilly.png",
+    text
+  };
+}
 function advanceDialogue() {
   dialogueState.index += 1;
 
@@ -328,6 +397,10 @@ function swallowDialoguePointer(event) {
   event.stopPropagation();
   event.stopImmediatePropagation();
 }
+
+
+
+
 
 
 

@@ -5,7 +5,8 @@ const START_MENU_NEW_GAME_KEYS = [
   "lab-zero-opening-bedroom-dialogue",
   "lab-zero-inventory",
   "lab-zero-player-progress",
-  "lab-zero-collected-pickups"
+  "lab-zero-collected-pickups",
+  "lab-zero-old-dilly-treat"
 ];
 const START_AREA = "bedroom";
 const START_X = 228;
@@ -168,5 +169,6 @@ function loadScript(src, onLoad) {
 
   document.body.append(script);
 }
+
 
 

@@ -885,9 +885,23 @@ a {
   font-weight: 900;
 }
 
+.start-menu-tutorial {
+  max-width: 320px;
+  margin: 16px auto 22px;
+  color: #f7f4ff;
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
 .start-menu-actions {
   display: grid;
   gap: 10px;
+}
+
+.clear-save-button {
+  width: 100%;
+  margin-top: 22px;
+  opacity: 0.82;
 }
 
 .start-menu button {
@@ -911,3 +925,4 @@ a {
   background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
   outline: none;
 }
+

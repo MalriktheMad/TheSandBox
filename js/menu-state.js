@@ -15,6 +15,7 @@ const START_Y = 324;
 const startMenu = document.getElementById("start-menu");
 const newGameButton = document.getElementById("new-game");
 const continueGameButton = document.getElementById("continue-game");
+const clearSaveButton = document.getElementById("clear-save");
 
 restoreGameState();
 setupStartMenu();
@@ -35,7 +36,7 @@ if (quickNav) {
 window.addEventListener("pagehide", saveGameState);
 
 function setupStartMenu() {
-  if (!startMenu || !newGameButton || !continueGameButton) {
+  if (!startMenu || !newGameButton || !continueGameButton || !clearSaveButton) {
     startGame();
     return;
   }
@@ -50,12 +51,21 @@ function setupStartMenu() {
   startMenu.hidden = false;
 
   newGameButton.addEventListener("click", () => {
-    START_MENU_NEW_GAME_KEYS.forEach((key) => sessionStorage.removeItem(key));
+    clearSavedGame();
     movePlayerToStart();
     startGame();
   });
 
   continueGameButton.addEventListener("click", () => startGame({ playOpening: false }));
+
+  clearSaveButton.addEventListener("click", () => {
+    clearSavedGame();
+    continueGameButton.hidden = true;
+  });
+}
+
+function clearSavedGame() {
+  START_MENU_NEW_GAME_KEYS.forEach((key) => sessionStorage.removeItem(key));
 }
 
 function startGame(options = {}) {
@@ -169,6 +179,7 @@ function loadScript(src, onLoad) {
 
   document.body.append(script);
 }
+
 
 
 

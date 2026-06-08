@@ -1,7 +1,7 @@
 ﻿.dialogue-box {
   position: absolute;
   left: 50%;
-  bottom: 18px;
+  top: 50%;
   z-index: 30;
   display: grid;
   grid-template-columns: 92px 1fr;
@@ -14,8 +14,9 @@
     linear-gradient(180deg, rgba(36, 22, 58, 0.96), rgba(7, 6, 12, 0.98));
   box-shadow: 0 0 24px rgba(124, 60, 255, 0.32), 8px 10px 0 rgba(0, 0, 0, 0.42);
   color: #fff;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   pointer-events: auto;
+  backdrop-filter: blur(2px);
 }
 
 .dialogue-box[hidden] {
@@ -76,6 +77,8 @@
     font-size: 0.88rem;
   }
 }
+
+
 
 
 

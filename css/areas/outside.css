@@ -1,4 +1,4 @@
-﻿/* Exterior grass kit ground pass: quieter base so pixel patches become the grass language. */
+/* Exterior grass kit ground pass: quieter base so pixel patches become the grass language. */
 .forest-floor {
   background:
     linear-gradient(135deg, rgba(19, 63, 30, 0.36), transparent 44%),
@@ -16,32 +16,32 @@
 .grass-scenery.small {
   width: 16px;
   height: 16px;
-  background-image: url("../assets/sprites/grass/grass-tuft-small.png");
+  background-image: url("../../assets/sprites/environment/grass/grass-tuft-small.png");
 }
 
 .grass-scenery.medium {
   width: 32px;
   height: 32px;
-  background-image: url("../assets/sprites/grass/grass-tuft-medium.png");
+  background-image: url("../../assets/sprites/environment/grass/grass-tuft-medium.png");
 }
 
 .grass-scenery.wide {
   width: 64px;
   height: 32px;
-  background-image: url("../assets/sprites/grass/grass-patch-wide.png");
+  background-image: url("../../assets/sprites/environment/grass/grass-patch-wide.png");
 }
 
 .grass-scenery.round {
   width: 64px;
   height: 64px;
-  background-image: url("../assets/sprites/grass/grass-patch-round.png");
+  background-image: url("../../assets/sprites/environment/grass/grass-patch-round.png");
   opacity: 0.58;
 }
 
 .grass-scenery.tall {
   width: 32px;
   height: 48px;
-  background-image: url("../assets/sprites/grass/grass-weeds-tall.png");
+  background-image: url("../../assets/sprites/environment/grass/grass-weeds-tall.png");
 }
 
 .grass-scenery.flip {
@@ -60,7 +60,7 @@
 .tree {
   width: 64px;
   height: 96px;
-  background: url("../assets/sprites/trees/tree-small.png") center bottom / contain no-repeat;
+  background: url("../../assets/sprites/environment/trees/tree-small.png") center bottom / contain no-repeat;
   box-shadow: none;
   image-rendering: pixelated;
 }

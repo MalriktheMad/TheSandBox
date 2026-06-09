@@ -52,7 +52,7 @@ function installPickupStyles() {
     }
 
     .sunflower-pickup {
-      background-image: url("assets/sprites/sunflower-ground-pickup.svg");
+      background-image: url("assets/sprites/pickups/sunflower-ground-pickup.svg");
     }
 
     .pickup.collected {

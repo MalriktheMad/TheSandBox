@@ -717,7 +717,7 @@ a {
 
 .flight-controls {
   position: absolute;
-  left: 160px;
+  right: 160px;
   bottom: 14px;
   pointer-events: auto;
 }
@@ -949,7 +949,7 @@ a {
 }
 @media (max-width: 620px) {
   .flight-controls {
-    left: 141px;
+    right: 133px;
     bottom: 10px;
   }
 

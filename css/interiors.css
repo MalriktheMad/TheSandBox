@@ -470,8 +470,8 @@
 }
 
 .wizard-bed {
-  right: 296px;
-  top: 94px;
+  left: 52px;
+  top: 82px;
   width: 214px;
   height: 104px;
   border: 5px solid #050508;
@@ -482,8 +482,8 @@
 }
 
 .wizard-nightstand {
-  right: 520px;
-  top: 146px;
+  left: 278px;
+  top: 134px;
   width: 48px;
   height: 46px;
   border: 4px solid #050508;
@@ -548,3 +548,8 @@
   box-shadow: 0 0 18px rgba(124, 60, 255, 0.24);
 }
 
+
+.bedroom-cage.is-open .bedroom-cage-door {
+  transform: translate(28px, 10px) rotate(18deg) skewY(-6deg);
+  box-shadow: 0 0 16px rgba(248, 213, 107, 0.26);
+}

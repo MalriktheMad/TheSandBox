@@ -1,4 +1,4 @@
-﻿const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
+const GAME_STATE_STORAGE_KEY = "lab-zero-game-state";
 const RETURN_TO_GAME_STORAGE_KEY = "lab-zero-return-to-game";
 const START_MENU_NEW_GAME_KEYS = [
   GAME_STATE_STORAGE_KEY,
@@ -9,8 +9,8 @@ const START_MENU_NEW_GAME_KEYS = [
   "lab-zero-old-dilly-treat"
 ];
 const START_AREA = "bedroom";
-const START_X = 228;
-const START_Y = 324;
+const START_X = 690;
+const START_Y = 162;
 
 const startMenu = document.getElementById("start-menu");
 const newGameButton = document.getElementById("new-game");

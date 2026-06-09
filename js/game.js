@@ -35,8 +35,8 @@ const LAB_BLOCKED_TERRAIN = [
 ];
 const BEDROOM_BLOCKED_TERRAIN = [
   { name: "cage-back-wall", left: 606, top: 54, right: 776, bottom: 104 },
-  { name: "wizard-bed", left: 286, top: 84, right: 534, bottom: 214 },
-  { name: "nightstand", left: 248, top: 128, right: 304, bottom: 206 }
+  { name: "wizard-bed", left: 42, top: 72, right: 300, bottom: 214 },
+  { name: "nightstand", left: 270, top: 124, right: 336, bottom: 206 }
 ];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
@@ -123,10 +123,10 @@ const AREAS = {
 
 const state = {
   area: "bedroom",
-  x: 228,
-  y: 324,
-  targetX: 228,
-  targetY: 324,
+  x: 690,
+  y: 162,
+  targetX: 690,
+  targetY: 162,
   path: [],
   speed: 260,
   zoom: 1,

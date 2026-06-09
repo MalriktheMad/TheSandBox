@@ -15,3 +15,8 @@ body,
 .zoom-controls button {
   appearance: none;
 }
+
+
+#flight-toggle {
+  min-width: 44px;
+}

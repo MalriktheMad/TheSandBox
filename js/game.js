@@ -1,4 +1,4 @@
-﻿const WORLD_WIDTH = 1600;
+const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
 const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
@@ -12,6 +12,8 @@ const ZOOM_STEP = 0.25;
 const PATH_GRID_SIZE = 32;
 const PATH_SEARCH_LIMIT = 3000;
 const TRANSITION_COOLDOWN = 0.45;
+const FLIGHT_TAKEOFF_MS = 380;
+const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
   { left: 0, top: 585, right: 210, bottom: 860 },
   { left: 0, top: 860, right: 132, bottom: 965 },
@@ -67,6 +69,7 @@ const quickNav = document.getElementById("quick-nav");
 const zoomControls = document.getElementById("zoom-controls");
 const zoomIn = document.getElementById("zoom-in");
 const zoomOut = document.getElementById("zoom-out");
+const flightToggle = document.getElementById("flight-toggle");
 
 const AREAS = {
   outside: {
@@ -129,6 +132,9 @@ const state = {
   cameraX: 0,
   cameraY: 0,
   transitionCooldown: 0,
+  flightMode: false,
+  flightPhase: "ground",
+  flightTimer: 0,
   lastTime: performance.now()
 };
 
@@ -136,6 +142,7 @@ initializeAreaVisibility();
 placePlayer();
 placeTarget();
 placeCamera();
+syncPlayerAnimationState();
 requestAnimationFrame(tick);
 
 stage.addEventListener("pointerdown", setTarget);
@@ -151,6 +158,9 @@ stage.addEventListener("pointermove", (event) => {
 
 zoomIn.addEventListener("click", () => changeZoom(ZOOM_STEP));
 zoomOut.addEventListener("click", () => changeZoom(-ZOOM_STEP));
+if (flightToggle) {
+  flightToggle.addEventListener("click", toggleFlightMode);
+}
 
 window.addEventListener("resize", () => {
   state.x = clampWorldX(state.x);
@@ -208,6 +218,48 @@ function setTarget(event) {
 function changeZoom(amount) {
   state.zoom = clamp(roundZoom(state.zoom + amount), MIN_ZOOM, MAX_ZOOM);
   placeCamera();
+}
+
+function toggleFlightMode() {
+  if (state.flightPhase === "taking-off" || state.flightPhase === "landing") {
+    return;
+  }
+
+  if (state.flightMode) {
+    startLanding();
+  } else {
+    startTakeoff();
+  }
+}
+
+function startTakeoff() {
+  state.flightMode = true;
+  state.flightPhase = "taking-off";
+  clearTimeout(state.flightTimer);
+  syncPlayerAnimationState();
+
+  state.flightTimer = setTimeout(() => {
+    if (state.flightMode && state.flightPhase === "taking-off") {
+      state.flightPhase = "flying";
+      syncPlayerAnimationState();
+    }
+  }, FLIGHT_TAKEOFF_MS);
+}
+
+function startLanding() {
+  state.flightMode = false;
+  state.flightPhase = "landing";
+  state.path = [];
+  getActiveArea().target.classList.remove("visible");
+  clearTimeout(state.flightTimer);
+  syncPlayerAnimationState();
+
+  state.flightTimer = setTimeout(() => {
+    if (!state.flightMode && state.flightPhase === "landing") {
+      state.flightPhase = "ground";
+      syncPlayerAnimationState();
+    }
+  }, FLIGHT_LAND_MS);
 }
 
 function tick(now) {
@@ -289,6 +341,22 @@ function setPlayerMoving(isMoving) {
   Object.values(AREAS).forEach((area) => {
     area.player.classList.toggle("is-moving", area === getActiveArea() && isMoving);
   });
+  syncPlayerAnimationState();
+}
+
+function syncPlayerAnimationState() {
+  Object.values(AREAS).forEach((area) => {
+    const isActive = area === getActiveArea();
+    area.player.classList.toggle("is-taking-off", isActive && state.flightPhase === "taking-off");
+    area.player.classList.toggle("is-flying", isActive && state.flightPhase === "flying");
+    area.player.classList.toggle("is-landing", isActive && state.flightPhase === "landing");
+  });
+
+  if (flightToggle) {
+    flightToggle.textContent = state.flightMode ? "Land" : "Fly";
+    flightToggle.setAttribute("aria-label", state.flightMode ? "Land" : "Take flight");
+    flightToggle.setAttribute("aria-pressed", String(state.flightMode));
+  }
 }
 
 function placeTarget() {
@@ -369,6 +437,7 @@ function enterArea(areaName, x, y) {
   nextArea.element.hidden = false;
   Object.values(AREAS).forEach((area) => area.player.classList.remove("is-moving"));
   nextArea.player.classList.remove("facing-left");
+  syncPlayerAnimationState();
   placePlayer();
   placeTarget();
   placeCamera();

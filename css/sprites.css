@@ -14,7 +14,7 @@
   top: 0;
   width: 40px;
   height: 40px;
-  background-image: url("../assets/sprites/characters/little-wing.svg");
+  background-image: url("../assets/sprites/characters/little-wing-motions/idle.png");
   box-shadow: none;
 }
 
@@ -58,29 +58,56 @@
   box-shadow: none;
 }
 
-.player.is-moving .pixel-bird {
-  animation: little-wing-walk 360ms steps(1, end) infinite;
+.player.is-moving:not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
+  animation: little-wing-hop 420ms steps(1, end) infinite;
 }
 
-@keyframes little-wing-walk {
-  0% {
-    background-image: url("../assets/sprites/characters/little-wing-animation/little-wing-64x64.png");
-  }
+.player.is-taking-off .pixel-bird {
+  animation: little-wing-takeoff 380ms steps(1, end) 1 forwards;
+}
 
-  20% {
-    background-image: url("../assets/sprites/characters/little-wing-animation/little-wing-64x65.png");
-  }
+.player.is-flying .pixel-bird {
+  animation: little-wing-fly 650ms steps(1, end) infinite;
+}
 
-  40% {
-    background-image: url("../assets/sprites/characters/little-wing-animation/little-wing-64x66.png");
-  }
+.player.is-landing .pixel-bird {
+  animation: little-wing-land 320ms steps(1, end) 1 forwards;
+}
 
-  60% {
-    background-image: url("../assets/sprites/characters/little-wing-animation/little-wing-64x67.png");
-  }
+@keyframes little-wing-hop {
+  0% { background-image: url("../assets/sprites/characters/little-wing-motions/hop/hop-0.png"); }
+  16% { background-image: url("../assets/sprites/characters/little-wing-motions/hop/hop-1.png"); }
+  32% { background-image: url("../assets/sprites/characters/little-wing-motions/hop/hop-2.png"); }
+  48% { background-image: url("../assets/sprites/characters/little-wing-motions/hop/hop-3.png"); }
+  64% { background-image: url("../assets/sprites/characters/little-wing-motions/hop/hop-4.png"); }
+  80%, 100% { background-image: url("../assets/sprites/characters/little-wing-motions/hop/hop-5.png"); }
+}
 
-  80%,
-  100% {
-    background-image: url("../assets/sprites/characters/little-wing-animation/little-wing-64x68.png");
-  }
+@keyframes little-wing-takeoff {
+  0% { background-image: url("../assets/sprites/characters/little-wing-motions/takeoff/takeoff-0.png"); }
+  25% { background-image: url("../assets/sprites/characters/little-wing-motions/takeoff/takeoff-1.png"); }
+  50% { background-image: url("../assets/sprites/characters/little-wing-motions/takeoff/takeoff-2.png"); }
+  75%, 100% { background-image: url("../assets/sprites/characters/little-wing-motions/takeoff/takeoff-3.png"); }
+}
+
+@keyframes little-wing-fly {
+  0% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-0.png"); }
+  8% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-1.png"); }
+  16% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-2.png"); }
+  24% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-3.png"); }
+  32% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-4.png"); }
+  40% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-5.png"); }
+  48% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-6.png"); }
+  56% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-7.png"); }
+  64% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-8.png"); }
+  72% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-9.png"); }
+  80% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-10.png"); }
+  88% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-11.png"); }
+  96%, 100% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-12.png"); }
+}
+
+@keyframes little-wing-land {
+  0% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-0.png"); }
+  50% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-1.png"); }
+  100% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-2.png"); }
 }

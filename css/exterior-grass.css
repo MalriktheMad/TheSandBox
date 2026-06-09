@@ -56,3 +56,11 @@
   z-index: 0;
 }
 
+
+.tree {
+  width: 64px;
+  height: 96px;
+  background: url("../assets/sprites/trees/tree-small.png") center bottom / contain no-repeat;
+  box-shadow: none;
+  image-rendering: pixelated;
+}

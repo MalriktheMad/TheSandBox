@@ -34,9 +34,9 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "wing-master-cricket", left: 174, top: 178, right: 290, bottom: 280 }
 ];
 const BEDROOM_BLOCKED_TERRAIN = [
-  { name: "cage-back-wall", left: 54, top: 72, right: 344, bottom: 118 },
-  { name: "wizard-bed", left: 518, top: 86, right: 762, bottom: 214 },
-  { name: "nightstand", left: 466, top: 128, right: 522, bottom: 206 }
+  { name: "cage-back-wall", left: 606, top: 54, right: 776, bottom: 104 },
+  { name: "wizard-bed", left: 286, top: 84, right: 534, bottom: 214 },
+  { name: "nightstand", left: 248, top: 128, right: 304, bottom: 206 }
 ];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },

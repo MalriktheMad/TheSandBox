@@ -1,4 +1,4 @@
-﻿.lab-interior {
+.lab-interior {
   position: absolute;
   left: 0;
   top: 0;
@@ -422,12 +422,12 @@
 }
 
 .bedroom-cage {
-  left: 54px;
-  top: 72px;
-  width: 290px;
-  height: 284px;
+  right: 44px;
+  top: 54px;
+  width: 170px;
+  height: 178px;
   border: 5px solid #050508;
-  border-radius: 42px 42px 8px 8px;
+  border-radius: 30px 30px 8px 8px;
   background:
     repeating-linear-gradient(90deg, transparent 0 26px, rgba(216, 209, 240, 0.55) 26px 31px),
     repeating-linear-gradient(180deg, transparent 0 54px, rgba(216, 209, 240, 0.38) 54px 59px),
@@ -438,20 +438,20 @@
 .bedroom-cage::before {
   content: "";
   position: absolute;
-  left: 126px;
-  top: -30px;
-  width: 34px;
-  height: 34px;
+  left: 68px;
+  top: -24px;
+  width: 26px;
+  height: 28px;
   border: 5px solid #050508;
   border-bottom: 0;
-  border-radius: 18px 18px 0 0;
+  border-radius: 14px 14px 0 0;
 }
 
 .bedroom-cage-door {
-  left: 176px;
+  left: 96px;
   bottom: -5px;
-  width: 80px;
-  height: 112px;
+  width: 48px;
+  height: 78px;
   border: 5px solid #050508;
   border-bottom: 0;
   background: rgba(5, 5, 8, 0.32);
@@ -460,18 +460,18 @@
 }
 
 .bedroom-perch {
-  left: 46px;
-  top: 166px;
-  width: 182px;
-  height: 10px;
+  left: 28px;
+  top: 104px;
+  width: 104px;
+  height: 8px;
   border: 3px solid #050508;
   background: #7a5230;
-  box-shadow: 0 42px 0 #3b2414;
+  box-shadow: 0 28px 0 #3b2414;
 }
 
 .wizard-bed {
-  right: 58px;
-  top: 96px;
+  right: 296px;
+  top: 94px;
   width: 214px;
   height: 104px;
   border: 5px solid #050508;
@@ -482,7 +482,7 @@
 }
 
 .wizard-nightstand {
-  right: 282px;
+  right: 520px;
   top: 146px;
   width: 48px;
   height: 46px;

@@ -8,6 +8,16 @@ function getCricketDialogueLines() {
 function getCricketMainDialogueLines() {
   return [
     cricketLine("The lab is quiet today. The wizard is out working. He appreciates you helping him with his game! Really. Thank you for testing this game for him he put a lot of work into it."),
+    {
+      ...cricketLine(getCricketChoicePrompt()),
+      choices: getCricketChoices()
+    }
+  ];
+}
+
+
+function getCricketTalkMoreLines() {
+  return [
     cricketLine("I heard that machine making some weird noises earlier. Might be worth checking out."),
     littleWingLine("I'll go poke around then."),
     {
@@ -29,7 +39,7 @@ function getCricketChoices() {
   return [
     {
       label: "Talk more",
-      action: () => startDialogue(getCricketMainDialogueLines())
+      action: () => startDialogue(getCricketTalkMoreLines())
     },
     {
       label: "Give sunflower seed",

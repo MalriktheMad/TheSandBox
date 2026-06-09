@@ -67,6 +67,7 @@ const dillyTarget = document.getElementById("dilly-target");
 const readout = document.getElementById("readout");
 const quickNav = document.getElementById("quick-nav");
 const zoomControls = document.getElementById("zoom-controls");
+const flightControls = document.getElementById("flight-controls");
 const zoomIn = document.getElementById("zoom-in");
 const zoomOut = document.getElementById("zoom-out");
 const flightToggle = document.getElementById("flight-toggle");
@@ -152,7 +153,7 @@ stage.addEventListener("pointermove", (event) => {
   }
 });
 
-[readout, quickNav, zoomControls].forEach((element) => {
+[readout, quickNav, zoomControls, flightControls].filter(Boolean).forEach((element) => {
   element.addEventListener("pointerdown", stopUiMovement);
 });
 
@@ -191,7 +192,7 @@ function setTarget(event) {
   if (isGamePausedForDialogue()) {
     return;
   }
-  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .start-menu")) {
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .start-menu")) {
     return;
   }
 
@@ -662,7 +663,7 @@ function getCellKey(cellX, cellY) {
 }
 
 function getBlockedRects() {
-  return [readout, quickNav, zoomControls].map((element) => {
+  return [readout, quickNav, zoomControls, flightControls].filter(Boolean).map((element) => {
     const rect = element.getBoundingClientRect();
     const padding = getPlayerRadius() * state.zoom + 8;
     return {

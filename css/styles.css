@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --void: #030306;
   --text: #f7f4ff;
   --muted: #bdb6d7;
@@ -47,6 +47,7 @@ body {
 .readout,
 .quick-nav,
 .zoom-controls,
+.flight-controls,
 button,
 a {
   touch-action: none;
@@ -684,7 +685,8 @@ a {
 }
 
 .quick-nav a,
-.zoom-controls button {
+.zoom-controls button,
+.flight-controls button {
   border: 2px solid rgba(247, 244, 255, 0.58);
   border-radius: 6px;
   background:
@@ -713,6 +715,13 @@ a {
   pointer-events: auto;
 }
 
+.flight-controls {
+  position: absolute;
+  left: 160px;
+  bottom: 14px;
+  pointer-events: auto;
+}
+
 .zoom-controls button {
   width: 34px;
   height: 34px;
@@ -726,7 +735,9 @@ a {
 .quick-nav a:hover,
 .quick-nav a:focus-visible,
 .zoom-controls button:hover,
-.zoom-controls button:focus-visible {
+.zoom-controls button:focus-visible,
+.flight-controls button:hover,
+.flight-controls button:focus-visible {
   background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.72), 0 0 18px rgba(124, 60, 255, 0.32);
   transform: translate(1px, 1px);
@@ -926,3 +937,26 @@ a {
   outline: none;
 }
 
+
+
+.flight-controls button {
+  min-width: 54px;
+  height: 34px;
+  padding: 0 10px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.62rem;
+}
+@media (max-width: 620px) {
+  .flight-controls {
+    left: 141px;
+    bottom: 10px;
+  }
+
+  .flight-controls button {
+    min-width: 50px;
+    height: 38px;
+    padding: 0 8px;
+    font-size: 0.56rem;
+  }
+}

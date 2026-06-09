@@ -28,7 +28,6 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "left-bench", left: 66, top: 88, right: 228, bottom: 176 },
   { name: "right-bench", left: 232, top: 88, right: 394, bottom: 176 },
   { name: "lab-core", left: 414, top: 148, right: 506, bottom: 260 },
-  { name: "weird-console", left: 388, top: 312, right: 532, bottom: 396 },
   { name: "codex-workstation", left: 518, top: 90, right: 676, bottom: 222 },
   { name: "empty-wizard-chair", left: 424, top: 34, right: 498, bottom: 146 },
   { name: "wing-master-cricket", left: 174, top: 178, right: 290, bottom: 280 }

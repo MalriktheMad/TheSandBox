@@ -19,7 +19,6 @@ const clearSaveButton = document.getElementById("clear-save");
 
 restoreGameState();
 setupStartMenu();
-loadGameSystems();
 
 if (quickNav) {
   quickNav.addEventListener("click", (event) => {
@@ -174,27 +173,4 @@ function restoreGameState() {
   placeTarget();
   placeCamera();
 }
-
-function loadGameSystems() {
-  loadScript("js/inventory.js", () => {
-    loadScript("js/progress.js", () => {
-      loadScript("js/pickups.js");
-    });
-  });
-}
-
-function loadScript(src, onLoad) {
-  const script = document.createElement("script");
-  script.src = src;
-
-  if (onLoad) {
-    script.addEventListener("load", onLoad, { once: true });
-  }
-
-  document.body.append(script);
-}
-
-
-
-
 

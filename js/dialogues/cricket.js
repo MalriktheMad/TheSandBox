@@ -112,14 +112,6 @@ function removeCricketSeed() {
   return true;
 }
 
-function isCricketSeedQuestComplete() {
-  if (typeof hasCompletedQuest === "function") {
-    return hasCompletedQuest(CRICKET_SEED_QUEST_ID);
-  }
-
-  return getDialogueProgress().completedQuests.includes(CRICKET_SEED_QUEST_ID);
-}
-
 function markCricketSeedQuestComplete() {
   if (typeof completeQuest === "function") {
     completeQuest(CRICKET_SEED_QUEST_ID);

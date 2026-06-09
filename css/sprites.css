@@ -92,20 +92,18 @@
 
 @keyframes little-wing-fly {
   0% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-0.png"); }
-  8% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-1.png"); }
-  16% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-2.png"); }
-  24% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-3.png"); }
-  32% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-4.png"); }
-  40% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-5.png"); }
-  48% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-6.png"); }
-  56% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-7.png"); }
-  64% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-8.png"); }
-  72% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-9.png"); }
-  80% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-10.png"); }
-  88% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-11.png"); }
-  96%, 100% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-12.png"); }
+  8.33% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-1.png"); }
+  16.66% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-2.png"); }
+  25% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-3.png"); }
+  33.33% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-4.png"); }
+  41.66% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-5.png"); }
+  50% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-6.png"); }
+  58.33% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-7.png"); }
+  66.66% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-8.png"); }
+  75% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-9.png"); }
+  83.33% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-10.png"); }
+  91.66%, 100% { background-image: url("../assets/sprites/characters/little-wing-motions/fly/fly-11.png"); }
 }
-
 @keyframes little-wing-land {
   0% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-0.png"); }
   50% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-1.png"); }

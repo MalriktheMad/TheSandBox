@@ -1,4 +1,4 @@
-﻿.dialogue-box {
+.dialogue-box {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -87,3 +87,39 @@
 
 
 
+
+.dialogue-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.dialogue-choices[hidden] {
+  display: none;
+}
+
+.dialogue-choice {
+  min-height: 34px;
+  border: 2px solid rgba(247, 244, 255, 0.62);
+  border-radius: 6px;
+  padding: 6px 10px;
+  background: rgba(5, 5, 8, 0.78);
+  color: #f7f4ff;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.dialogue-choice:hover,
+.dialogue-choice:focus-visible {
+  background: linear-gradient(135deg, rgba(124, 60, 255, 0.92), rgba(27, 111, 214, 0.9));
+  outline: none;
+}
+
+.dialogue-choice:disabled {
+  cursor: not-allowed;
+  opacity: 0.44;
+}

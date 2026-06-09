@@ -1,4 +1,4 @@
-﻿const dialogueStage = document.getElementById("stage");
+const dialogueStage = document.getElementById("stage");
 const dialogueInventoryDefaults = {
   sunflowerSeeds: 0,
   milletSeeds: 0,
@@ -49,6 +49,7 @@ dialogueBox.innerHTML = `
   <div class="dialogue-content">
     <div id="dialogue-speaker" class="dialogue-speaker"></div>
     <p id="dialogue-text" class="dialogue-text"></p>
+    <div id="dialogue-choices" class="dialogue-choices" hidden></div>
   </div>
 `;
 document.body.appendChild(dialogueBox);
@@ -56,6 +57,7 @@ document.body.appendChild(dialogueBox);
 const dialoguePortrait = document.getElementById("dialogue-portrait");
 const dialogueSpeaker = document.getElementById("dialogue-speaker");
 const dialogueText = document.getElementById("dialogue-text");
+const dialogueChoices = document.getElementById("dialogue-choices");
 
 if (dialogueStage) {
   dialogueStage.addEventListener("pointerdown", handleDialoguePointer, { capture: true });
@@ -69,12 +71,16 @@ function isDialogueActive() {
 
 function handleDialoguePointer(event) {
   if (dialogueState.active) {
+    if (event.target.closest(".dialogue-choice")) {
+      return;
+    }
+
     swallowDialoguePointer(event);
     advanceDialogue();
     return;
   }
 
-  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .dialogue-box, .start-menu")) {
+  if (event.target.closest(".readout, .quick-nav, .zoom-controls, .flight-controls, .dialogue-box, .start-menu")) {
     return;
   }
 
@@ -240,6 +246,12 @@ function lizLine(text) {
 }
 
 function advanceDialogue() {
+  const line = dialogueState.lines[dialogueState.index];
+
+  if (line && line.choices) {
+    return;
+  }
+
   dialogueState.index += 1;
 
   if (dialogueState.index >= dialogueState.lines.length) {
@@ -261,10 +273,32 @@ function showDialogueLine() {
   dialoguePortrait.alt = `${line.speaker} portrait`;
   dialogueSpeaker.textContent = line.speaker;
   dialogueText.textContent = line.text;
+  renderDialogueChoices(line.choices || []);
 
   if (line.onShow) {
     line.onShow();
   }
+}
+
+function renderDialogueChoices(choices) {
+  dialogueChoices.innerHTML = "";
+  dialogueChoices.hidden = choices.length === 0;
+
+  choices.forEach((choice) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "dialogue-choice";
+    button.textContent = choice.label;
+    button.disabled = Boolean(choice.disabled);
+    button.addEventListener("pointerdown", (event) => {
+      swallowDialoguePointer(event);
+
+      if (!choice.disabled && choice.action) {
+        choice.action();
+      }
+    });
+    dialogueChoices.append(button);
+  });
 }
 
 function swallowDialoguePointer(event) {

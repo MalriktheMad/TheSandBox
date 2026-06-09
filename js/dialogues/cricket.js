@@ -27,7 +27,7 @@ function getCricketChoicePrompt() {
 function getCricketChoices() {
   return [
     {
-      label: "Talk more",
+      label: "I heard that machine making some weird noises earlier, Might be worth checking out?",
       action: () => startDialogue(getCricketMainDialogueLines())
     },
     {

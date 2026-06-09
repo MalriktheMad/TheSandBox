@@ -1,4 +1,10 @@
-﻿.grass-scenery {
+﻿/* Exterior grass kit ground pass: quieter base so pixel patches become the grass language. */
+.forest-floor {
+  background:
+    linear-gradient(135deg, rgba(19, 63, 30, 0.36), transparent 44%),
+    #2d6615;
+}
+.grass-scenery {
   position: absolute;
   z-index: 1;
   pointer-events: none;
@@ -49,3 +55,4 @@
 .grass-scenery.behind-building {
   z-index: 0;
 }
+

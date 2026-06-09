@@ -102,7 +102,7 @@ function movePlayerToStart() {
   state.targetX = START_X;
   state.targetY = START_Y;
   state.path = [];
-  state.zoom = 1;
+  state.zoom = DEFAULT_ZOOM;
   state.transitionCooldown = 0;
 
   const area = getActiveArea();
@@ -161,7 +161,7 @@ function restoreGameState() {
   state.targetX = state.x;
   state.targetY = state.y;
   state.path = [];
-  state.zoom = clamp(snapshot.zoom || 1, MIN_ZOOM, MAX_ZOOM);
+  state.zoom = clamp(snapshot.zoom || DEFAULT_ZOOM, MIN_ZOOM, MAX_ZOOM);
   state.transitionCooldown = 0;
 
   const area = getActiveArea();

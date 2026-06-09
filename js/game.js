@@ -9,6 +9,7 @@ const BEDROOM_HEIGHT = 560;
 const MIN_ZOOM = 0.65;
 const MAX_ZOOM = 2;
 const ZOOM_STEP = 0.25;
+const DEFAULT_ZOOM = 0.85;
 const PATH_GRID_SIZE = 32;
 const PATH_SEARCH_LIMIT = 3000;
 const TRANSITION_COOLDOWN = 0.45;
@@ -128,7 +129,7 @@ const state = {
   targetY: 162,
   path: [],
   speed: 260,
-  zoom: 1,
+  zoom: DEFAULT_ZOOM,
   cameraX: 0,
   cameraY: 0,
   transitionCooldown: 0,

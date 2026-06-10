@@ -53,7 +53,7 @@ function installPickupStyles() {
       image-rendering: auto;
       pointer-events: none;
       transform: translate(-50%, -50%);
-      z-index: 4;
+      z-index: 14;
     }
 
     .sunflower-pickup {

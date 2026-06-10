@@ -46,7 +46,7 @@
   66% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover3.png"); }
 }
 
-.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
+.world .player:not(.on-sand):not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
   left: -4px;
   top: -4px;
   width: 48px;

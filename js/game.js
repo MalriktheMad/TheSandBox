@@ -339,6 +339,25 @@ function placePlayer() {
   const area = getActiveArea();
   area.player.style.left = `${state.x}px`;
   area.player.style.top = `${state.y}px`;
+  syncSurfaceState();
+}
+
+function syncSurfaceState() {
+  Object.values(AREAS).forEach((area) => {
+    area.player.classList.toggle("on-sand", area === getActiveArea() && state.area === "outside" && isSandPoint(state.x, state.y));
+  });
+}
+
+function isSandPoint(worldX, worldY) {
+  if (state.area !== "outside") {
+    return false;
+  }
+
+  const southBeach = worldY >= 1430;
+  const labBeach = worldX >= 1320 && worldY >= 1190;
+  const mouthBar = worldX >= 1040 && worldX <= 1540 && worldY >= 1260 && worldY <= 1580;
+
+  return southBeach || labBeach || mouthBar;
 }
 
 function setPlayerMoving(isMoving) {

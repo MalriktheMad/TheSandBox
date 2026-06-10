@@ -76,18 +76,8 @@ a {
 .old-dilly,
 .dilly-garden,
 .lab-ground {
-  left: 1988px;
-  top: 1352px;
-  width: 220px;
-  height: 72px;
-  border-radius: 44% 48% 38% 42%;
-  background:
-    radial-gradient(circle at 24px 52px, rgba(54, 31, 15, 0.92) 0 8px, transparent 9px),
-    radial-gradient(circle at 160px 46px, rgba(76, 45, 22, 0.86) 0 10px, transparent 11px),
-    radial-gradient(circle at 112px 38px, rgba(12, 8, 6, 0.54) 0 36px, transparent 37px),
-    #432817;
-  box-shadow: -28px -18px 20px rgba(0, 0, 0, 0.36), inset 0 0 0 8px rgba(8, 28, 15, 0.24);
-  z-index: 11;
+  position: absolute;
+  pointer-events: none;
 }
 
 .forest-floor {

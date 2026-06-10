@@ -1,14 +1,14 @@
 ﻿/* Exterior grass kit ground pass: quieter base so pixel patches become the grass language. */
 .forest-floor {
+  inset: 0;
   background-color: #2d6615;
   background-image:
-    radial-gradient(circle at 10px 12px, rgba(154, 222, 126, 0.18) 0 2px, transparent 3px),
-    radial-gradient(circle at 42px 48px, rgba(39, 105, 54, 0.34) 0 3px, transparent 4px),
-    radial-gradient(circle at 70px 22px, rgba(8, 31, 18, 0.58) 0 3px, transparent 4px),
-    linear-gradient(135deg, rgba(19, 63, 30, 0.36), transparent 44%);
-  background-position: 0 0, 18px 18px, 8px 4px, 0 0;
+    radial-gradient(circle at 10px 12px, rgba(154, 222, 126, 0.12) 0 2px, transparent 3px),
+    radial-gradient(circle at 42px 48px, rgba(39, 105, 54, 0.22) 0 3px, transparent 4px),
+    linear-gradient(135deg, rgba(19, 63, 30, 0.28), transparent 44%);
+  background-position: 0 0, 18px 18px, 0 0;
   background-repeat: repeat;
-  background-size: 78px 78px, 112px 112px, 96px 96px, auto;
+  background-size: 78px 78px, 112px 112px, auto;
 }
 
 .forest-floor::after {
@@ -17,16 +17,15 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    url("../../assets/sprites/environment/grass/grass-tuft-small.png"),
-    url("../../assets/sprites/environment/grass/grass-tuft-medium.png"),
-    url("../../assets/sprites/environment/grass/grass-weeds-tall.png");
-  background-position: 18px 22px, 92px 70px, 146px 34px;
+    url("../../assets/sprites/environment/ground/Grass/grasscover.png"),
+    url("../../assets/sprites/environment/ground/Grass/grasscover1.png"),
+    url("../../assets/sprites/environment/ground/Grass/grasscover2.png"),
+    url("../../assets/sprites/environment/ground/Grass/grasscover3.png");
+  background-position: 0 0, 32px 0, 0 32px, 32px 32px;
   background-repeat: repeat;
-  background-size: 136px 112px, 184px 152px, 240px 190px;
+  background-size: 64px 64px;
   image-rendering: pixelated;
-  opacity: 0.58;
 }
-
 .world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::after {
   content: "";
   position: absolute;
@@ -40,58 +39,6 @@
   image-rendering: pixelated;
 }
 
-.grass-scenery {
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  background-repeat: no-repeat;
-  background-size: contain;
-  image-rendering: pixelated;
-}
-
-.grass-scenery.small {
-  width: 16px;
-  height: 16px;
-  background-image: url("../../assets/sprites/environment/grass/grass-tuft-small.png");
-}
-
-.grass-scenery.medium {
-  width: 32px;
-  height: 32px;
-  background-image: url("../../assets/sprites/environment/grass/grass-tuft-medium.png");
-}
-
-.grass-scenery.wide {
-  width: 64px;
-  height: 32px;
-  background-image: url("../../assets/sprites/environment/grass/grass-patch-wide.png");
-}
-
-.grass-scenery.round {
-  width: 64px;
-  height: 64px;
-  background-image: url("../../assets/sprites/environment/grass/grass-patch-round.png");
-  opacity: 0.58;
-}
-
-.grass-scenery.tall {
-  width: 32px;
-  height: 48px;
-  background-image: url("../../assets/sprites/environment/grass/grass-weeds-tall.png");
-}
-
-.grass-scenery.flip {
-  transform: scaleX(-1);
-}
-
-.grass-scenery.soft {
-  opacity: 0.72;
-}
-
-.grass-scenery.behind-building {
-  z-index: 0;
-}
-
 .tree {
   width: 64px;
   height: 96px;
@@ -99,4 +46,6 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
+
 

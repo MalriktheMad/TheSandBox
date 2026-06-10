@@ -87,7 +87,7 @@ a {
     radial-gradient(circle at 112px 38px, rgba(12, 8, 6, 0.54) 0 36px, transparent 37px),
     #432817;
   box-shadow: -28px -18px 20px rgba(0, 0, 0, 0.36), inset 0 0 0 8px rgba(8, 28, 15, 0.24);
-  z-index: 5;
+  z-index: 11;
 }
 
 .forest-floor {
@@ -199,7 +199,7 @@ a {
   top: 190px;
   width: 188px;
   height: 206px;
-  z-index: 6;
+  z-index: 12;
 }
 
 .dilly-shadow {
@@ -439,7 +439,7 @@ a {
     radial-gradient(circle at 112px 38px, rgba(12, 8, 6, 0.54) 0 36px, transparent 37px),
     #432817;
   box-shadow: -28px -18px 20px rgba(0, 0, 0, 0.36), inset 0 0 0 8px rgba(8, 28, 15, 0.24);
-  z-index: 5;
+  z-index: 11;
 }
 
 .lab-ground::before {
@@ -466,7 +466,7 @@ a {
     linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 24%),
     repeating-linear-gradient(90deg, #352114 0 18px, #1b100a 18px 22px, #46301c 22px 40px);
   box-shadow: 0 0 30px rgba(124, 60, 255, 0.32), 7px 9px 0 rgba(0, 0, 0, 0.32);
-  z-index: 6;
+  z-index: 12;
 }
 
 .lab::before {

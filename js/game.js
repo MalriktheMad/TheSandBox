@@ -84,7 +84,7 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 273, top: 276, right: 393, bottom: 416, to: "dilly", entryX: 748, entryY: 320 },
+      { left: 300, top: 300, right: 350, bottom: 362, to: "dilly", entryX: 748, entryY: 320 },
       { left: 2062, top: 1378, right: 2140, bottom: 1460, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
@@ -119,7 +119,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 401, entryY: 378 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 326, entryY: 372 }
     ]
   }
 };

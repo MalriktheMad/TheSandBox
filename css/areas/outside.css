@@ -1,4 +1,4 @@
-﻿/* Exterior grass kit ground pass: quieter base so pixel patches become the grass language. */
+/* Exterior grass kit ground pass: quieter base so pixel patches become the grass language. */
 .forest-floor {
   inset: 0;
   background-color: #2d6615;
@@ -26,23 +26,13 @@
   background-size: 128px 128px;
   image-rendering: pixelated;
 }
-.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
-  z-index: 1;
-}
-
-.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::after {
-  content: "";
-  position: absolute;
+.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
   left: -12px;
   top: -12px;
   width: 64px;
   height: 64px;
-  z-index: 999;
-  pointer-events: none;
-  background: url("../../assets/sprites/characters/little-wing-motions/hop/grasscover.png") center / contain no-repeat;
-  image-rendering: pixelated;
+  background-image: url("../../assets/sprites/characters/little-wing-motions/hop/little-wing-grass64x64.png");
 }
-
 .tree {
   width: 64px;
   height: 96px;

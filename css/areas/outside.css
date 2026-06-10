@@ -21,11 +21,15 @@
     url("../../assets/sprites/environment/ground/Grass/grasscover1.png"),
     url("../../assets/sprites/environment/ground/Grass/grasscover2.png"),
     url("../../assets/sprites/environment/ground/Grass/grasscover3.png");
-  background-position: 0 0, 32px 0, 0 32px, 32px 32px;
+  background-position: 0 0, 64px 0, 0 64px, 64px 64px;
   background-repeat: repeat;
-  background-size: 64px 64px;
+  background-size: 128px 128px;
   image-rendering: pixelated;
 }
+.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing) .pixel-bird {
+  z-index: 1;
+}
+
 .world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::after {
   content: "";
   position: absolute;
@@ -33,7 +37,7 @@
   top: -12px;
   width: 64px;
   height: 64px;
-  z-index: 20;
+  z-index: 999;
   pointer-events: none;
   background: url("../../assets/sprites/characters/little-wing-motions/hop/grasscover.png") center / contain no-repeat;
   image-rendering: pixelated;
@@ -46,6 +50,8 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
+
 
 
 

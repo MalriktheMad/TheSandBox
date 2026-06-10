@@ -2,22 +2,19 @@
 .forest-floor {
   background-color: #2d6615;
   background-image:
-    url("../../assets/sprites/environment/grass/grass-weeds-tall.png"),
-    url("../../assets/sprites/environment/grass/grass-patch-wide.png"),
-    url("../../assets/sprites/environment/grass/grass-tuft-medium.png"),
-    url("../../assets/sprites/environment/grass/grass-tuft-small.png"),
+    radial-gradient(circle at 10px 12px, rgba(154, 222, 126, 0.18) 0 2px, transparent 3px),
+    radial-gradient(circle at 42px 48px, rgba(39, 105, 54, 0.34) 0 3px, transparent 4px),
+    radial-gradient(circle at 70px 22px, rgba(8, 31, 18, 0.58) 0 3px, transparent 4px),
     linear-gradient(135deg, rgba(19, 63, 30, 0.36), transparent 44%);
-  background-position: 0 0, 86px 42px, 36px 74px, 128px 24px, 0 0;
+  background-position: 0 0, 18px 18px, 8px 4px, 0 0;
   background-repeat: repeat;
-  background-size: 220px 260px, 260px 180px, 190px 190px, 150px 150px, auto;
-  image-rendering: pixelated;
+  background-size: 78px 78px, 112px 112px, 96px 96px, auto;
 }
-
 .forest-stream {
   position: absolute;
-  left: 648px;
+  left: 560px;
   top: 54px;
-  width: 154px;
+  width: 290px;
   height: 1088px;
   z-index: 1;
   pointer-events: none;
@@ -25,14 +22,11 @@
   background-image: url("../../assets/sprites/environment/water/streamwide-1.png");
   background-position: center top;
   background-repeat: repeat-y;
-  background-size: 154px 77px;
-  border-left: 8px solid rgba(27, 76, 52, 0.52);
-  border-right: 8px solid rgba(27, 76, 52, 0.52);
-  clip-path: polygon(35% 0, 78% 0, 66% 12%, 84% 25%, 58% 39%, 76% 55%, 48% 71%, 65% 86%, 56% 100%, 14% 100%, 22% 86%, 6% 70%, 30% 55%, 12% 38%, 34% 24%, 18% 10%);
+  background-size: 128px 64px;
+  clip-path: polygon(44% 0, 68% 0, 73% 9%, 56% 18%, 79% 29%, 69% 39%, 43% 49%, 55% 58%, 34% 68%, 51% 78%, 41% 89%, 58% 100%, 35% 100%, 24% 89%, 34% 78%, 17% 68%, 31% 58%, 20% 49%, 47% 39%, 32% 29%, 47% 18%, 34% 9%);
   image-rendering: pixelated;
   animation: forest-stream-flow 720ms steps(1, end) infinite;
 }
-
 @keyframes forest-stream-flow {
   0% { background-image: url("../../assets/sprites/environment/water/streamwide-1.png"); }
   25% { background-image: url("../../assets/sprites/environment/water/streamwide-2.png"); }
@@ -117,6 +111,7 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
 
 
 

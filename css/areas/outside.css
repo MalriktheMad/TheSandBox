@@ -43,30 +43,57 @@
   image-rendering: pixelated;
   animation: forest-stream-flow 720ms steps(1, end) infinite;
 }
+
+.sea-waves {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  z-index: 2;
+  pointer-events: none;
+  background-image: url("../../assets/sprites/environment/water/sea-waves-1.png");
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  background-size: 256px 64px;
+  image-rendering: pixelated;
+  animation: sea-wave-flow 900ms steps(1, end) infinite;
+}
+
+.stream-mouth {
+  position: absolute;
+  left: 574px;
+  top: 1006px;
+  width: 256px;
+  height: 128px;
+  z-index: 3;
+  pointer-events: none;
+  background-image: url("../../assets/sprites/environment/water/stream-mouth-1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  image-rendering: pixelated;
+  animation: stream-mouth-flow 900ms steps(1, end) infinite;
+}
+
+@keyframes sea-wave-flow {
+  0% { background-image: url("../../assets/sprites/environment/water/sea-waves-1.png"); }
+  25% { background-image: url("../../assets/sprites/environment/water/sea-waves-2.png"); }
+  50% { background-image: url("../../assets/sprites/environment/water/sea-waves-3.png"); }
+  75% { background-image: url("../../assets/sprites/environment/water/sea-waves-4.png"); }
+}
+
+@keyframes stream-mouth-flow {
+  0% { background-image: url("../../assets/sprites/environment/water/stream-mouth-1.png"); }
+  25% { background-image: url("../../assets/sprites/environment/water/stream-mouth-2.png"); }
+  50% { background-image: url("../../assets/sprites/environment/water/stream-mouth-3.png"); }
+  75% { background-image: url("../../assets/sprites/environment/water/stream-mouth-4.png"); }
+}
 @keyframes forest-stream-flow {
   0% { background-image: url("../../assets/sprites/environment/water/streamwide-1.png"); }
   25% { background-image: url("../../assets/sprites/environment/water/streamwide-2.png"); }
   50% { background-image: url("../../assets/sprites/environment/water/streamwide-3.png"); }
   75% { background-image: url("../../assets/sprites/environment/water/streamwide-4.png"); }
-}
-.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::after {
-  content: "";
-  position: absolute;
-  left: -8px;
-  bottom: -10px;
-  width: 58px;
-  height: 50px;
-  z-index: 6;
-  pointer-events: none;
-  background-image:
-    url("../../assets/sprites/environment/grass/grass-weeds-tall.png"),
-    url("../../assets/sprites/environment/grass/grass-tuft-medium.png"),
-    url("../../assets/sprites/environment/grass/grass-tuft-small.png");
-  background-position: center bottom, 8px 24px, 38px 28px;
-  background-repeat: no-repeat;
-  background-size: 34px 54px, 30px 30px, 18px 18px;
-  image-rendering: pixelated;
-  opacity: 0.96;
 }
 .grass-scenery {
   position: absolute;
@@ -128,6 +155,7 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
 
 
 

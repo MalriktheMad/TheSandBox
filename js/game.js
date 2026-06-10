@@ -21,7 +21,11 @@ const BLOCKED_TERRAIN = [
   { name: "old-dilly-roof", left: 330, top: 116, right: 518, bottom: 198 },
   { name: "old-dilly-left-wall", left: 330, top: 198, right: 410, bottom: 262 },
   { name: "old-dilly-right-wall", left: 456, top: 198, right: 518, bottom: 262 },
-  { name: "middle-stream", left: 600, top: 58, right: 812, bottom: 1118, flightPassable: true },
+  { name: "stream-north", left: 630, top: 58, right: 758, bottom: 414, flightPassable: true },
+  { name: "stream-east-bend", left: 680, top: 374, right: 1110, bottom: 502, flightPassable: true },
+  { name: "stream-east-drop", left: 1060, top: 444, right: 1188, bottom: 694, flightPassable: true },
+  { name: "stream-west-bend", left: 780, top: 644, right: 1200, bottom: 772, flightPassable: true },
+  { name: "stream-south", left: 770, top: 744, right: 898, bottom: 1118, flightPassable: true },
   { name: "lab-zero-left-wall", left: 1248, top: 78, right: 1327, bottom: 266 },
   { name: "lab-zero-right-wall", left: 1407, top: 78, right: 1478, bottom: 266 },
   { name: "lab-zero-back-wall", left: 1328, top: 78, right: 1406, bottom: 216 }
@@ -698,6 +702,7 @@ function roundZoom(value) {
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
 }
+
 
 
 

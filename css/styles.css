@@ -755,6 +755,7 @@ a {
   transform-origin: center;
   will-change: left, top, transform;
   z-index: 5;
+  isolation: isolate;
 }
 
 .player.is-flying,
@@ -985,5 +986,6 @@ a {
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72), 0 0 16px rgba(27, 111, 214, 0.44);
   color: #f7f4ff;
 }
+
 
 

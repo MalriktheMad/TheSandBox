@@ -1,4 +1,4 @@
-.pixel-bird,
+﻿.pixel-bird,
 .wing-master-cricket,
 .old-dilly-npc,
 .liz-npc,
@@ -16,6 +16,7 @@
   height: 40px;
   background-image: url("../assets/sprites/characters/little-wing-motions/idle.png");
   box-shadow: none;
+  z-index: 1;
 }
 
 .wing-master-cricket {
@@ -109,3 +110,5 @@
   50% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-1.png"); }
   100% { background-image: url("../assets/sprites/characters/little-wing-motions/land/land-2.png"); }
 }
+
+

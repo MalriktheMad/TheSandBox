@@ -30,20 +30,61 @@
   position: absolute;
   left: 560px;
   top: 54px;
-  width: 290px;
+  width: 700px;
   height: 1088px;
   z-index: 1;
   pointer-events: none;
-  background-color: rgba(19, 86, 104, 0.72);
+}
+
+.stream-piece {
+  position: absolute;
+  pointer-events: none;
   background-image: url("../../assets/sprites/environment/water/streamwide-1.png");
-  background-position: center top;
-  background-repeat: repeat-y;
-  background-size: 128px 64px;
-  clip-path: polygon(44% 0, 68% 0, 73% 9%, 56% 18%, 79% 29%, 69% 39%, 43% 49%, 55% 58%, 34% 68%, 51% 78%, 41% 89%, 58% 100%, 35% 100%, 24% 89%, 34% 78%, 17% 68%, 31% 58%, 20% 49%, 47% 39%, 32% 29%, 47% 18%, 34% 9%);
   image-rendering: pixelated;
   animation: forest-stream-flow 720ms steps(1, end) infinite;
 }
 
+.stream-piece.vertical {
+  width: 128px;
+  background-repeat: repeat-y;
+  background-size: 128px 64px;
+}
+
+.stream-piece.horizontal {
+  height: 128px;
+  background-repeat: repeat-x;
+  background-size: 128px 64px;
+}
+
+.stream-piece.north {
+  left: 70px;
+  top: 0;
+  height: 360px;
+}
+
+.stream-piece.east-bend {
+  left: 120px;
+  top: 320px;
+  width: 430px;
+}
+
+.stream-piece.east-drop {
+  left: 500px;
+  top: 390px;
+  height: 250px;
+}
+
+.stream-piece.west-bend {
+  left: 220px;
+  top: 590px;
+  width: 420px;
+}
+
+.stream-piece.south-run {
+  left: 210px;
+  top: 690px;
+  height: 398px;
+}
 .sea-waves {
   position: absolute;
   left: 0;
@@ -103,7 +144,7 @@
   top: -12px;
   width: 64px;
   height: 64px;
-  z-index: 6;
+  z-index: 20;
   pointer-events: none;
   background: url("../../assets/sprites/characters/little-wing-motions/hop/grasscover.png") center / contain no-repeat;
   image-rendering: pixelated;
@@ -168,6 +209,8 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
+
 
 
 

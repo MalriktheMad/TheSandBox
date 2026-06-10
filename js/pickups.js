@@ -11,8 +11,13 @@ const PICKUPS = [
   makeSunflowerPickup("dilly-sunflower-2", 292, 278),
   makeSunflowerPickup("dilly-sunflower-3", 306, 336),
   makeSunflowerPickup("dilly-sunflower-4", 552, 304),
-  makeSunflowerPickup("forest-sunflower-1", 628, 420),
-  makeSunflowerPickup("forest-sunflower-2", 238, 452)
+  makeSunflowerPickup("forest-sunflower-1", 895, 400),
+  makeSunflowerPickup("forest-sunflower-2", 678, 738),
+  makeSunflowerPickup("forest-sunflower-3", 292, 1032),
+  makeSunflowerPickup("forest-sunflower-4", 704, 1232),
+  makeSunflowerPickup("east-sunflower-1", 1654, 782),
+  makeSunflowerPickup("east-sunflower-2", 1834, 374),
+  makeSunflowerPickup("northeast-sunflower-1", 2028, 102)
 ];
 
 const pickupElements = new Map();

@@ -16,12 +16,16 @@ const TRANSITION_COOLDOWN = 0.45;
 const FLIGHT_TAKEOFF_MS = 380;
 const FLIGHT_LAND_MS = 320;
 const BLOCKED_TERRAIN = [
-  { name: "old-dilly-roof", left: 330, top: 116, right: 518, bottom: 198 },
-  { name: "old-dilly-left-wall", left: 330, top: 198, right: 410, bottom: 262 },
-  { name: "old-dilly-right-wall", left: 456, top: 198, right: 518, bottom: 262 },
-  { name: "lab-zero-left-wall", left: 1248, top: 78, right: 1327, bottom: 266 },
-  { name: "lab-zero-right-wall", left: 1407, top: 78, right: 1478, bottom: 266 },
-  { name: "lab-zero-back-wall", left: 1328, top: 78, right: 1406, bottom: 216 }
+  { name: "old-dilly-roof", left: 225, top: 188, right: 413, bottom: 270 },
+  { name: "old-dilly-left-wall", left: 225, top: 270, right: 305, bottom: 334 },
+  { name: "old-dilly-right-wall", left: 351, top: 270, right: 413, bottom: 334 },
+  { name: "lab-zero-left-wall", left: 1982, top: 1242, right: 2061, bottom: 1430 },
+  { name: "lab-zero-right-wall", left: 2141, top: 1242, right: 2212, bottom: 1430 },
+  { name: "lab-zero-back-wall", left: 2062, top: 1242, right: 2140, bottom: 1380 },
+  { name: "north-river", left: 1250, top: 0, right: 1458, bottom: 1172, flightPassable: true },
+  { name: "river-mouth", left: 1164, top: 1128, right: 1638, bottom: 1700, flightPassable: true },
+  { name: "east-channel", left: 1492, top: 1488, right: 2256, bottom: 1598, flightPassable: true },
+  { name: "south-sea", left: 0, top: 1534, right: 2400, bottom: 1800, flightPassable: true }
 ];
 const LAB_BLOCKED_TERRAIN = [
   { name: "left-bench", left: 66, top: 88, right: 228, bottom: 176 },
@@ -80,8 +84,8 @@ const AREAS = {
     target: targetEl,
     blocked: BLOCKED_TERRAIN,
     transitions: [
-      { left: 378, top: 204, right: 498, bottom: 344, to: "dilly", entryX: 748, entryY: 320 },
-      { left: 1328, top: 214, right: 1406, bottom: 296, to: "lab", entryX: 460, entryY: 526 }
+      { left: 273, top: 276, right: 393, bottom: 416, to: "dilly", entryX: 748, entryY: 320 },
+      { left: 2062, top: 1378, right: 2140, bottom: 1460, to: "lab", entryX: 460, entryY: 526 }
     ]
   },
   lab: {
@@ -92,7 +96,7 @@ const AREAS = {
     target: interiorTarget,
     blocked: LAB_BLOCKED_TERRAIN,
     transitions: [
-      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 1354, entryY: 302 },
+      { left: 426, top: 534, right: 494, bottom: 610, to: "outside", entryX: 2088, entryY: 1462 },
       { left: 92, top: 438, right: 224, bottom: 556, to: "bedroom", entryX: 548, entryY: 420 }
     ]
   },
@@ -115,7 +119,7 @@ const AREAS = {
     target: dillyTarget,
     blocked: DILLY_BLOCKED_TERRAIN,
     transitions: [
-      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 506, entryY: 306 }
+      { left: 792, top: 252, right: 874, bottom: 404, to: "outside", entryX: 401, entryY: 378 }
     ]
   }
 };

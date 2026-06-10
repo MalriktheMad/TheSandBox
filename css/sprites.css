@@ -1,8 +1,9 @@
-﻿.pixel-bird,
+.pixel-bird,
 .wing-master-cricket,
 .old-dilly-npc,
 .liz-npc,
-.codex-terminal {
+.codex-terminal,
+.candlewick-tower {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -47,6 +48,16 @@
 .codex-terminal::before,
 .codex-terminal::after {
   content: none;
+}
+.candlewick-tower {
+  left: 470px;
+  top: 106px;
+  width: 58px;
+  height: 108px;
+  border: 0;
+  background-color: transparent;
+  background-image: url("../assets/sprites/characters/candlewick-tower.svg");
+  box-shadow: none;
 }
 
 .old-dilly-npc {

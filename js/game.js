@@ -28,13 +28,13 @@ const BLOCKED_TERRAIN = [
   { name: "south-sea", left: 0, top: 1534, right: 2400, bottom: 1800, flightPassable: true }
 ];
 const LAB_BLOCKED_TERRAIN = [
-  { name: "left-bench", left: 66, top: 88, right: 228, bottom: 176 },
-  { name: "right-bench", left: 232, top: 88, right: 394, bottom: 176 },
-  { name: "lab-core", left: 414, top: 148, right: 506, bottom: 260 },
-  { name: "candlewick-tower", left: 468, top: 106, right: 526, bottom: 214 },
-  { name: "codex-workstation", left: 518, top: 90, right: 676, bottom: 222 },
-  { name: "empty-wizard-chair", left: 424, top: 34, right: 498, bottom: 146 },
-  { name: "wing-master-cricket", left: 174, top: 178, right: 290, bottom: 280 }
+  { name: "north-bench", left: 74, top: 66, right: 238, bottom: 154 },
+  { name: "south-bench", left: 74, top: 150, right: 238, bottom: 238 },
+  { name: "lab-core", left: 346, top: 66, right: 446, bottom: 178 },
+  { name: "candlewick-tower", left: 560, top: 90, right: 626, bottom: 214 },
+  { name: "candlewick-workstation", left: 620, top: 74, right: 786, bottom: 226 },
+  { name: "empty-wizard-chair", left: 754, top: 212, right: 842, bottom: 326 },
+  { name: "wing-master-cricket", left: 664, top: 306, right: 806, bottom: 424 }
 ];
 const BEDROOM_BLOCKED_TERRAIN = [
   { name: "cage-back-wall", left: 52, top: 54, right: 222, bottom: 104 },

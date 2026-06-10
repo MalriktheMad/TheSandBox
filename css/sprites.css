@@ -21,8 +21,8 @@
 }
 
 .wing-master-cricket {
-  left: 184px;
-  top: 190px;
+  left: 682px;
+  top: 330px;
   width: 96px;
   height: 72px;
   background-image: url("../assets/sprites/characters/wing-master-cricket.svg");
@@ -35,8 +35,8 @@
 }
 
 .codex-terminal {
-  left: 526px;
-  top: 90px;
+  left: 628px;
+  top: 82px;
   width: 142px;
   height: 124px;
   border: 0;
@@ -50,8 +50,8 @@
   content: none;
 }
 .candlewick-tower {
-  left: 470px;
-  top: 106px;
+  left: 568px;
+  top: 98px;
   width: 58px;
   height: 108px;
   border: 0;

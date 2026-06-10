@@ -10,16 +10,16 @@ const dialogueProgressDefaults = {
   completedQuests: []
 };
 const cricketTalkZone = {
-  left: 160,
-  top: 158,
-  right: 316,
-  bottom: 292
+  left: 650,
+  top: 286,
+  right: 830,
+  bottom: 448
 };
 const codexTalkZone = {
-  left: 500,
-  top: 72,
-  right: 702,
-  bottom: 248
+  left: 548,
+  top: 62,
+  right: 808,
+  bottom: 250
 };
 const oldDillyTalkZone = {
   left: 190,

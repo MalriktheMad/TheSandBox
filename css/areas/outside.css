@@ -16,21 +16,17 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    url("../../assets/sprites/environment/ground/Grass/grasscover.png"),
-    url("../../assets/sprites/environment/ground/Grass/grasscover1.png"),
-    url("../../assets/sprites/environment/ground/Grass/grasscover2.png"),
-    url("../../assets/sprites/environment/ground/Grass/grasscover3.png");
-  background-position: 0 0, 168px 36px, 72px 172px, 228px 212px;
+  background-image: url("../../assets/sprites/environment/ground/Grass/grass-field-tile.png");
+  background-position: 0 0;
   background-repeat: repeat;
   background-size: 320px 320px;
   image-rendering: pixelated;
 }
 .world .player:not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
-  left: -12px;
-  top: -12px;
-  width: 64px;
-  height: 64px;
+  left: -4px;
+  top: -4px;
+  width: 48px;
+  height: 48px;
   background-image: url("../../assets/sprites/characters/little-wing-motions/hop/little-wing-grass64x64.png");
 }
 .tree {

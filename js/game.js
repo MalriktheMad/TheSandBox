@@ -1,4 +1,4 @@
-﻿const WORLD_WIDTH = 1600;
+const WORLD_WIDTH = 1600;
 const WORLD_HEIGHT = 1200;
 const LAB_WIDTH = 920;
 const LAB_HEIGHT = 620;
@@ -32,9 +32,9 @@ const LAB_BLOCKED_TERRAIN = [
   { name: "wing-master-cricket", left: 174, top: 178, right: 290, bottom: 280 }
 ];
 const BEDROOM_BLOCKED_TERRAIN = [
-  { name: "cage-back-wall", left: 606, top: 54, right: 776, bottom: 104 },
-  { name: "wizard-bed", left: 42, top: 72, right: 300, bottom: 214 },
-  { name: "nightstand", left: 270, top: 124, right: 336, bottom: 206 }
+  { name: "cage-back-wall", left: 52, top: 54, right: 222, bottom: 104 },
+  { name: "wizard-bed", left: 554, top: 72, right: 812, bottom: 214 },
+  { name: "nightstand", left: 490, top: 124, right: 556, bottom: 206 }
 ];
 const DILLY_BLOCKED_TERRAIN = [
   { name: "kitchen", left: 48, top: 110, right: 232, bottom: 232 },
@@ -121,9 +121,9 @@ const AREAS = {
 
 const state = {
   area: "bedroom",
-  x: 690,
+  x: 138,
   y: 162,
-  targetX: 690,
+  targetX: 138,
   targetY: 162,
   path: [],
   speed: 260,

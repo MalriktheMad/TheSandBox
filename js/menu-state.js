@@ -9,7 +9,7 @@ const START_MENU_NEW_GAME_KEYS = [
   "lab-zero-old-dilly-treat"
 ];
 const START_AREA = "bedroom";
-const START_X = 690;
+const START_X = 138;
 const START_Y = 162;
 
 const startMenu = document.getElementById("start-menu");

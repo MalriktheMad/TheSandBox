@@ -1,7 +1,7 @@
 const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
-const BEDROOM_CAGE_START_X = 690;
+const BEDROOM_CAGE_START_X = 138;
 const BEDROOM_CAGE_START_Y = 162;
-const BEDROOM_CAGE_EXIT_X = 548;
+const BEDROOM_CAGE_EXIT_X = 270;
 const BEDROOM_CAGE_EXIT_Y = 258;
 
 function playOpeningBedroomDialogue() {

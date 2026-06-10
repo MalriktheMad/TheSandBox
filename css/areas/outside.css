@@ -16,11 +16,19 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: url("../../assets/sprites/environment/ground/Grass/grass-field-tile.png");
+  opacity: 0.72;
+  background-image: url("../../assets/sprites/environment/ground/Grass/grasscover1.png");
   background-position: 0 0;
   background-repeat: repeat;
-  background-size: 320px 320px;
+  background-size: 64px 64px;
   image-rendering: pixelated;
+  animation: grass-sway 900ms steps(1, end) infinite;
+}
+
+@keyframes grass-sway {
+  0% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover1.png"); }
+  33% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover2.png"); }
+  66% { background-image: url("../../assets/sprites/environment/ground/Grass/grasscover3.png"); }
 }
 .world .player:not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {
   left: -4px;

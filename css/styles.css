@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --void: #030306;
   --text: #f7f4ff;
   --muted: #bdb6d7;
@@ -57,8 +57,8 @@ a {
   position: absolute;
   left: 0;
   top: 0;
-  width: 1600px;
-  height: 1200px;
+  width: 2400px;
+  height: 1800px;
   transform-origin: 0 0;
   background:
     radial-gradient(circle at 22% 16%, rgba(124, 60, 255, 0.18), transparent 26%),

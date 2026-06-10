@@ -21,9 +21,9 @@
     url("../../assets/sprites/environment/ground/Grass/grasscover1.png"),
     url("../../assets/sprites/environment/ground/Grass/grasscover2.png"),
     url("../../assets/sprites/environment/ground/Grass/grasscover3.png");
-  background-position: 0 0, 64px 0, 0 64px, 64px 64px;
+  background-position: 0 0, 168px 36px, 72px 172px, 228px 212px;
   background-repeat: repeat;
-  background-size: 128px 128px;
+  background-size: 320px 320px;
   image-rendering: pixelated;
 }
 .world .player:not(.is-flying):not(.is-taking-off):not(.is-landing):not(.is-moving) .pixel-bird {

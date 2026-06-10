@@ -84,6 +84,18 @@ function handleDialoguePointer(event) {
     return;
   }
 
+  if (state.area === "bedroom" && typeof handleBedroomCageBreakoutPointer === "function") {
+    if (handleBedroomCageBreakoutPointer(event)) {
+      swallowDialoguePointer(event);
+      return;
+    }
+
+    if (typeof isBedroomCageBreakoutPending === "function" && isBedroomCageBreakoutPending()) {
+      swallowDialoguePointer(event);
+      return;
+    }
+  }
+
   if (state.area === "lab") {
     const cricket = event.target.closest(".wing-master-cricket");
     const codex = event.target.closest(".codex-terminal");

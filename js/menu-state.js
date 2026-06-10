@@ -3,6 +3,7 @@ const RETURN_TO_GAME_STORAGE_KEY = "lab-zero-return-to-game";
 const START_MENU_NEW_GAME_KEYS = [
   GAME_STATE_STORAGE_KEY,
   "lab-zero-opening-bedroom-dialogue",
+  "lab-zero-opening-bedroom-intro",
   "lab-zero-inventory",
   "lab-zero-player-progress",
   "lab-zero-collected-pickups",

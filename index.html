@@ -120,6 +120,23 @@
       user-select: none;
     }
 
+    .reel img {
+      display: block;
+      width: min(82%, 112px);
+      height: min(82%, 112px);
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: drop-shadow(4px 5px 0 rgba(0, 0, 0, 0.58));
+      pointer-events: none;
+    }
+
+    .reel .mystery-symbol {
+      color: var(--gold);
+      font-size: clamp(1.8rem, 11vw, 4.2rem);
+      font-weight: 900;
+      text-shadow: 3px 3px 0 #000, 0 0 18px rgba(248, 213, 107, 0.55);
+    }
+
     .reel.spin {
       transform: translateY(-4px) scale(1.04);
       filter: blur(1px) brightness(1.25);
@@ -191,9 +208,9 @@
     <p class="subtitle">Candlewick calibrated. Luck questionable.</p>
 
     <section class="reels" aria-label="Slot reels">
-      <div class="reel" id="reel-1">???</div>
-      <div class="reel" id="reel-2">??</div>
-      <div class="reel" id="reel-3">??</div>
+      <div class="reel" id="reel-1"><span class="mystery-symbol">???</span></div>
+      <div class="reel" id="reel-2"><img src="Slot Reels/little-wing.png" alt="Little Wing"></div>
+      <div class="reel" id="reel-3"><img src="Slot Reels/wing-master-cricket.png" alt="Wing Master Cricket"></div>
     </section>
 
     <div class="readout" id="readout">Push the button. Trust the machine.</div>
@@ -201,7 +218,14 @@
   </main>
 
   <script>
-    const symbols = ["???", "??", "??", "??", "??", "?"];
+    const symbols = [
+      { id: "mystery-big", kind: "text", value: "???", label: "Mystery" },
+      { id: "mystery", kind: "text", value: "??", label: "Mystery" },
+      { id: "little-wing", kind: "image", value: "Slot Reels/little-wing.png", label: "Little Wing" },
+      { id: "wing-master-cricket", kind: "image", value: "Slot Reels/wing-master-cricket.png", label: "Wing Master Cricket" },
+      { id: "candlewick", kind: "image", value: "Slot Reels/codex.png", label: "Candlewick" },
+      { id: "lumen", kind: "image", value: "Slot Reels/lumen.png", label: "Lumen" }
+    ];
     const reels = [
       document.getElementById("reel-1"),
       document.getElementById("reel-2"),
@@ -230,20 +254,37 @@
       reel.classList.add("spin");
 
       const timer = window.setInterval(() => {
-        reel.textContent = randomSymbol();
+        renderSymbol(reel, randomSymbol());
         ticks += 1;
 
         if (ticks >= maxTicks) {
           window.clearInterval(timer);
-          reel.textContent = finalSymbol;
+          renderSymbol(reel, finalSymbol);
           reel.classList.remove("spin");
         }
       }, 70);
     }
 
+    function renderSymbol(reel, symbol) {
+      reel.replaceChildren();
+
+      if (symbol.kind === "image") {
+        const image = document.createElement("img");
+        image.src = symbol.value;
+        image.alt = symbol.label;
+        reel.append(image);
+        return;
+      }
+
+      const mystery = document.createElement("span");
+      mystery.className = "mystery-symbol";
+      mystery.textContent = symbol.value;
+      reel.append(mystery);
+    }
+
     function finishSpin(result) {
       const counts = result.reduce((map, symbol) => {
-        map[symbol] = (map[symbol] || 0) + 1;
+        map[symbol.id] = (map[symbol.id] || 0) + 1;
         return map;
       }, {});
       const best = Math.max(...Object.values(counts));

@@ -29,7 +29,6 @@ const BLOCKED_TERRAIN = [
 ];
 const LAB_BLOCKED_TERRAIN = [
   { name: "north-bench", left: 74, top: 66, right: 238, bottom: 154 },
-  { name: "south-bench", left: 74, top: 150, right: 238, bottom: 238 },
   { name: "lab-core", left: 346, top: 66, right: 446, bottom: 178 },
   { name: "candlewick-tower", left: 560, top: 90, right: 626, bottom: 214 },
   { name: "candlewick-workstation", left: 620, top: 74, right: 786, bottom: 226 },

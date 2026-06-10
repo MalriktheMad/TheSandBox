@@ -7,10 +7,10 @@ const DEFAULT_PICKUP_INVENTORY = {
 };
 
 const PICKUPS = [
-  makeSunflowerPickup("dilly-sunflower-1", 344, 300),
-  makeSunflowerPickup("dilly-sunflower-2", 292, 278),
-  makeSunflowerPickup("dilly-sunflower-3", 306, 336),
-  makeSunflowerPickup("dilly-sunflower-4", 552, 304),
+  makeSunflowerPickup("dilly-sunflower-1", 180, 360),
+  makeSunflowerPickup("dilly-sunflower-2", 170, 276),
+  makeSunflowerPickup("dilly-sunflower-3", 450, 350),
+  makeSunflowerPickup("dilly-sunflower-4", 470, 270),
   makeSunflowerPickup("forest-sunflower-1", 895, 400),
   makeSunflowerPickup("forest-sunflower-2", 678, 738),
   makeSunflowerPickup("forest-sunflower-3", 292, 1032),

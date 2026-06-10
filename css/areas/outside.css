@@ -49,23 +49,24 @@
   50% { background-image: url("../../assets/sprites/environment/water/streamwide-3.png"); }
   75% { background-image: url("../../assets/sprites/environment/water/streamwide-4.png"); }
 }
-.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::before {
+.world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::after {
   content: "";
   position: absolute;
-  left: 2px;
-  bottom: -8px;
-  width: 42px;
-  height: 34px;
-  z-index: 3;
+  left: -8px;
+  bottom: -10px;
+  width: 58px;
+  height: 50px;
+  z-index: 6;
   pointer-events: none;
   background-image:
     url("../../assets/sprites/environment/grass/grass-weeds-tall.png"),
-    url("../../assets/sprites/environment/grass/grass-tuft-medium.png");
-  background-position: center bottom, 4px 14px;
+    url("../../assets/sprites/environment/grass/grass-tuft-medium.png"),
+    url("../../assets/sprites/environment/grass/grass-tuft-small.png");
+  background-position: center bottom, 8px 24px, 38px 28px;
   background-repeat: no-repeat;
-  background-size: 24px 36px, 22px 22px;
+  background-size: 34px 54px, 30px 30px, 18px 18px;
   image-rendering: pixelated;
-  opacity: 0.82;
+  opacity: 0.96;
 }
 .grass-scenery {
   position: absolute;
@@ -127,6 +128,7 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
 
 
 

@@ -1,4 +1,4 @@
-const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
+﻿const OPENING_BEDROOM_DIALOGUE_KEY = "lab-zero-opening-bedroom-dialogue";
 const OPENING_BEDROOM_INTRO_KEY = "lab-zero-opening-bedroom-intro";
 const BEDROOM_CAGE_START_X = 138;
 const BEDROOM_CAGE_START_Y = 162;
@@ -28,7 +28,7 @@ function getOpeningBedroomIntroLines() {
   return [
     littleWingLine("Oh, I must have slept in..."),
     littleWingLine("Where is the wizard? He usually gets me up."),
-    littleWingLine("The cage latch is loose. If I peck it just right, I can get out."),
+    littleWingLine("The cage latch is loose. If I pull it just right, I can get out."),
     littleWingLine("Then I can find Wing-Master Cricket downstairs.")
   ];
 }
@@ -36,11 +36,11 @@ function getOpeningBedroomIntroLines() {
 function getBedroomCageBreakoutLines() {
   return [
     {
-      ...littleWingLine("Tap tap... tap. Come on, little latch."),
+      ...littleWingLine("Tap tap... tap."),
       onShow: openBedroomCageDoor
     },
     {
-      ...littleWingLine("Yes! Freedom. Tiny, responsible freedom."),
+      ...littleWingLine("Yes! Freedom!"),
       onShow: moveLittleWingOutOfBedroomCage
     },
     littleWingLine("I bet Wing-Master Cricket knows where the wizard went.")

@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --void: #030306;
   --text: #f7f4ff;
   --muted: #bdb6d7;
@@ -754,6 +754,13 @@ a {
   transform: translate(-50%, -50%);
   transform-origin: center;
   will-change: left, top, transform;
+  z-index: 5;
+}
+
+.player.is-flying,
+.player.is-taking-off,
+.player.is-landing {
+  z-index: 8;
 }
 
 .player.facing-left {
@@ -978,3 +985,5 @@ a {
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.72), 0 0 16px rgba(27, 111, 214, 0.44);
   color: #f7f4ff;
 }
+
+

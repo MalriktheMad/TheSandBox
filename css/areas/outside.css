@@ -18,19 +18,27 @@
   left: 648px;
   top: 54px;
   width: 154px;
-  height: 804px;
+  height: 1088px;
   z-index: 1;
   pointer-events: none;
-  background:
-    radial-gradient(circle at 35% 18%, rgba(214, 247, 255, 0.82) 0 3px, transparent 4px),
-    radial-gradient(circle at 64% 52%, rgba(214, 247, 255, 0.68) 0 2px, transparent 3px),
-    linear-gradient(90deg, rgba(13, 58, 79, 0.84), rgba(44, 151, 178, 0.92) 45%, rgba(13, 58, 79, 0.84));
-  border-left: 8px solid rgba(27, 76, 52, 0.58);
-  border-right: 8px solid rgba(27, 76, 52, 0.58);
-  clip-path: polygon(35% 0, 78% 0, 66% 12%, 84% 25%, 58% 39%, 76% 55%, 48% 71%, 65% 86%, 40% 100%, 4% 100%, 22% 86%, 6% 70%, 30% 55%, 12% 38%, 34% 24%, 18% 10%);
-  box-shadow: inset 8px 0 0 rgba(125, 203, 187, 0.22), inset -8px 0 0 rgba(2, 20, 30, 0.2);
+  background-color: rgba(19, 86, 104, 0.72);
+  background-image: url("../../assets/sprites/environment/water/streamwide-1.png");
+  background-position: center top;
+  background-repeat: repeat-y;
+  background-size: 154px 77px;
+  border-left: 8px solid rgba(27, 76, 52, 0.52);
+  border-right: 8px solid rgba(27, 76, 52, 0.52);
+  clip-path: polygon(35% 0, 78% 0, 66% 12%, 84% 25%, 58% 39%, 76% 55%, 48% 71%, 65% 86%, 56% 100%, 14% 100%, 22% 86%, 6% 70%, 30% 55%, 12% 38%, 34% 24%, 18% 10%);
+  image-rendering: pixelated;
+  animation: forest-stream-flow 720ms steps(1, end) infinite;
 }
 
+@keyframes forest-stream-flow {
+  0% { background-image: url("../../assets/sprites/environment/water/streamwide-1.png"); }
+  25% { background-image: url("../../assets/sprites/environment/water/streamwide-2.png"); }
+  50% { background-image: url("../../assets/sprites/environment/water/streamwide-3.png"); }
+  75% { background-image: url("../../assets/sprites/environment/water/streamwide-4.png"); }
+}
 .world .player:not(.is-flying):not(.is-taking-off):not(.is-landing)::before {
   content: "";
   position: absolute;
@@ -109,6 +117,7 @@
   box-shadow: none;
   image-rendering: pixelated;
 }
+
 
 
 

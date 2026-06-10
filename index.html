@@ -1,29 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Candle Labs - The Sandbox!</title>
-  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab Zero Slot Machine</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --black: #050509;
+      --panel: #0d0b14;
+      --ink: #f7f1ff;
+      --muted: #a99fc5;
+      --purple: #7c3cff;
+      --blue: #1b6fd6;
+      --gold: #f8d56b;
+      --green: #72d66f;
+      --red: #ff5b7e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 50% 20%, rgba(124, 60, 255, 0.28), transparent 32%),
+        radial-gradient(circle at 78% 72%, rgba(27, 111, 214, 0.2), transparent 28%),
+        linear-gradient(180deg, #111018, var(--black));
+      color: var(--ink);
+      font-family: "Trebuchet MS", Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .machine {
+      width: min(92vw, 560px);
+      border: 5px solid #000;
+      border-radius: 8px;
+      padding: 22px;
+      background:
+        linear-gradient(180deg, rgba(247, 241, 255, 0.06), transparent 36%),
+        linear-gradient(135deg, #181126, var(--panel));
+      box-shadow:
+        0 0 38px rgba(124, 60, 255, 0.35),
+        12px 14px 0 rgba(0, 0, 0, 0.45),
+        inset 0 0 0 4px rgba(247, 241, 255, 0.05);
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 6vw, 2.8rem);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 4px 4px 0 #000, 0 0 20px rgba(124, 60, 255, 0.8);
+    }
+
+    .lamp {
+      width: 52px;
+      height: 52px;
+      border: 4px solid #000;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 42%, #fff3b0 0 6px, var(--gold) 7px 17px, var(--purple) 18px 27px, #17101f 28px);
+      box-shadow: 0 0 22px rgba(248, 213, 107, 0.7);
+      flex: 0 0 auto;
+    }
+
+    .subtitle {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .reels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 12px;
+      border: 4px solid #000;
+      border-radius: 6px;
+      background: #050509;
+      box-shadow: inset 0 0 24px rgba(27, 111, 214, 0.22);
+    }
+
+    .reel {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      min-width: 0;
+      border: 4px solid #000;
+      border-radius: 6px;
+      background:
+        linear-gradient(180deg, rgba(247, 241, 255, 0.16), transparent 24%),
+        linear-gradient(180deg, #201633, #09070f);
+      color: var(--gold);
+      font-size: clamp(2.2rem, 15vw, 5.2rem);
+      font-weight: 900;
+      text-shadow: 3px 3px 0 #000, 0 0 18px rgba(248, 213, 107, 0.55);
+      transition: transform 160ms ease, filter 160ms ease;
+      user-select: none;
+    }
+
+    .reel.spin {
+      transform: translateY(-4px) scale(1.04);
+      filter: blur(1px) brightness(1.25);
+    }
+
+    .readout {
+      min-height: 54px;
+      margin: 16px 0;
+      border: 3px solid #000;
+      border-radius: 6px;
+      padding: 12px;
+      background: rgba(5, 5, 9, 0.74);
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 900;
+      text-align: center;
+      text-transform: uppercase;
+      box-shadow: inset 0 0 18px rgba(124, 60, 255, 0.2);
+    }
+
+    button {
+      width: 100%;
+      min-height: 58px;
+      border: 4px solid #000;
+      border-radius: 6px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 36%),
+        linear-gradient(135deg, var(--purple), var(--blue));
+      color: white;
+      cursor: pointer;
+      font: inherit;
+      font-size: 1.1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      box-shadow: 0 8px 0 #000, 0 0 24px rgba(27, 111, 214, 0.38);
+      touch-action: manipulation;
+    }
+
+    button:active {
+      transform: translateY(5px);
+      box-shadow: 0 3px 0 #000, 0 0 24px rgba(27, 111, 214, 0.38);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+    }
+
+    .win .reel {
+      color: var(--green);
+      text-shadow: 3px 3px 0 #000, 0 0 22px rgba(114, 214, 111, 0.78);
+    }
+
+    .near .reel {
+      color: var(--gold);
+    }
+
+    .loss .reel {
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+  <main class="machine" id="machine" aria-label="Lab Zero slot machine">
+    <div class="top">
+      <h1>Lab Zero Slots</h1>
+      <div class="lamp" aria-hidden="true"></div>
+    </div>
+    <p class="subtitle">Candlewick calibrated. Luck questionable.</p>
+
+    <section class="reels" aria-label="Slot reels">
+      <div class="reel" id="reel-1">???</div>
+      <div class="reel" id="reel-2">??</div>
+      <div class="reel" id="reel-3">??</div>
+    </section>
+
+    <div class="readout" id="readout">Push the button. Trust the machine.</div>
+    <button id="spin-button" type="button">Spin</button>
+  </main>
+
+  <script>
+    const symbols = ["???", "??", "??", "??", "??", "?"];
+    const reels = [
+      document.getElementById("reel-1"),
+      document.getElementById("reel-2"),
+      document.getElementById("reel-3")
+    ];
+    const button = document.getElementById("spin-button");
+    const readout = document.getElementById("readout");
+    const machine = document.getElementById("machine");
+
+    button.addEventListener("click", spin);
+
+    function spin() {
+      button.disabled = true;
+      machine.classList.remove("win", "near", "loss");
+      readout.textContent = "Candlewick is listening...";
+
+      const result = reels.map(() => randomSymbol());
+      reels.forEach((reel, index) => animateReel(reel, result[index], index));
+
+      window.setTimeout(() => finishSpin(result), 1050);
+    }
+
+    function animateReel(reel, finalSymbol, index) {
+      let ticks = 0;
+      const maxTicks = 10 + index * 5;
+      reel.classList.add("spin");
+
+      const timer = window.setInterval(() => {
+        reel.textContent = randomSymbol();
+        ticks += 1;
+
+        if (ticks >= maxTicks) {
+          window.clearInterval(timer);
+          reel.textContent = finalSymbol;
+          reel.classList.remove("spin");
+        }
+      }, 70);
+    }
+
+    function finishSpin(result) {
+      const counts = result.reduce((map, symbol) => {
+        map[symbol] = (map[symbol] || 0) + 1;
+        return map;
+      }, {});
+      const best = Math.max(...Object.values(counts));
+
+      if (best === 3) {
+        machine.classList.add("win");
+        readout.textContent = "Jackpot. Lab Zero approves.";
+      } else if (best === 2) {
+        machine.classList.add("near");
+        readout.textContent = "Two matched. The machine hums thoughtfully.";
+      } else {
+        machine.classList.add("loss");
+        readout.textContent = "No match. Candlewick pretends this was science.";
+      }
+
+      button.disabled = false;
+    }
+
+    function randomSymbol() {
+      return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

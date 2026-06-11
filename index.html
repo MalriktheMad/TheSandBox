@@ -29,16 +29,41 @@
     }
 
     body {
-      display: grid;
-      place-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
       min-height: 100%;
+      padding: 24px;
       background:
         radial-gradient(circle at 50% 20%, rgba(124, 60, 255, 0.28), transparent 32%),
         radial-gradient(circle at 78% 72%, rgba(27, 111, 214, 0.2), transparent 28%),
         linear-gradient(180deg, #111018, var(--black));
       color: var(--ink);
       font-family: "Trebuchet MS", Arial, sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
+    }
+
+    .art-showcase {
+      width: min(94vw, 920px);
+      border: 5px solid var(--gold);
+      border-radius: 8px;
+      padding: 8px;
+      background: #000;
+      box-shadow:
+        0 0 0 5px #000,
+        0 0 34px rgba(248, 213, 107, 0.26),
+        10px 12px 0 rgba(0, 0, 0, 0.48);
+    }
+
+    .animation-zero-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 4px solid #000;
+      background: #000;
+      image-rendering: pixelated;
     }
 
     .machine {
@@ -200,6 +225,10 @@
   </style>
 </head>
 <body>
+  <section class="art-showcase" aria-label="Animation Zero preview">
+    <img class="animation-zero-img" src="assets/animation-zero-1.gif" alt="Animated pixel art campfire overlooking a city at night">
+  </section>
+
   <main class="machine" id="machine" aria-label="Lab Zero slot machine">
     <div class="top">
       <h1>Lab Zero Slots</h1>

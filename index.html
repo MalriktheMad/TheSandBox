@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -34,10 +34,11 @@
       background: var(--black);
       color: var(--white);
       font-family: "Trebuchet MS", Arial, sans-serif;
+      touch-action: manipulation;
     }
 
     .lab-shell {
-      width: min(94vw, 760px);
+      width: min(94vw, 820px);
       display: grid;
       gap: 18px;
     }
@@ -57,7 +58,7 @@
 
     .subtitle {
       margin: 10px auto 0;
-      max-width: 560px;
+      max-width: 600px;
       color: var(--muted);
       font-size: 0.95rem;
       font-weight: 700;
@@ -74,7 +75,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      min-height: 280px;
+      min-height: 300px;
       overflow: hidden;
       border: 3px solid var(--white);
       background:
@@ -82,23 +83,138 @@
         linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
         #080808;
       background-size: 32px 32px;
+      outline: none;
+      touch-action: none;
     }
 
     .box {
+      --aim-angle: 0deg;
       position: absolute;
-      left: 40px;
-      top: 40px;
-      width: 34px;
+      left: 0;
+      top: 0;
+      width: 46px;
       height: 34px;
-      border: 3px solid var(--white);
-      background: var(--panel-soft);
-      box-shadow: 0 0 0 2px #000;
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(40px, 40px, 0) rotate(var(--aim-angle));
+      transform-origin: 50% 50%;
+      z-index: 4;
     }
 
-    .box.dashing {
+    .box-body {
+      position: absolute;
+      inset: 4px 9px 4px 0;
+      border: 3px solid var(--white);
+      background:
+        linear-gradient(90deg, #222 0 45%, var(--panel-soft) 45% 100%);
+      box-shadow: 0 0 0 2px #000;
+    }
+
+    .box-body::before,
+    .box-body::after {
+      content: "";
+      position: absolute;
+      background: var(--white);
+    }
+
+    .box-body::before {
+      left: 8px;
+      top: 5px;
+      width: 8px;
+      height: 8px;
+    }
+
+    .box-body::after {
+      left: 21px;
+      top: 8px;
+      width: 12px;
+      height: 3px;
+    }
+
+    .box-nose {
+      position: absolute;
+      right: 0;
+      top: 7px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 13px solid var(--white);
+    }
+
+    .box-nose::after {
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: -6px;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 8px solid #111;
+    }
+
+    .aim-beam {
+      position: absolute;
+      left: 43px;
+      top: 16px;
+      width: 86px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--white), transparent);
+      opacity: 0.55;
+      transform-origin: left center;
+    }
+
+    .box.dashing .box-body,
+    .box.dashing .box-nose {
       border-color: var(--red);
-      box-shadow: 0 0 18px var(--red-soft), 0 0 0 2px #000;
+      filter: drop-shadow(0 0 10px var(--red-soft));
+    }
+
+    .box.dashing .box-nose {
+      border-left-color: var(--red);
+    }
+
+    .aim-target {
+      position: absolute;
+      right: 84px;
+      top: 28%;
+      width: 54px;
+      height: 54px;
+      border: 2px solid var(--white);
+      border-radius: 50%;
+      opacity: 0.9;
+    }
+
+    .aim-target::before,
+    .aim-target::after {
+      content: "";
+      position: absolute;
+      background: var(--white);
+    }
+
+    .aim-target::before {
+      left: 50%;
+      top: -9px;
+      width: 2px;
+      height: 70px;
+      transform: translateX(-50%);
+    }
+
+    .aim-target::after {
+      left: -9px;
+      top: 50%;
+      width: 70px;
+      height: 2px;
+      transform: translateY(-50%);
+    }
+
+    .aim-target span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--red);
+      transform: translate(-50%, -50%);
     }
 
     .block {
@@ -171,11 +287,15 @@
       color: var(--red);
     }
 
-    .button-row {
+    .button-row,
+    .touch-controls {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       margin-top: 14px;
+    }
+
+    .button-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     button {
@@ -188,6 +308,8 @@
       font-weight: 900;
       text-transform: uppercase;
       box-shadow: 0 5px 0 #000;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     button:hover,
@@ -196,14 +318,73 @@
       outline: none;
     }
 
-    button:active {
+    button:active,
+    button.pressed {
       transform: translateY(3px);
       box-shadow: 0 2px 0 #000;
     }
 
-    @media (max-width: 640px) {
+    .touch-controls {
+      display: none;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+
+    .dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 54px);
+      grid-template-rows: repeat(3, 48px);
+      gap: 8px;
+      justify-content: start;
+    }
+
+    .touch-button {
+      min-width: 54px;
+      min-height: 48px;
+      padding: 0;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .touch-button.up {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .touch-button.left {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .touch-button.right {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .touch-button.down {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    .dash-button {
+      width: 112px;
+      min-height: 112px;
+      border-color: var(--red);
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      .touch-controls {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 720px) {
       body {
         padding: 14px;
+      }
+
+      .lab-shell {
+        width: min(96vw, 560px);
       }
 
       .test-panel {
@@ -211,13 +392,32 @@
       }
 
       .playfield {
-        min-height: 320px;
+        min-height: 340px;
         aspect-ratio: 4 / 5;
+      }
+
+      .aim-target {
+        right: 38px;
+        top: 18%;
       }
 
       .hud,
       .button-row {
         grid-template-columns: 1fr;
+      }
+
+      .touch-controls {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .dpad {
+        justify-content: center;
+      }
+
+      .dash-button {
+        width: min(100%, 184px);
+        min-height: 58px;
       }
     }
   </style>
@@ -226,15 +426,20 @@
   <main class="lab-shell">
     <header>
       <h1>Lab Zero Movement Test</h1>
-      <p class="subtitle">Move the box. Hit the marker. Keep the prototype boring enough to teach us something.</p>
+      <p class="subtitle">Move the aim rig. Line it up. Hit the marker.</p>
     </header>
 
     <section class="test-panel" aria-label="Movement test prototype">
       <div class="playfield" id="playfield" tabindex="0" aria-label="Movement test playfield">
+        <div class="aim-target" aria-hidden="true"><span></span></div>
         <div class="block one" aria-hidden="true"></div>
         <div class="block danger two" aria-hidden="true"></div>
         <div class="goal" id="goal" aria-hidden="true"></div>
-        <div class="box" id="box" aria-label="Player test box"></div>
+        <div class="box" id="box" aria-label="Player aim rig">
+          <div class="aim-beam" aria-hidden="true"></div>
+          <div class="box-body" aria-hidden="true"></div>
+          <div class="box-nose" aria-hidden="true"></div>
+        </div>
       </div>
 
       <div class="hud" aria-live="polite">
@@ -244,7 +449,7 @@
         </div>
         <div class="controls">
           <span class="label">Controls</span>
-          <span class="value">WASD / Arrows / Space Dash</span>
+          <span class="value">WASD / Arrows / Touch / Dash</span>
         </div>
         <div class="status">
           <span class="label">Status</span>
@@ -252,9 +457,19 @@
         </div>
       </div>
 
+      <div class="touch-controls" aria-label="Touch movement controls">
+        <div class="dpad">
+          <button class="touch-button up" type="button" data-control="up" aria-label="Move up">^</button>
+          <button class="touch-button left" type="button" data-control="left" aria-label="Move left">&lt;</button>
+          <button class="touch-button right" type="button" data-control="right" aria-label="Move right">&gt;</button>
+          <button class="touch-button down" type="button" data-control="down" aria-label="Move down">v</button>
+        </div>
+        <button class="dash-button" type="button" data-control="dash">Dash</button>
+      </div>
+
       <div class="button-row">
         <button id="reset-button" type="button">Reset</button>
-        <button id="center-button" type="button">Center Box</button>
+        <button id="center-button" type="button">Center Rig</button>
       </div>
     </section>
   </main>
@@ -269,13 +484,16 @@
     const centerButton = document.getElementById("center-button");
 
     const keys = new Set();
+    const touchControls = new Set();
     const player = {
       x: 40,
       y: 40,
-      size: 34,
+      width: 46,
+      height: 34,
       speed: 3.2,
       dashSpeed: 7.5,
-      dashing: false
+      dashing: false,
+      angle: 0
     };
 
     const blocks = [
@@ -294,9 +512,33 @@
       keys.delete(event.key.toLowerCase());
     });
 
+    document.querySelectorAll("[data-control]").forEach((button) => {
+      const control = button.dataset.control;
+
+      button.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        button.setPointerCapture(event.pointerId);
+        touchControls.add(control);
+        button.classList.add("pressed");
+        playfield.focus();
+      });
+
+      button.addEventListener("pointerup", (event) => {
+        event.preventDefault();
+        touchControls.delete(control);
+        button.classList.remove("pressed");
+      });
+
+      button.addEventListener("pointercancel", () => {
+        touchControls.delete(control);
+        button.classList.remove("pressed");
+      });
+    });
+
     resetButton.addEventListener("click", () => {
       player.x = 40;
       player.y = 40;
+      player.angle = 0;
       statusReadout.textContent = "Testing";
       render();
       playfield.focus();
@@ -304,8 +546,8 @@
 
     centerButton.addEventListener("click", () => {
       const bounds = getBounds();
-      player.x = Math.round((bounds.width - player.size) / 2);
-      player.y = Math.round((bounds.height - player.size) / 2);
+      player.x = Math.round((bounds.width - player.width) / 2);
+      player.y = Math.round((bounds.height - player.height) / 2);
       statusReadout.textContent = "Centered";
       render();
       playfield.focus();
@@ -313,19 +555,23 @@
 
     function tick() {
       const bounds = getBounds();
-      const dash = keys.has(" ");
+      const dash = keys.has(" ") || touchControls.has("dash");
       const speed = dash ? player.dashSpeed : player.speed;
       let dx = 0;
       let dy = 0;
 
-      if (keys.has("arrowleft") || keys.has("a")) dx -= 1;
-      if (keys.has("arrowright") || keys.has("d")) dx += 1;
-      if (keys.has("arrowup") || keys.has("w")) dy -= 1;
-      if (keys.has("arrowdown") || keys.has("s")) dy += 1;
+      if (keys.has("arrowleft") || keys.has("a") || touchControls.has("left")) dx -= 1;
+      if (keys.has("arrowright") || keys.has("d") || touchControls.has("right")) dx += 1;
+      if (keys.has("arrowup") || keys.has("w") || touchControls.has("up")) dy -= 1;
+      if (keys.has("arrowdown") || keys.has("s") || touchControls.has("down")) dy += 1;
 
       if (dx !== 0 && dy !== 0) {
         dx *= Math.SQRT1_2;
         dy *= Math.SQRT1_2;
+      }
+
+      if (dx !== 0 || dy !== 0) {
+        player.angle = Math.atan2(dy, dx) * 180 / Math.PI;
       }
 
       player.dashing = dash && (dx !== 0 || dy !== 0);
@@ -335,19 +581,19 @@
     }
 
     function move(dx, dy, bounds) {
-      const nextX = clamp(player.x + dx, 0, bounds.width - player.size);
+      const nextX = clamp(player.x + dx, 0, bounds.width - player.width);
       if (!collides(nextX, player.y, bounds)) {
         player.x = nextX;
       }
 
-      const nextY = clamp(player.y + dy, 0, bounds.height - player.size);
+      const nextY = clamp(player.y + dy, 0, bounds.height - player.height);
       if (!collides(player.x, nextY, bounds)) {
         player.y = nextY;
       }
     }
 
     function collides(x, y, bounds) {
-      const playerRect = { x, y, width: player.size, height: player.size };
+      const playerRect = { x, y, width: player.width, height: player.height };
       return blocks.some((block) => overlaps(playerRect, scaledBlock(block, bounds)));
     }
 
@@ -362,11 +608,11 @@
 
     function render() {
       const bounds = getBounds();
-      box.style.transform = `translate3d(${player.x}px, ${player.y}px, 0)`;
+      box.style.transform = `translate3d(${player.x}px, ${player.y}px, 0) rotate(${player.angle}deg)`;
       box.classList.toggle("dashing", player.dashing);
       positionReadout.textContent = `x: ${Math.round(player.x)} y: ${Math.round(player.y)}`;
 
-      if (overlaps({ x: player.x, y: player.y, width: player.size, height: player.size }, goalRect())) {
+      if (overlaps({ x: player.x, y: player.y, width: player.width, height: player.height }, goalRect())) {
         statusReadout.textContent = "Marker reached";
       } else if (player.dashing) {
         statusReadout.textContent = "Dash test";

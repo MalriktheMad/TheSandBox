@@ -3,19 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lab Zero Slot Machine</title>
+  <title>Lab Zero Movement Test</title>
   <style>
     :root {
       color-scheme: dark;
-      --black: #050509;
-      --panel: #0d0b14;
-      --ink: #f7f1ff;
-      --muted: #a99fc5;
-      --purple: #7c3cff;
-      --blue: #1b6fd6;
-      --gold: #f8d56b;
-      --green: #72d66f;
-      --red: #ff5b7e;
+      --black: #050505;
+      --panel: #101010;
+      --panel-soft: #181818;
+      --white: #f5f5f5;
+      --muted: #b7b7b7;
+      --red: #d72638;
+      --red-soft: rgba(215, 38, 56, 0.18);
+      --shadow: rgba(0, 0, 0, 0.7);
     }
 
     * {
@@ -24,319 +23,387 @@
 
     html,
     body {
-      height: 100%;
+      min-height: 100%;
       margin: 0;
     }
 
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 56px;
-      min-height: 100%;
-      padding: 36px 24px 56px;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(124, 60, 255, 0.28), transparent 32%),
-        radial-gradient(circle at 78% 72%, rgba(27, 111, 214, 0.2), transparent 28%),
-        linear-gradient(180deg, #111018, var(--black));
-      color: var(--ink);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: var(--black);
+      color: var(--white);
       font-family: "Trebuchet MS", Arial, sans-serif;
-      overflow-x: hidden;
     }
 
-    .art-showcase {
-      width: min(94vw, 920px);
-      margin-top: 8px;
-      border: 5px solid var(--gold);
-      border-radius: 8px;
-      padding: 8px;
-      background: #000;
-      box-shadow:
-        0 0 0 5px #000,
-        0 0 34px rgba(248, 213, 107, 0.26),
-        10px 12px 0 rgba(0, 0, 0, 0.48);
+    .lab-shell {
+      width: min(94vw, 760px);
+      display: grid;
+      gap: 18px;
     }
 
-    .animation-zero-img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border: 4px solid #000;
-      background: #000;
-      image-rendering: pixelated;
-    }
-
-    .machine {
-      width: min(92vw, 560px);
-      margin-bottom: 16px;
-      border: 5px solid #000;
-      border-radius: 8px;
-      padding: 22px;
-      background:
-        linear-gradient(180deg, rgba(247, 241, 255, 0.06), transparent 36%),
-        linear-gradient(135deg, #181126, var(--panel));
-      box-shadow:
-        0 0 38px rgba(124, 60, 255, 0.35),
-        12px 14px 0 rgba(0, 0, 0, 0.45),
-        inset 0 0 0 4px rgba(247, 241, 255, 0.05);
-    }
-
-    .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 18px;
+    header {
+      text-align: center;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(1.6rem, 6vw, 2.8rem);
-      line-height: 0.9;
+      color: var(--white);
+      font-size: clamp(1.8rem, 7vw, 3rem);
+      line-height: 1;
       letter-spacing: 0;
       text-transform: uppercase;
-      text-shadow: 4px 4px 0 #000, 0 0 20px rgba(124, 60, 255, 0.8);
-    }
-
-    .lamp {
-      width: 52px;
-      height: 52px;
-      border: 4px solid #000;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at 50% 42%, #fff3b0 0 6px, var(--gold) 7px 17px, var(--purple) 18px 27px, #17101f 28px);
-      box-shadow: 0 0 22px rgba(248, 213, 107, 0.7);
-      flex: 0 0 auto;
     }
 
     .subtitle {
-      margin: 0 0 18px;
+      margin: 10px auto 0;
+      max-width: 560px;
       color: var(--muted);
-      font-size: 0.82rem;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .reels {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 12px;
-      border: 4px solid #000;
-      border-radius: 6px;
-      background: #050509;
-      box-shadow: inset 0 0 24px rgba(27, 111, 214, 0.22);
-    }
-
-    .reel {
-      display: grid;
-      place-items: center;
-      aspect-ratio: 1;
-      min-width: 0;
-      border: 4px solid #000;
-      border-radius: 6px;
-      background:
-        linear-gradient(180deg, rgba(247, 241, 255, 0.16), transparent 24%),
-        linear-gradient(180deg, #201633, #09070f);
-      color: var(--gold);
-      font-size: clamp(2.2rem, 15vw, 5.2rem);
-      font-weight: 900;
-      text-shadow: 3px 3px 0 #000, 0 0 18px rgba(248, 213, 107, 0.55);
-      transition: transform 160ms ease, filter 160ms ease;
-      user-select: none;
-    }
-
-    .reel img {
-      display: block;
-      width: min(82%, 112px);
-      height: min(82%, 112px);
-      object-fit: contain;
-      image-rendering: pixelated;
-      filter: drop-shadow(4px 5px 0 rgba(0, 0, 0, 0.58));
-      pointer-events: none;
-    }
-
-    .reel .mystery-symbol {
-      color: var(--gold);
-      font-size: clamp(1.8rem, 11vw, 4.2rem);
-      font-weight: 900;
-      text-shadow: 3px 3px 0 #000, 0 0 18px rgba(248, 213, 107, 0.55);
-    }
-
-    .reel.spin {
-      transform: translateY(-4px) scale(1.04);
-      filter: blur(1px) brightness(1.25);
-    }
-
-    .readout {
-      min-height: 54px;
-      margin: 16px 0;
-      border: 3px solid #000;
-      border-radius: 6px;
-      padding: 12px;
-      background: rgba(5, 5, 9, 0.74);
-      color: var(--ink);
       font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .test-panel {
+      border: 4px solid var(--white);
+      background: var(--panel);
+      box-shadow: 10px 12px 0 var(--shadow);
+      padding: 16px;
+    }
+
+    .playfield {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      min-height: 280px;
+      overflow: hidden;
+      border: 3px solid var(--white);
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+        #080808;
+      background-size: 32px 32px;
+    }
+
+    .box {
+      position: absolute;
+      left: 40px;
+      top: 40px;
+      width: 34px;
+      height: 34px;
+      border: 3px solid var(--white);
+      background: var(--panel-soft);
+      box-shadow: 0 0 0 2px #000;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .box.dashing {
+      border-color: var(--red);
+      box-shadow: 0 0 18px var(--red-soft), 0 0 0 2px #000;
+    }
+
+    .block {
+      position: absolute;
+      border: 2px solid var(--white);
+      background: #111;
+    }
+
+    .block.danger {
+      border-color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .block.one {
+      left: 34%;
+      top: 24%;
+      width: 18%;
+      height: 12%;
+    }
+
+    .block.two {
+      left: 58%;
+      top: 58%;
+      width: 18%;
+      height: 12%;
+    }
+
+    .goal {
+      position: absolute;
+      right: 28px;
+      bottom: 28px;
+      width: 46px;
+      height: 46px;
+      border: 3px solid var(--red);
+      background: repeating-linear-gradient(45deg, transparent 0 6px, var(--red-soft) 6px 12px);
+    }
+
+    .hud {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .readout,
+    .controls,
+    .status {
+      border: 2px solid var(--white);
+      background: #080808;
+      padding: 10px;
+      min-height: 64px;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.76rem;
       font-weight: 900;
-      text-align: center;
       text-transform: uppercase;
-      box-shadow: inset 0 0 18px rgba(124, 60, 255, 0.2);
+    }
+
+    .value {
+      display: block;
+      margin-top: 4px;
+      color: var(--white);
+      font-weight: 900;
+    }
+
+    .status .value {
+      color: var(--red);
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
     }
 
     button {
-      width: 100%;
-      min-height: 58px;
-      border: 4px solid #000;
-      border-radius: 6px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 36%),
-        linear-gradient(135deg, var(--purple), var(--blue));
-      color: white;
+      min-height: 46px;
+      border: 3px solid var(--white);
+      background: #0b0b0b;
+      color: var(--white);
       cursor: pointer;
       font: inherit;
-      font-size: 1.1rem;
       font-weight: 900;
       text-transform: uppercase;
-      box-shadow: 0 8px 0 #000, 0 0 24px rgba(27, 111, 214, 0.38);
-      touch-action: manipulation;
+      box-shadow: 0 5px 0 #000;
+    }
+
+    button:hover,
+    button:focus-visible {
+      border-color: var(--red);
+      outline: none;
     }
 
     button:active {
-      transform: translateY(5px);
-      box-shadow: 0 3px 0 #000, 0 0 24px rgba(27, 111, 214, 0.38);
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #000;
     }
 
-    button:disabled {
-      cursor: wait;
-      opacity: 0.72;
-    }
+    @media (max-width: 640px) {
+      body {
+        padding: 14px;
+      }
 
-    .win .reel {
-      color: var(--green);
-      text-shadow: 3px 3px 0 #000, 0 0 22px rgba(114, 214, 111, 0.78);
-    }
+      .test-panel {
+        padding: 12px;
+      }
 
-    .near .reel {
-      color: var(--gold);
-    }
+      .playfield {
+        min-height: 320px;
+        aspect-ratio: 4 / 5;
+      }
 
-    .loss .reel {
-      color: var(--red);
+      .hud,
+      .button-row {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <section class="art-showcase" aria-label="Animation Zero preview">
-    <img class="animation-zero-img" src="assets/paint-palette-menu.gif" alt="Animated paint palette menu art">
-  </section>
+  <main class="lab-shell">
+    <header>
+      <h1>Lab Zero Movement Test</h1>
+      <p class="subtitle">Move the box. Hit the marker. Keep the prototype boring enough to teach us something.</p>
+    </header>
 
-  <main class="machine" id="machine" aria-label="Lab Zero slot machine">
-    <div class="top">
-      <h1>Lab Zero Slots</h1>
-      <div class="lamp" aria-hidden="true"></div>
-    </div>
-    <p class="subtitle">Candlewick calibrated. Luck questionable.</p>
+    <section class="test-panel" aria-label="Movement test prototype">
+      <div class="playfield" id="playfield" tabindex="0" aria-label="Movement test playfield">
+        <div class="block one" aria-hidden="true"></div>
+        <div class="block danger two" aria-hidden="true"></div>
+        <div class="goal" id="goal" aria-hidden="true"></div>
+        <div class="box" id="box" aria-label="Player test box"></div>
+      </div>
 
-    <section class="reels" aria-label="Slot reels">
-      <div class="reel" id="reel-1"><span class="mystery-symbol">???</span></div>
-      <div class="reel" id="reel-2"><img src="Slot Reels/little-wing.png" alt="Little Wing"></div>
-      <div class="reel" id="reel-3"><img src="Slot Reels/wing-master-cricket.png" alt="Wing Master Cricket"></div>
+      <div class="hud" aria-live="polite">
+        <div class="readout">
+          <span class="label">Position</span>
+          <span class="value" id="position-readout">x: 40 y: 40</span>
+        </div>
+        <div class="controls">
+          <span class="label">Controls</span>
+          <span class="value">WASD / Arrows / Space Dash</span>
+        </div>
+        <div class="status">
+          <span class="label">Status</span>
+          <span class="value" id="status-readout">Testing</span>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="reset-button" type="button">Reset</button>
+        <button id="center-button" type="button">Center Box</button>
+      </div>
     </section>
-
-    <div class="readout" id="readout">Push the button. Trust the machine.</div>
-    <button id="spin-button" type="button">Spin</button>
   </main>
 
   <script>
-    const symbols = [
-      { id: "mystery-big", kind: "text", value: "???", label: "Mystery" },
-      { id: "mystery", kind: "text", value: "??", label: "Mystery" },
-      { id: "little-wing", kind: "image", value: "Slot Reels/little-wing.png", label: "Little Wing" },
-      { id: "wing-master-cricket", kind: "image", value: "Slot Reels/wing-master-cricket.png", label: "Wing Master Cricket" },
-      { id: "candlewick", kind: "image", value: "Slot Reels/codex.png", label: "Candlewick" },
-      { id: "lumen", kind: "image", value: "Slot Reels/lumen.png", label: "Lumen" }
+    const playfield = document.getElementById("playfield");
+    const box = document.getElementById("box");
+    const goal = document.getElementById("goal");
+    const positionReadout = document.getElementById("position-readout");
+    const statusReadout = document.getElementById("status-readout");
+    const resetButton = document.getElementById("reset-button");
+    const centerButton = document.getElementById("center-button");
+
+    const keys = new Set();
+    const player = {
+      x: 40,
+      y: 40,
+      size: 34,
+      speed: 3.2,
+      dashSpeed: 7.5,
+      dashing: false
+    };
+
+    const blocks = [
+      { left: 0.34, top: 0.24, width: 0.18, height: 0.12 },
+      { left: 0.58, top: 0.58, width: 0.18, height: 0.12 }
     ];
-    const reels = [
-      document.getElementById("reel-1"),
-      document.getElementById("reel-2"),
-      document.getElementById("reel-3")
-    ];
-    const button = document.getElementById("spin-button");
-    const readout = document.getElementById("readout");
-    const machine = document.getElementById("machine");
 
-    button.addEventListener("click", spin);
+    window.addEventListener("keydown", (event) => {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(event.key)) {
+        event.preventDefault();
+      }
+      keys.add(event.key.toLowerCase());
+    });
 
-    function spin() {
-      button.disabled = true;
-      machine.classList.remove("win", "near", "loss");
-      readout.textContent = "Candlewick is listening...";
+    window.addEventListener("keyup", (event) => {
+      keys.delete(event.key.toLowerCase());
+    });
 
-      const result = reels.map(() => randomSymbol());
-      reels.forEach((reel, index) => animateReel(reel, result[index], index));
+    resetButton.addEventListener("click", () => {
+      player.x = 40;
+      player.y = 40;
+      statusReadout.textContent = "Testing";
+      render();
+      playfield.focus();
+    });
 
-      window.setTimeout(() => finishSpin(result), 1050);
-    }
+    centerButton.addEventListener("click", () => {
+      const bounds = getBounds();
+      player.x = Math.round((bounds.width - player.size) / 2);
+      player.y = Math.round((bounds.height - player.size) / 2);
+      statusReadout.textContent = "Centered";
+      render();
+      playfield.focus();
+    });
 
-    function animateReel(reel, finalSymbol, index) {
-      let ticks = 0;
-      const maxTicks = 10 + index * 5;
-      reel.classList.add("spin");
+    function tick() {
+      const bounds = getBounds();
+      const dash = keys.has(" ");
+      const speed = dash ? player.dashSpeed : player.speed;
+      let dx = 0;
+      let dy = 0;
 
-      const timer = window.setInterval(() => {
-        renderSymbol(reel, randomSymbol());
-        ticks += 1;
+      if (keys.has("arrowleft") || keys.has("a")) dx -= 1;
+      if (keys.has("arrowright") || keys.has("d")) dx += 1;
+      if (keys.has("arrowup") || keys.has("w")) dy -= 1;
+      if (keys.has("arrowdown") || keys.has("s")) dy += 1;
 
-        if (ticks >= maxTicks) {
-          window.clearInterval(timer);
-          renderSymbol(reel, finalSymbol);
-          reel.classList.remove("spin");
-        }
-      }, 70);
-    }
-
-    function renderSymbol(reel, symbol) {
-      reel.replaceChildren();
-
-      if (symbol.kind === "image") {
-        const image = document.createElement("img");
-        image.src = symbol.value;
-        image.alt = symbol.label;
-        reel.append(image);
-        return;
+      if (dx !== 0 && dy !== 0) {
+        dx *= Math.SQRT1_2;
+        dy *= Math.SQRT1_2;
       }
 
-      const mystery = document.createElement("span");
-      mystery.className = "mystery-symbol";
-      mystery.textContent = symbol.value;
-      reel.append(mystery);
+      player.dashing = dash && (dx !== 0 || dy !== 0);
+      move(dx * speed, dy * speed, bounds);
+      render();
+      requestAnimationFrame(tick);
     }
 
-    function finishSpin(result) {
-      const counts = result.reduce((map, symbol) => {
-        map[symbol.id] = (map[symbol.id] || 0) + 1;
-        return map;
-      }, {});
-      const best = Math.max(...Object.values(counts));
-
-      if (best === 3) {
-        machine.classList.add("win");
-        readout.textContent = "Jackpot. Lab Zero approves.";
-      } else if (best === 2) {
-        machine.classList.add("near");
-        readout.textContent = "Two matched. The machine hums thoughtfully.";
-      } else {
-        machine.classList.add("loss");
-        readout.textContent = "No match. Candlewick beeps and the lights flicker.";
+    function move(dx, dy, bounds) {
+      const nextX = clamp(player.x + dx, 0, bounds.width - player.size);
+      if (!collides(nextX, player.y, bounds)) {
+        player.x = nextX;
       }
 
-      button.disabled = false;
+      const nextY = clamp(player.y + dy, 0, bounds.height - player.size);
+      if (!collides(player.x, nextY, bounds)) {
+        player.y = nextY;
+      }
     }
 
-    function randomSymbol() {
-      return symbols[Math.floor(Math.random() * symbols.length)];
+    function collides(x, y, bounds) {
+      const playerRect = { x, y, width: player.size, height: player.size };
+      return blocks.some((block) => overlaps(playerRect, scaledBlock(block, bounds)));
     }
+
+    function scaledBlock(block, bounds) {
+      return {
+        x: bounds.width * block.left,
+        y: bounds.height * block.top,
+        width: bounds.width * block.width,
+        height: bounds.height * block.height
+      };
+    }
+
+    function render() {
+      const bounds = getBounds();
+      box.style.transform = `translate3d(${player.x}px, ${player.y}px, 0)`;
+      box.classList.toggle("dashing", player.dashing);
+      positionReadout.textContent = `x: ${Math.round(player.x)} y: ${Math.round(player.y)}`;
+
+      if (overlaps({ x: player.x, y: player.y, width: player.size, height: player.size }, goalRect())) {
+        statusReadout.textContent = "Marker reached";
+      } else if (player.dashing) {
+        statusReadout.textContent = "Dash test";
+      } else if (bounds.width > 0) {
+        statusReadout.textContent = "Testing";
+      }
+    }
+
+    function goalRect() {
+      const goalBounds = goal.getBoundingClientRect();
+      const fieldBounds = playfield.getBoundingClientRect();
+      return {
+        x: goalBounds.left - fieldBounds.left,
+        y: goalBounds.top - fieldBounds.top,
+        width: goalBounds.width,
+        height: goalBounds.height
+      };
+    }
+
+    function getBounds() {
+      return playfield.getBoundingClientRect();
+    }
+
+    function overlaps(a, b) {
+      return a.x < b.x + b.width &&
+        a.x + a.width > b.x &&
+        a.y < b.y + b.height &&
+        a.y + a.height > b.y;
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    playfield.focus();
+    render();
+    requestAnimationFrame(tick);
   </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lab Zero Movement Test</title>
+  <title>Black Candle Movement Test</title>
   <style>
     :root {
       color-scheme: dark;
@@ -27,7 +27,8 @@
 
     body {
       display: grid;
-      place-items: center;
+      align-items: start;
+      justify-items: center;
       padding: 24px;
       background: var(--black);
       color: var(--white);
@@ -73,7 +74,7 @@
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      min-height: 300px;
+      min-height: 280px;
       overflow: hidden;
       border: 3px solid var(--white);
       background:
@@ -147,8 +148,8 @@
     .dpad {
       grid-column: 2;
       display: grid;
-      grid-template-columns: repeat(3, 58px);
-      grid-template-rows: repeat(3, 52px);
+      grid-template-columns: repeat(3, 56px);
+      grid-template-rows: repeat(3, 50px);
       gap: 8px;
     }
 
@@ -184,8 +185,8 @@
     }
 
     .touch-button {
-      min-width: 58px;
-      min-height: 52px;
+      min-width: 56px;
+      min-height: 50px;
       padding: 0;
       font-size: 1.1rem;
       line-height: 1;
@@ -213,25 +214,101 @@
 
     @media (max-width: 640px) {
       body {
-        padding: 14px;
+        align-items: start;
+        padding: 10px;
       }
 
       .lab-shell {
-        width: min(96vw, 520px);
+        width: min(98vw, 520px);
+        gap: 10px;
+      }
+
+      h1 {
+        font-size: 1.45rem;
+      }
+
+      .subtitle {
+        margin-top: 4px;
+        font-size: 0.82rem;
       }
 
       .test-panel {
-        padding: 12px;
+        padding: 10px;
+        box-shadow: 5px 6px 0 var(--shadow);
       }
 
       .playfield {
-        min-height: 340px;
-        aspect-ratio: 4 / 5;
+        aspect-ratio: auto;
+        height: min(42vh, 280px);
+        height: min(42svh, 280px);
+        min-height: 210px;
       }
 
-      .hud,
+      .hud {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .readout,
+      .controls {
+        min-height: 54px;
+        padding: 8px;
+      }
+
+      .label {
+        font-size: 0.68rem;
+      }
+
+      .value {
+        font-size: 0.82rem;
+      }
+
+      .touch-controls,
       .button-row {
-        grid-template-columns: 1fr;
+        margin-top: 10px;
+      }
+
+      .dpad {
+        grid-template-columns: repeat(3, 52px);
+        grid-template-rows: repeat(3, 44px);
+        gap: 7px;
+      }
+
+      .touch-button {
+        min-width: 52px;
+        min-height: 44px;
+      }
+
+      .button-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      button {
+        min-height: 42px;
+      }
+    }
+
+    @media (max-height: 620px) and (max-width: 640px) {
+      .subtitle {
+        display: none;
+      }
+
+      .playfield {
+        height: 34vh;
+        height: 34svh;
+        min-height: 170px;
+      }
+
+      .dpad {
+        grid-template-columns: repeat(3, 48px);
+        grid-template-rows: repeat(3, 38px);
+        gap: 6px;
+      }
+
+      .touch-button {
+        min-width: 48px;
+        min-height: 38px;
       }
     }
   </style>
@@ -239,7 +316,7 @@
 <body>
   <main class="lab-shell">
     <header>
-      <h1>Lab Zero Movement Test</h1>
+      <h1>Black Candle Movement Test</h1>
       <p class="subtitle">Move the square. Test the feel.</p>
     </header>
 
@@ -305,30 +382,29 @@
 
     document.querySelectorAll("[data-control]").forEach((button) => {
       const control = button.dataset.control;
-
-      button.addEventListener("pointerdown", (event) => {
+      const start = (event) => {
         event.preventDefault();
-        button.setPointerCapture(event.pointerId);
         touchControls.add(control);
         button.classList.add("pressed");
         playfield.focus();
-      });
-
-      button.addEventListener("pointerup", (event) => {
-        event.preventDefault();
+      };
+      const stop = (event) => {
+        if (event) event.preventDefault();
         touchControls.delete(control);
         button.classList.remove("pressed");
-      });
+      };
 
-      button.addEventListener("pointercancel", () => {
-        touchControls.delete(control);
-        button.classList.remove("pressed");
-      });
+      button.addEventListener("touchstart", start, { passive: false });
+      button.addEventListener("touchend", stop, { passive: false });
+      button.addEventListener("touchcancel", stop, { passive: false });
+      button.addEventListener("mousedown", start);
+      button.addEventListener("mouseup", stop);
+      button.addEventListener("mouseleave", stop);
+    });
 
-      button.addEventListener("lostpointercapture", () => {
-        touchControls.delete(control);
-        button.classList.remove("pressed");
-      });
+    window.addEventListener("mouseup", () => {
+      touchControls.clear();
+      document.querySelectorAll("[data-control]").forEach((button) => button.classList.remove("pressed"));
     });
 
     resetButton.addEventListener("click", () => {

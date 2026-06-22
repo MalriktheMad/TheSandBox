@@ -9,11 +9,9 @@
       color-scheme: dark;
       --black: #050505;
       --panel: #101010;
-      --panel-soft: #181818;
       --white: #f5f5f5;
       --muted: #b7b7b7;
       --red: #d72638;
-      --red-soft: rgba(215, 38, 56, 0.18);
       --shadow: rgba(0, 0, 0, 0.7);
     }
 
@@ -38,7 +36,7 @@
     }
 
     .lab-shell {
-      width: min(94vw, 820px);
+      width: min(94vw, 760px);
       display: grid;
       gap: 18px;
     }
@@ -58,7 +56,7 @@
 
     .subtitle {
       margin: 10px auto 0;
-      max-width: 600px;
+      max-width: 560px;
       color: var(--muted);
       font-size: 0.95rem;
       font-weight: 700;
@@ -88,180 +86,30 @@
     }
 
     .box {
-      --aim-angle: 0deg;
       position: absolute;
       left: 0;
       top: 0;
-      width: 46px;
-      height: 34px;
-      transform: translate3d(40px, 40px, 0) rotate(var(--aim-angle));
-      transform-origin: 50% 50%;
-      z-index: 4;
-    }
-
-    .box-body {
-      position: absolute;
-      inset: 4px 9px 4px 0;
+      width: 36px;
+      height: 36px;
       border: 3px solid var(--white);
-      background:
-        linear-gradient(90deg, #222 0 45%, var(--panel-soft) 45% 100%);
+      background: #181818;
       box-shadow: 0 0 0 2px #000;
+      transform: translate3d(40px, 40px, 0);
     }
 
-    .box-body::before,
-    .box-body::after {
-      content: "";
-      position: absolute;
-      background: var(--white);
-    }
-
-    .box-body::before {
-      left: 8px;
-      top: 5px;
-      width: 8px;
-      height: 8px;
-    }
-
-    .box-body::after {
-      left: 21px;
-      top: 8px;
-      width: 12px;
-      height: 3px;
-    }
-
-    .box-nose {
-      position: absolute;
-      right: 0;
-      top: 7px;
-      width: 0;
-      height: 0;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      border-left: 13px solid var(--white);
-    }
-
-    .box-nose::after {
-      content: "";
-      position: absolute;
-      left: -14px;
-      top: -6px;
-      width: 0;
-      height: 0;
-      border-top: 6px solid transparent;
-      border-bottom: 6px solid transparent;
-      border-left: 8px solid #111;
-    }
-
-    .aim-beam {
-      position: absolute;
-      left: 43px;
-      top: 16px;
-      width: 86px;
-      height: 2px;
-      background: linear-gradient(90deg, var(--white), transparent);
-      opacity: 0.55;
-      transform-origin: left center;
-    }
-
-    .box.dashing .box-body,
-    .box.dashing .box-nose {
+    .box.moving {
       border-color: var(--red);
-      filter: drop-shadow(0 0 10px var(--red-soft));
-    }
-
-    .box.dashing .box-nose {
-      border-left-color: var(--red);
-    }
-
-    .aim-target {
-      position: absolute;
-      right: 84px;
-      top: 28%;
-      width: 54px;
-      height: 54px;
-      border: 2px solid var(--white);
-      border-radius: 50%;
-      opacity: 0.9;
-    }
-
-    .aim-target::before,
-    .aim-target::after {
-      content: "";
-      position: absolute;
-      background: var(--white);
-    }
-
-    .aim-target::before {
-      left: 50%;
-      top: -9px;
-      width: 2px;
-      height: 70px;
-      transform: translateX(-50%);
-    }
-
-    .aim-target::after {
-      left: -9px;
-      top: 50%;
-      width: 70px;
-      height: 2px;
-      transform: translateY(-50%);
-    }
-
-    .aim-target span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 10px;
-      height: 10px;
-      border: 2px solid var(--red);
-      transform: translate(-50%, -50%);
-    }
-
-    .block {
-      position: absolute;
-      border: 2px solid var(--white);
-      background: #111;
-    }
-
-    .block.danger {
-      border-color: var(--red);
-      background: var(--red-soft);
-    }
-
-    .block.one {
-      left: 34%;
-      top: 24%;
-      width: 18%;
-      height: 12%;
-    }
-
-    .block.two {
-      left: 58%;
-      top: 58%;
-      width: 18%;
-      height: 12%;
-    }
-
-    .goal {
-      position: absolute;
-      right: 28px;
-      bottom: 28px;
-      width: 46px;
-      height: 46px;
-      border: 3px solid var(--red);
-      background: repeating-linear-gradient(45deg, transparent 0 6px, var(--red-soft) 6px 12px);
     }
 
     .hud {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
       margin-top: 14px;
     }
 
     .readout,
-    .controls,
-    .status {
+    .controls {
       border: 2px solid var(--white);
       background: #080808;
       padding: 10px;
@@ -283,15 +131,25 @@
       font-weight: 900;
     }
 
-    .status .value {
-      color: var(--red);
-    }
-
-    .button-row,
-    .touch-controls {
+    .touch-controls,
+    .button-row {
       display: grid;
       gap: 10px;
       margin-top: 14px;
+    }
+
+    .touch-controls {
+      grid-template-columns: 1fr auto 1fr;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .dpad {
+      grid-column: 2;
+      display: grid;
+      grid-template-columns: repeat(3, 58px);
+      grid-template-rows: repeat(3, 52px);
+      gap: 8px;
     }
 
     .button-row {
@@ -310,6 +168,7 @@
       box-shadow: 0 5px 0 #000;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
+      touch-action: none;
     }
 
     button:hover,
@@ -324,23 +183,9 @@
       box-shadow: 0 2px 0 #000;
     }
 
-    .touch-controls {
-      display: none;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-    }
-
-    .dpad {
-      display: grid;
-      grid-template-columns: repeat(3, 54px);
-      grid-template-rows: repeat(3, 48px);
-      gap: 8px;
-      justify-content: start;
-    }
-
     .touch-button {
-      min-width: 54px;
-      min-height: 48px;
+      min-width: 58px;
+      min-height: 52px;
       padding: 0;
       font-size: 1.1rem;
       line-height: 1;
@@ -366,25 +211,13 @@
       grid-row: 3;
     }
 
-    .dash-button {
-      width: 112px;
-      min-height: 112px;
-      border-color: var(--red);
-    }
-
-    @media (hover: none), (pointer: coarse) {
-      .touch-controls {
-        display: grid;
-      }
-    }
-
-    @media (max-width: 720px) {
+    @media (max-width: 640px) {
       body {
         padding: 14px;
       }
 
       .lab-shell {
-        width: min(96vw, 560px);
+        width: min(96vw, 520px);
       }
 
       .test-panel {
@@ -396,28 +229,9 @@
         aspect-ratio: 4 / 5;
       }
 
-      .aim-target {
-        right: 38px;
-        top: 18%;
-      }
-
       .hud,
       .button-row {
         grid-template-columns: 1fr;
-      }
-
-      .touch-controls {
-        grid-template-columns: 1fr;
-        justify-items: center;
-      }
-
-      .dpad {
-        justify-content: center;
-      }
-
-      .dash-button {
-        width: min(100%, 184px);
-        min-height: 58px;
       }
     }
   </style>
@@ -426,20 +240,12 @@
   <main class="lab-shell">
     <header>
       <h1>Lab Zero Movement Test</h1>
-      <p class="subtitle">Move the aim rig. Line it up. Hit the marker.</p>
+      <p class="subtitle">Move the square. Test the feel.</p>
     </header>
 
     <section class="test-panel" aria-label="Movement test prototype">
       <div class="playfield" id="playfield" tabindex="0" aria-label="Movement test playfield">
-        <div class="aim-target" aria-hidden="true"><span></span></div>
-        <div class="block one" aria-hidden="true"></div>
-        <div class="block danger two" aria-hidden="true"></div>
-        <div class="goal" id="goal" aria-hidden="true"></div>
-        <div class="box" id="box" aria-label="Player aim rig">
-          <div class="aim-beam" aria-hidden="true"></div>
-          <div class="box-body" aria-hidden="true"></div>
-          <div class="box-nose" aria-hidden="true"></div>
-        </div>
+        <div class="box" id="box" aria-label="Player square"></div>
       </div>
 
       <div class="hud" aria-live="polite">
@@ -449,11 +255,7 @@
         </div>
         <div class="controls">
           <span class="label">Controls</span>
-          <span class="value">WASD / Arrows / Touch / Dash</span>
-        </div>
-        <div class="status">
-          <span class="label">Status</span>
-          <span class="value" id="status-readout">Testing</span>
+          <span class="value">WASD / Arrows / Touch</span>
         </div>
       </div>
 
@@ -464,12 +266,11 @@
           <button class="touch-button right" type="button" data-control="right" aria-label="Move right">&gt;</button>
           <button class="touch-button down" type="button" data-control="down" aria-label="Move down">v</button>
         </div>
-        <button class="dash-button" type="button" data-control="dash">Dash</button>
       </div>
 
       <div class="button-row">
         <button id="reset-button" type="button">Reset</button>
-        <button id="center-button" type="button">Center Rig</button>
+        <button id="center-button" type="button">Center Square</button>
       </div>
     </section>
   </main>
@@ -477,9 +278,7 @@
   <script>
     const playfield = document.getElementById("playfield");
     const box = document.getElementById("box");
-    const goal = document.getElementById("goal");
     const positionReadout = document.getElementById("position-readout");
-    const statusReadout = document.getElementById("status-readout");
     const resetButton = document.getElementById("reset-button");
     const centerButton = document.getElementById("center-button");
 
@@ -488,21 +287,13 @@
     const player = {
       x: 40,
       y: 40,
-      width: 46,
-      height: 34,
-      speed: 3.2,
-      dashSpeed: 7.5,
-      dashing: false,
-      angle: 0
+      size: 36,
+      speed: 3.4,
+      moving: false
     };
 
-    const blocks = [
-      { left: 0.34, top: 0.24, width: 0.18, height: 0.12 },
-      { left: 0.58, top: 0.58, width: 0.18, height: 0.12 }
-    ];
-
     window.addEventListener("keydown", (event) => {
-      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(event.key)) {
+      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
         event.preventDefault();
       }
       keys.add(event.key.toLowerCase());
@@ -533,30 +324,30 @@
         touchControls.delete(control);
         button.classList.remove("pressed");
       });
+
+      button.addEventListener("lostpointercapture", () => {
+        touchControls.delete(control);
+        button.classList.remove("pressed");
+      });
     });
 
     resetButton.addEventListener("click", () => {
       player.x = 40;
       player.y = 40;
-      player.angle = 0;
-      statusReadout.textContent = "Testing";
       render();
       playfield.focus();
     });
 
     centerButton.addEventListener("click", () => {
       const bounds = getBounds();
-      player.x = Math.round((bounds.width - player.width) / 2);
-      player.y = Math.round((bounds.height - player.height) / 2);
-      statusReadout.textContent = "Centered";
+      player.x = Math.round((bounds.width - player.size) / 2);
+      player.y = Math.round((bounds.height - player.size) / 2);
       render();
       playfield.focus();
     });
 
     function tick() {
       const bounds = getBounds();
-      const dash = keys.has(" ") || touchControls.has("dash");
-      const speed = dash ? player.dashSpeed : player.speed;
       let dx = 0;
       let dy = 0;
 
@@ -570,77 +361,21 @@
         dy *= Math.SQRT1_2;
       }
 
-      if (dx !== 0 || dy !== 0) {
-        player.angle = Math.atan2(dy, dx) * 180 / Math.PI;
-      }
-
-      player.dashing = dash && (dx !== 0 || dy !== 0);
-      move(dx * speed, dy * speed, bounds);
+      player.moving = dx !== 0 || dy !== 0;
+      player.x = clamp(player.x + dx * player.speed, 0, bounds.width - player.size);
+      player.y = clamp(player.y + dy * player.speed, 0, bounds.height - player.size);
       render();
       requestAnimationFrame(tick);
     }
 
-    function move(dx, dy, bounds) {
-      const nextX = clamp(player.x + dx, 0, bounds.width - player.width);
-      if (!collides(nextX, player.y, bounds)) {
-        player.x = nextX;
-      }
-
-      const nextY = clamp(player.y + dy, 0, bounds.height - player.height);
-      if (!collides(player.x, nextY, bounds)) {
-        player.y = nextY;
-      }
-    }
-
-    function collides(x, y, bounds) {
-      const playerRect = { x, y, width: player.width, height: player.height };
-      return blocks.some((block) => overlaps(playerRect, scaledBlock(block, bounds)));
-    }
-
-    function scaledBlock(block, bounds) {
-      return {
-        x: bounds.width * block.left,
-        y: bounds.height * block.top,
-        width: bounds.width * block.width,
-        height: bounds.height * block.height
-      };
-    }
-
     function render() {
-      const bounds = getBounds();
-      box.style.transform = `translate3d(${player.x}px, ${player.y}px, 0) rotate(${player.angle}deg)`;
-      box.classList.toggle("dashing", player.dashing);
+      box.style.transform = `translate3d(${player.x}px, ${player.y}px, 0)`;
+      box.classList.toggle("moving", player.moving);
       positionReadout.textContent = `x: ${Math.round(player.x)} y: ${Math.round(player.y)}`;
-
-      if (overlaps({ x: player.x, y: player.y, width: player.width, height: player.height }, goalRect())) {
-        statusReadout.textContent = "Marker reached";
-      } else if (player.dashing) {
-        statusReadout.textContent = "Dash test";
-      } else if (bounds.width > 0) {
-        statusReadout.textContent = "Testing";
-      }
-    }
-
-    function goalRect() {
-      const goalBounds = goal.getBoundingClientRect();
-      const fieldBounds = playfield.getBoundingClientRect();
-      return {
-        x: goalBounds.left - fieldBounds.left,
-        y: goalBounds.top - fieldBounds.top,
-        width: goalBounds.width,
-        height: goalBounds.height
-      };
     }
 
     function getBounds() {
       return playfield.getBoundingClientRect();
-    }
-
-    function overlaps(a, b) {
-      return a.x < b.x + b.width &&
-        a.x + a.width > b.x &&
-        a.y < b.y + b.height &&
-        a.y + a.height > b.y;
     }
 
     function clamp(value, min, max) {

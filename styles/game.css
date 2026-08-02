@@ -347,10 +347,11 @@ button:disabled {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 8px;
   pointer-events: none;
 }
 
-.game-hud div {
+.location-panel {
   border-left: 3px solid var(--cyan);
   padding: 7px 10px;
   background: rgba(2, 5, 8, 0.76);
@@ -374,12 +375,47 @@ button:disabled {
 
 .game-hud button {
   border: 1px solid rgba(179, 208, 215, 0.48);
-  padding: 8px 14px;
+  min-width: 42px;
+  min-height: 42px;
+  padding: 8px 12px;
   background: rgba(2, 5, 8, 0.82);
   cursor: pointer;
   pointer-events: auto;
   font-size: 0.7rem;
   text-transform: uppercase;
+}
+
+.game-hud-actions,
+.zoom-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 5px;
+}
+
+.game-hud-actions {
+  pointer-events: auto;
+}
+
+.zoom-controls {
+  border: 1px solid rgba(121, 197, 211, 0.2);
+  padding: 3px;
+  background: rgba(2, 5, 8, 0.72);
+}
+
+.zoom-controls button {
+  padding: 5px 10px;
+  color: var(--cyan);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+#zoom-readout {
+  display: grid;
+  min-width: 50px;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
 }
 
 .movement-hint {
@@ -626,6 +662,10 @@ button:disabled {
 
   .dialogue-choice {
     flex: 1 1 140px;
+  }
+
+  #zoom-readout {
+    display: none;
   }
 }
 

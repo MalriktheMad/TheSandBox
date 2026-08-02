@@ -15,21 +15,12 @@ The current build includes:
 - A persistent local save created at the Echo airlock
 - Touch-to-move Cosmonaut gameplay across four decks and three ladders
 - Precisely aligned bridge-sitting and sleeping interactions
+- A 25%-view close-up ship camera by default, with button, wheel, and pinch zoom out to 100%
 
 Opening dialogue is kept in `src/config.js` so it can be rewritten without changing the sequence engine.
 
 Editable sound cues live in `Assets/Audio/SFX`. The generated interface, dialogue, and countdown tick settings are in `scripts/generate-audio-assets.mjs`; the authored `Rocket Launch.wav` begins at T−07 and hands off at its audible ending to `RocketDead.wav`.
 
-## Run locally
-
-The game has no package dependencies. With Node.js 18 or newer installed:
-
-```sh
-npm run check
-npm start
-```
-
-Open `http://127.0.0.1:4173` in a browser. To make the preview reachable from other devices on a trusted local network, set `HOST` to `0.0.0.0` before starting the server. The `PORT` environment variable can be used to select a different port.
 
 ## Mobile direction
 

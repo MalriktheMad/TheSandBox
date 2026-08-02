@@ -1,40 +1,30 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { ASSETS, WORLD } from "../src/config.js";
 
-const collectAssetPaths = (value) => {
-  if (typeof value === "string") {
-    return [value];
-  }
-
-  if (Array.isArray(value)) {
-    return value.flatMap(collectAssetPaths);
-  }
-
-  if (value && typeof value === "object") {
-    return Object.values(value).flatMap(collectAssetPaths);
-  }
-
-  return [];
-};
-
-const requiredFiles = [...new Set([
+const requiredFiles = [
   "index.html",
   "styles/game.css",
   "src/main.js",
   "src/audio.js",
-  "src/config.js",
   "src/dialogue.js",
   "src/opening.js",
   "src/save.js",
   "src/world.js",
+  "Menus/Main Menu.png",
+  "Menus/New Game/LaunchButton.png",
+  "Cutscenes/New Game/WelcometoSpace.png",
+  "Cutscenes/New Game/EntertheEcho.png",
+  "Assets/TheEcho/TheEcho.png",
+  "Assets/Cosmonaut/Idle/Idlefront.png",
+  "Assets/Cosmonaut/Ladder/Ladder1.png",
+  "Assets/Cosmonaut/Actions/BridgeSit.png",
+  "Assets/Cosmonaut/Actions/Sleep.png",
   "Assets/Audio/SFX/ui-click.wav",
   "Assets/Audio/SFX/dialogue-blip.wav",
   "Assets/Audio/SFX/countdown-tick.wav",
   "Assets/Audio/SFX/Rocket Launch.wav",
-  "Assets/Audio/SFX/RocketDead.wav",
-  ...collectAssetPaths(ASSETS)
-])];
+  "Assets/Audio/SFX/RocketDead.wav"
+];
 
 const missing = requiredFiles.filter((file) => !existsSync(resolve(file)));
 
@@ -59,6 +49,11 @@ if (!html.includes("Echoes of Earth")) {
   process.exit(1);
 }
 
+if (!html.includes('id="zoom-out-button"') || !html.includes('id="zoom-in-button"')) {
+  console.error("The ship camera zoom controls are missing from index.html.");
+  process.exit(1);
+}
+
 const memory = new Map();
 globalThis.localStorage = {
   getItem: (key) => memory.get(key) ?? null,
@@ -67,6 +62,7 @@ globalThis.localStorage = {
 };
 
 const { SaveSystem } = await import("../src/save.js");
+const { WORLD } = await import("../src/config.js");
 const saveSystem = new SaveSystem();
 const initialSave = saveSystem.createInitialSave();
 

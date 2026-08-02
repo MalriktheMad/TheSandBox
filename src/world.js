@@ -5,13 +5,29 @@ const PLAYER_HEIGHT = 64;
 const WALK_SPEED = 210;
 const CLIMB_SPEED = 125;
 const ANIMATION_FRAME_SECONDS = 0.13;
+const DEFAULT_ZOOM = 4;
+const MIN_ZOOM = 1;
+const MAX_ZOOM = 4;
+const ZOOM_STEP = 0.5;
+const TAP_DRAG_TOLERANCE = 10;
+const AIRLOCK_SCAFFOLD_PATCH = Object.freeze({
+  sourceX: 532,
+  sourceY: 624,
+  x: 622,
+  y: 624,
+  width: 90,
+  height: 16
+});
 
 export class EchoWorld {
-  constructor({ canvas, hint, locationReadout, saveSystem }) {
+  constructor({ canvas, hint, locationReadout, zoomOutButton, zoomInButton, zoomReadout, saveSystem }) {
     this.canvas = canvas;
     this.context = canvas.getContext("2d", { alpha: false });
     this.hint = hint;
     this.locationReadout = locationReadout;
+    this.zoomOutButton = zoomOutButton;
+    this.zoomInButton = zoomInButton;
+    this.zoomReadout = zoomReadout;
     this.saveSystem = saveSystem;
     this.images = new Map();
     this.readyPromise = null;
@@ -21,11 +37,22 @@ export class EchoWorld {
     this.scale = 1;
     this.cameraX = 0;
     this.cameraY = 0;
+    this.zoom = DEFAULT_ZOOM;
     this.cssWidth = 1;
     this.cssHeight = 1;
+    this.pointers = new Map();
+    this.pinching = false;
+    this.pinchStartDistance = 0;
+    this.pinchStartZoom = DEFAULT_ZOOM;
     this.state = this.#makeInitialState();
 
-    this.canvas.addEventListener("pointerdown", (event) => this.#setTarget(event));
+    this.canvas.addEventListener("pointerdown", (event) => this.#onPointerDown(event));
+    this.canvas.addEventListener("pointermove", (event) => this.#onPointerMove(event));
+    this.canvas.addEventListener("pointerup", (event) => this.#onPointerEnd(event));
+    this.canvas.addEventListener("pointercancel", (event) => this.#onPointerEnd(event));
+    this.canvas.addEventListener("wheel", (event) => this.#onWheel(event), { passive: false });
+    this.zoomOutButton?.addEventListener("click", () => this.#setZoom(this.zoom - ZOOM_STEP));
+    this.zoomInButton?.addEventListener("click", () => this.#setZoom(this.zoom + ZOOM_STEP));
     window.addEventListener("resize", () => this.resize());
     window.addEventListener("pagehide", () => this.persist());
     document.addEventListener("visibilitychange", () => {
@@ -69,6 +96,8 @@ export class EchoWorld {
       queuedAction: null,
       animationClock: 0
     };
+    this.zoom = DEFAULT_ZOOM;
+    this.#updateZoomControls();
     this.#syncLocationReadout();
     this.hint.textContent = "Tap a deck, ladder, or object to interact";
     this.hint.classList.remove("is-dismissed");
@@ -82,6 +111,8 @@ export class EchoWorld {
   stop() {
     this.persist();
     this.running = false;
+    this.pointers.clear();
+    this.pinching = false;
     cancelAnimationFrame(this.frameRequest);
   }
 
@@ -122,16 +153,86 @@ export class EchoWorld {
     };
   }
 
-  #setTarget(event) {
+  #onPointerDown(event) {
     if (!this.running) {
       return;
     }
 
     event.preventDefault();
+    this.canvas.setPointerCapture?.(event.pointerId);
+    this.pointers.set(event.pointerId, {
+      x: event.clientX,
+      y: event.clientY,
+      startX: event.clientX,
+      startY: event.clientY,
+      moved: false
+    });
+
+    if (this.pointers.size === 2) {
+      this.pinching = true;
+      this.pinchStartDistance = this.#pointerDistance();
+      this.pinchStartZoom = this.zoom;
+    }
+  }
+
+  #onPointerMove(event) {
+    const pointer = this.pointers.get(event.pointerId);
+
+    if (!pointer) {
+      return;
+    }
+
+    event.preventDefault();
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+    pointer.moved ||= Math.hypot(pointer.x - pointer.startX, pointer.y - pointer.startY) > TAP_DRAG_TOLERANCE;
+
+    if (this.pointers.size < 2 || this.pinchStartDistance <= 0) {
+      return;
+    }
+
+    const distance = this.#pointerDistance();
+    this.#setZoom(this.pinchStartZoom * distance / this.pinchStartDistance);
+  }
+
+  #onPointerEnd(event) {
+    const pointer = this.pointers.get(event.pointerId);
+
+    if (!pointer) {
+      return;
+    }
+
+    event.preventDefault();
+    const suppressTap = this.pinching || pointer.moved || event.type === "pointercancel";
+    this.pointers.delete(event.pointerId);
+
+    if (this.pointers.size < 2) {
+      this.pinchStartDistance = 0;
+    }
+
+    if (this.pointers.size === 0) {
+      this.pinching = false;
+
+      if (!suppressTap) {
+        this.#setTarget(event.clientX, event.clientY);
+      }
+    }
+  }
+
+  #onWheel(event) {
+    if (!this.running) {
+      return;
+    }
+
+    event.preventDefault();
+    this.#setZoom(this.zoom + (event.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP));
+  }
+
+  #setTarget(clientX, clientY) {
     const rect = this.canvas.getBoundingClientRect();
     const worldPoint = {
-      x: this.cameraX + (event.clientX - rect.left) / this.scale,
-      y: this.cameraY + (event.clientY - rect.top) / this.scale
+      x: this.cameraX + (clientX - rect.left) / this.scale,
+      y: this.cameraY + (clientY - rect.top) / this.scale
     };
 
     if (this.state.activeAction) {
@@ -441,7 +542,8 @@ export class EchoWorld {
   }
 
   #placeCamera() {
-    this.scale = this.#clamp(this.cssHeight / WORLD.height, 0.44, 1.5);
+    const fittedScale = this.#clamp(this.cssHeight / WORLD.height, 0.44, 1.5);
+    this.scale = fittedScale * this.zoom;
     const viewWidth = this.cssWidth / this.scale;
     const viewHeight = this.cssHeight / this.scale;
     this.cameraX = this.#clamp(this.state.x - viewWidth / 2, 0, Math.max(0, WORLD.width - viewWidth));
@@ -465,6 +567,18 @@ export class EchoWorld {
 
     if (interior) {
       context.drawImage(interior, 0, 0, WORLD.width, WORLD.height);
+      const patch = AIRLOCK_SCAFFOLD_PATCH;
+      context.drawImage(
+        interior,
+        patch.sourceX,
+        patch.sourceY,
+        patch.width,
+        patch.height,
+        patch.x,
+        patch.y,
+        patch.width,
+        patch.height
+      );
     }
 
     this.#drawPlayer(context);
@@ -532,6 +646,39 @@ export class EchoWorld {
       image.addEventListener("error", () => reject(new Error(`Unable to load ${source}`)), { once: true });
       image.src = source;
     });
+  }
+
+  #setZoom(value) {
+    const nextZoom = this.#clamp(value, MIN_ZOOM, MAX_ZOOM);
+
+    if (Math.abs(nextZoom - this.zoom) < 0.001) {
+      return;
+    }
+
+    this.zoom = nextZoom;
+    this.#placeCamera();
+    this.#draw();
+    this.#updateZoomControls();
+  }
+
+  #updateZoomControls() {
+    if (this.zoomReadout) {
+      this.zoomReadout.value = `${Math.round(100 / this.zoom)}% view`;
+      this.zoomReadout.textContent = this.zoomReadout.value;
+    }
+
+    if (this.zoomOutButton) {
+      this.zoomOutButton.disabled = this.zoom <= MIN_ZOOM + 0.001;
+    }
+
+    if (this.zoomInButton) {
+      this.zoomInButton.disabled = this.zoom >= MAX_ZOOM - 0.001;
+    }
+  }
+
+  #pointerDistance() {
+    const [first, second] = Array.from(this.pointers.values());
+    return first && second ? Math.hypot(second.x - first.x, second.y - first.y) : 0;
   }
 
   #clamp(value, min, max) {

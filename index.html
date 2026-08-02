@@ -48,11 +48,18 @@
     <section id="game-screen" class="screen game-screen" aria-label="The Echo" hidden>
       <canvas id="game-canvas" aria-label="The interior of the Echo"></canvas>
       <header class="game-hud">
-        <div>
+        <div class="location-panel">
           <span>Location</span>
           <strong id="location-readout">The Echo · Airlock Deck</strong>
         </div>
-        <button id="return-menu-button" type="button">Menu</button>
+        <div class="game-hud-actions">
+          <div class="zoom-controls" role="group" aria-label="Camera zoom">
+            <button id="zoom-out-button" type="button" aria-label="Zoom out">−</button>
+            <output id="zoom-readout" aria-live="polite">25% view</output>
+            <button id="zoom-in-button" type="button" aria-label="Zoom in">+</button>
+          </div>
+          <button id="return-menu-button" type="button">Menu</button>
+        </div>
       </header>
       <p id="movement-hint" class="movement-hint">Tap the deck to move</p>
     </section>

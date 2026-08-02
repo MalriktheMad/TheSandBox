@@ -119,7 +119,7 @@ export class OpeningSequence {
       }
 
       if (value === 8) {
-        this.#showTitleCard("", "Black Candle Labs", "Lead Developer · Kevin Klinkert");
+        this.#showTitleCard("", "Black Candle Labs", "Developer · Kevin Klinkert");
       } else if (value === 5) {
         this.#showTitleCard("", "Echoes of Earth", "");
       } else if (value === 1) {

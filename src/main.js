@@ -24,6 +24,9 @@ const elements = {
   titleCardKicker: byId("title-card-kicker"),
   titleCardTitle: byId("title-card-title"),
   titleCardCredit: byId("title-card-credit"),
+  zoomOutButton: byId("zoom-out-button"),
+  zoomInButton: byId("zoom-in-button"),
+  zoomReadout: byId("zoom-readout"),
   returnMenuButton: byId("return-menu-button"),
   loadingScreen: byId("loading-screen")
 };
@@ -46,6 +49,9 @@ const world = new EchoWorld({
   canvas: byId("game-canvas"),
   hint: byId("movement-hint"),
   locationReadout: byId("location-readout"),
+  zoomOutButton: elements.zoomOutButton,
+  zoomInButton: elements.zoomInButton,
+  zoomReadout: elements.zoomReadout,
   saveSystem
 });
 

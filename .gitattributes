@@ -1,0 +1,6 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Keep shipped media byte-for-byte identical across platforms.
+*.png binary
+*.wav binary

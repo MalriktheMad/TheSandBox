@@ -1,0 +1,12 @@
+{
+  "name": "echoes-of-earth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A mobile-first narrative science-fiction game by Black Candle Labs.",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node scripts/verify-build.mjs",
+    "generate:audio": "node scripts/generate-audio-assets.mjs"
+  }
+}

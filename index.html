@@ -1,466 +1,78 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Black Candle Movement Test</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --black: #050505;
-      --panel: #101010;
-      --white: #f5f5f5;
-      --muted: #b7b7b7;
-      --red: #d72638;
-      --shadow: rgba(0, 0, 0, 0.7);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      min-height: 100%;
-      margin: 0;
-    }
-
-    body {
-      display: grid;
-      align-items: start;
-      justify-items: center;
-      padding: 24px;
-      background: var(--black);
-      color: var(--white);
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      touch-action: manipulation;
-    }
-
-    .lab-shell {
-      width: min(94vw, 760px);
-      display: grid;
-      gap: 18px;
-    }
-
-    header {
-      text-align: center;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--white);
-      font-size: clamp(1.8rem, 7vw, 3rem);
-      line-height: 1;
-      letter-spacing: 0;
-      text-transform: uppercase;
-    }
-
-    .subtitle {
-      margin: 10px auto 0;
-      max-width: 560px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-
-    .test-panel {
-      border: 4px solid var(--white);
-      background: var(--panel);
-      box-shadow: 10px 12px 0 var(--shadow);
-      padding: 16px;
-    }
-
-    .playfield {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      min-height: 280px;
-      overflow: hidden;
-      border: 3px solid var(--white);
-      background:
-        linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-        #080808;
-      background-size: 32px 32px;
-      outline: none;
-      touch-action: none;
-    }
-
-    .box {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 36px;
-      height: 36px;
-      border: 3px solid var(--white);
-      background: #181818;
-      box-shadow: 0 0 0 2px #000;
-      transform: translate3d(40px, 40px, 0);
-    }
-
-    .box.moving {
-      border-color: var(--red);
-    }
-
-    .hud {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .readout,
-    .controls {
-      border: 2px solid var(--white);
-      background: #080808;
-      padding: 10px;
-      min-height: 64px;
-    }
-
-    .label {
-      display: block;
-      color: var(--muted);
-      font-size: 0.76rem;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-
-    .value {
-      display: block;
-      margin-top: 4px;
-      color: var(--white);
-      font-weight: 900;
-    }
-
-    .touch-controls,
-    .button-row {
-      display: grid;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .touch-controls {
-      grid-template-columns: 1fr auto 1fr;
-      justify-items: center;
-      align-items: center;
-    }
-
-    .dpad {
-      grid-column: 2;
-      display: grid;
-      grid-template-columns: repeat(3, 56px);
-      grid-template-rows: repeat(3, 50px);
-      gap: 8px;
-    }
-
-    .button-row {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    button {
-      min-height: 46px;
-      border: 3px solid var(--white);
-      background: #0b0b0b;
-      color: var(--white);
-      cursor: pointer;
-      font: inherit;
-      font-weight: 900;
-      text-transform: uppercase;
-      box-shadow: 0 5px 0 #000;
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: none;
-    }
-
-    button:hover,
-    button:focus-visible {
-      border-color: var(--red);
-      outline: none;
-    }
-
-    button:active,
-    button.pressed {
-      transform: translateY(3px);
-      box-shadow: 0 2px 0 #000;
-    }
-
-    .touch-button {
-      min-width: 56px;
-      min-height: 50px;
-      padding: 0;
-      font-size: 1.1rem;
-      line-height: 1;
-    }
-
-    .touch-button.up {
-      grid-column: 2;
-      grid-row: 1;
-    }
-
-    .touch-button.left {
-      grid-column: 1;
-      grid-row: 2;
-    }
-
-    .touch-button.right {
-      grid-column: 3;
-      grid-row: 2;
-    }
-
-    .touch-button.down {
-      grid-column: 2;
-      grid-row: 3;
-    }
-
-    @media (max-width: 640px) {
-      body {
-        align-items: start;
-        padding: 10px;
-      }
-
-      .lab-shell {
-        width: min(98vw, 520px);
-        gap: 10px;
-      }
-
-      h1 {
-        font-size: 1.45rem;
-      }
-
-      .subtitle {
-        margin-top: 4px;
-        font-size: 0.82rem;
-      }
-
-      .test-panel {
-        padding: 10px;
-        box-shadow: 5px 6px 0 var(--shadow);
-      }
-
-      .playfield {
-        aspect-ratio: auto;
-        height: min(42vh, 280px);
-        height: min(42svh, 280px);
-        min-height: 210px;
-      }
-
-      .hud {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-        margin-top: 10px;
-      }
-
-      .readout,
-      .controls {
-        min-height: 54px;
-        padding: 8px;
-      }
-
-      .label {
-        font-size: 0.68rem;
-      }
-
-      .value {
-        font-size: 0.82rem;
-      }
-
-      .touch-controls,
-      .button-row {
-        margin-top: 10px;
-      }
-
-      .dpad {
-        grid-template-columns: repeat(3, 52px);
-        grid-template-rows: repeat(3, 44px);
-        gap: 7px;
-      }
-
-      .touch-button {
-        min-width: 52px;
-        min-height: 44px;
-      }
-
-      .button-row {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      button {
-        min-height: 42px;
-      }
-    }
-
-    @media (max-height: 620px) and (max-width: 640px) {
-      .subtitle {
-        display: none;
-      }
-
-      .playfield {
-        height: 34vh;
-        height: 34svh;
-        min-height: 170px;
-      }
-
-      .dpad {
-        grid-template-columns: repeat(3, 48px);
-        grid-template-rows: repeat(3, 38px);
-        gap: 6px;
-      }
-
-      .touch-button {
-        min-width: 48px;
-        min-height: 38px;
-      }
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#03060a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Echoes of Earth — a narrative science-fiction game from Black Candle Labs.">
+  <title>Echoes of Earth</title>
+  <link rel="stylesheet" href="styles/game.css">
 </head>
 <body>
-  <main class="lab-shell">
-    <header>
-      <h1>Black Candle Movement Test</h1>
-      <p class="subtitle">Move the square. Test the feel.</p>
-    </header>
+  <main id="app" class="app" aria-label="Echoes of Earth">
+    <section id="menu-screen" class="screen menu-screen is-active" aria-label="Launch pad main menu">
+      <img class="menu-background" src="Menus/Main%20Menu.png" alt="A rocket waiting on its launch pad at sunset">
+      <div class="menu-vignette" aria-hidden="true"></div>
 
-    <section class="test-panel" aria-label="Movement test prototype">
-      <div class="playfield" id="playfield" tabindex="0" aria-label="Movement test playfield">
-        <div class="box" id="box" aria-label="Player square"></div>
+      <header class="game-title">
+        <span>Black Candle Labs</span>
+        <h1>Echoes <em>of</em> Earth</h1>
+      </header>
+
+      <div id="menu-panel" class="menu-panel">
+        <p class="menu-kicker">Launch Terminal</p>
+        <div class="menu-actions">
+          <button id="new-game-button" class="menu-button" type="button">New Game</button>
+          <button id="load-game-button" class="menu-button" type="button" disabled>Load Game</button>
+          <button id="clear-save-button" class="menu-button menu-button-danger" type="button" disabled>Clear Save</button>
+        </div>
+        <p id="save-status" class="save-status" aria-live="polite">No flight record detected</p>
       </div>
 
-      <div class="hud" aria-live="polite">
-        <div class="readout">
-          <span class="label">Position</span>
-          <span class="value" id="position-readout">x: 40 y: 40</span>
-        </div>
-        <div class="controls">
-          <span class="label">Controls</span>
-          <span class="value">WASD / Arrows / Touch</span>
-        </div>
-      </div>
+    </section>
 
-      <div class="touch-controls" aria-label="Touch movement controls">
-        <div class="dpad">
-          <button class="touch-button up" type="button" data-control="up" aria-label="Move up">^</button>
-          <button class="touch-button left" type="button" data-control="left" aria-label="Move left">&lt;</button>
-          <button class="touch-button right" type="button" data-control="right" aria-label="Move right">&gt;</button>
-          <button class="touch-button down" type="button" data-control="down" aria-label="Move down">v</button>
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button id="reset-button" type="button">Reset</button>
-        <button id="center-button" type="button">Center Square</button>
+    <section id="cinematic-screen" class="screen cinematic-screen" aria-label="Opening sequence" hidden>
+      <img id="cinematic-image" class="cinematic-image" alt="" hidden>
+      <div id="cinematic-black" class="cinematic-black"></div>
+      <div id="countdown" class="countdown" aria-live="polite"></div>
+      <div id="title-card" class="title-card" hidden>
+        <p id="title-card-kicker"></p>
+        <h2 id="title-card-title"></h2>
+        <p id="title-card-credit"></p>
       </div>
     </section>
+
+    <section id="game-screen" class="screen game-screen" aria-label="The Echo" hidden>
+      <canvas id="game-canvas" aria-label="The interior of the Echo"></canvas>
+      <header class="game-hud">
+        <div>
+          <span>Location</span>
+          <strong id="location-readout">The Echo · Airlock Deck</strong>
+        </div>
+        <button id="return-menu-button" type="button">Menu</button>
+      </header>
+      <p id="movement-hint" class="movement-hint">Tap the deck to move</p>
+    </section>
+
+    <aside id="dialogue-box" class="dialogue-box" aria-live="polite" hidden>
+      <img id="dialogue-portrait" class="dialogue-portrait" alt="">
+      <div class="dialogue-copy">
+        <strong id="dialogue-speaker" class="dialogue-speaker"></strong>
+        <p id="dialogue-text" class="dialogue-text"></p>
+        <div id="dialogue-choices" class="dialogue-choices" hidden></div>
+      </div>
+      <span id="dialogue-prompt" class="dialogue-prompt" aria-hidden="true">Tap to continue</span>
+    </aside>
+
+    <div id="loading-screen" class="loading-screen" aria-live="polite">
+      <span>Black Candle Labs</span>
+      <strong>Preparing launch systems…</strong>
+    </div>
   </main>
 
-  <script>
-    const playfield = document.getElementById("playfield");
-    const box = document.getElementById("box");
-    const positionReadout = document.getElementById("position-readout");
-    const resetButton = document.getElementById("reset-button");
-    const centerButton = document.getElementById("center-button");
-
-    const keys = new Set();
-    const touchControls = new Set();
-    const player = {
-      x: 40,
-      y: 40,
-      size: 36,
-      speed: 3.4,
-      moving: false
-    };
-
-    window.addEventListener("keydown", (event) => {
-      if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
-        event.preventDefault();
-      }
-      keys.add(event.key.toLowerCase());
-    });
-
-    window.addEventListener("keyup", (event) => {
-      keys.delete(event.key.toLowerCase());
-    });
-
-    document.querySelectorAll("[data-control]").forEach((button) => {
-      const control = button.dataset.control;
-      const start = (event) => {
-        event.preventDefault();
-        touchControls.add(control);
-        button.classList.add("pressed");
-        playfield.focus();
-      };
-      const stop = (event) => {
-        if (event) event.preventDefault();
-        touchControls.delete(control);
-        button.classList.remove("pressed");
-      };
-
-      button.addEventListener("touchstart", start, { passive: false });
-      button.addEventListener("touchend", stop, { passive: false });
-      button.addEventListener("touchcancel", stop, { passive: false });
-      button.addEventListener("mousedown", start);
-      button.addEventListener("mouseup", stop);
-      button.addEventListener("mouseleave", stop);
-    });
-
-    window.addEventListener("mouseup", () => {
-      touchControls.clear();
-      document.querySelectorAll("[data-control]").forEach((button) => button.classList.remove("pressed"));
-    });
-
-    resetButton.addEventListener("click", () => {
-      player.x = 40;
-      player.y = 40;
-      render();
-      playfield.focus();
-    });
-
-    centerButton.addEventListener("click", () => {
-      const bounds = getBounds();
-      player.x = Math.round((bounds.width - player.size) / 2);
-      player.y = Math.round((bounds.height - player.size) / 2);
-      render();
-      playfield.focus();
-    });
-
-    function tick() {
-      const bounds = getBounds();
-      let dx = 0;
-      let dy = 0;
-
-      if (keys.has("arrowleft") || keys.has("a") || touchControls.has("left")) dx -= 1;
-      if (keys.has("arrowright") || keys.has("d") || touchControls.has("right")) dx += 1;
-      if (keys.has("arrowup") || keys.has("w") || touchControls.has("up")) dy -= 1;
-      if (keys.has("arrowdown") || keys.has("s") || touchControls.has("down")) dy += 1;
-
-      if (dx !== 0 && dy !== 0) {
-        dx *= Math.SQRT1_2;
-        dy *= Math.SQRT1_2;
-      }
-
-      player.moving = dx !== 0 || dy !== 0;
-      player.x = clamp(player.x + dx * player.speed, 0, bounds.width - player.size);
-      player.y = clamp(player.y + dy * player.speed, 0, bounds.height - player.size);
-      render();
-      requestAnimationFrame(tick);
-    }
-
-    function render() {
-      box.style.transform = `translate3d(${player.x}px, ${player.y}px, 0)`;
-      box.classList.toggle("moving", player.moving);
-      positionReadout.textContent = `x: ${Math.round(player.x)} y: ${Math.round(player.y)}`;
-    }
-
-    function getBounds() {
-      return playfield.getBoundingClientRect();
-    }
-
-    function clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-    }
-
-    playfield.focus();
-    render();
-    requestAnimationFrame(tick);
-  </script>
+  <script type="module" src="src/main.js"></script>
 </body>
 </html>
